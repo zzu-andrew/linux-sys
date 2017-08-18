@@ -1,0 +1,5 @@
+--cpu Cortex-M3 "chenqianqian\startup_stm32f103xe.o" "chenqianqian\stm32f1xx_hal_dma.o" "chenqianqian\stm32f1xx_hal_gpio.o" "chenqianqian\stm32f1xx_hal_cortex.o" "chenqianqian\stm32f1xx_hal_pwr.o" "chenqianqian\stm32f1xx_hal_flash.o" "chenqianqian\stm32f1xx_hal_rcc_ex.o" "chenqianqian\stm32f1xx_hal.o" "chenqianqian\stm32f1xx_hal_rcc.o" "chenqianqian\stm32f1xx_hal_gpio_ex.o" "chenqianqian\stm32f1xx_hal_flash_ex.o" "chenqianqian\stm32f1xx_hal_tim.o" "chenqianqian\stm32f1xx_hal_tim_ex.o" "chenqianqian\stm32f1xx_hal_uart.o" "chenqianqian\main.o" "chenqianqian\usart.o" "chenqianqian\stm32f1xx_hal_msp.o" "chenqianqian\gpio.o" "chenqianqian\stm32f1xx_it.o" "chenqianqian\system_stm32f1xx.o" 
+--library_type=microlib --strict --scatter "chenqianqian\chenqianqian.sct" 
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list "chenqianqian.map" -o chenqianqian\chenqianqian.axf
