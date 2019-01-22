@@ -1,4 +1,0 @@
--c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include --C99 
--I D:\MDK\ARM\RV31\INC 
--I D:\MDK\ARM\CMSIS\Include 
--DUSE_HAL_DRIVER -DSTM32F103xE -o "chenqianqian\main.o" --omf_browse "chenqianqian\main.crf" --depend "chenqianqian\main.d" "../Src/main.c"
