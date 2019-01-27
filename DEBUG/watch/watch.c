@@ -9,13 +9,13 @@
 int main(int argc, char * argv[])
 {
 
-    int *a = NULL;
+    int a = 0;
+    int *b = NULL;
 
+    b = &a;
+     (*b) = 12; 
 
-
-    (*a) = 1;
-
-
+    printf("a = %d",a);
 
     return 0;
 
