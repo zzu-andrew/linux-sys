@@ -108,6 +108,7 @@ Num     Type           Disp Enb Address            What
 ##格式
 ```
 run 参数
+run  后面跟的参数，也就是你执行可执行文件后面需要跟的参数
 (gdb)run -a
 start命令会达到同样的效果。
 格式：
@@ -519,8 +520,191 @@ done.
 #5  0x0000000000401789 in ?? ()
 
 ```
+-------------------------
+# 条件断点
+在特定条件下执行中断
+
+格式:
+```
+  break 断点 if 条件
+```
+这条命令将测试给定的条件，如果条件为真暂停运行。
+例：
+```
+(gdb) b iseq_compile if node == 0
+
+```
+
+格式:
+```
+删除指定断点的出发条件
+  condition 断点编号
+添加指定断点的出发条件
+  condition 断点编号 条件
+
+```
+该命令可以给指定的断点添加或者删除触发条件
+----------------------------------------------
+# 反复执行
+```
+ignore 断点编号  次数
+```
+在指定的断点、监视点(watchpoint)或捕获点(catchpoint)忽略指定的次数。
+continue命令与ignore命令一样，可以指定次数，达到指定次数前执行到断点时不暂停，
+二者意义相同。
+
+格式;
+```
+continue 次数
+step 次数
+stepi 次数
+next  次数
+nexti 次数
+```
+这些命分别执行指定次数的相应命令。
+格式:
+```
+finish
+until
+until 地址
+
+```
+finish 命令执行完当前函数后暂停，until命令执行完当前函数等代码块后暂停，
+若果是循环，则执行完循环后暂停，常用于跳出循环。
+
+------------------------------------
+# 删除断点和禁用断点
+用clear 命令删除已定义的断点，如果要保留定义，只想临时禁用断点的话，可以使用disable命令；
+将禁用的断点重新启用，可以使用enable命令；
+格式：
+
+```
+clear 
+clear 函数名
+clear 行号
+clear 文件名：行号
+clear 文件名：函数名
+delete [breakpoints] 断点编号
+```
+
+格式：
+
+```
+disable [breakpoints]
+disable [breakpoints] 断点编号
+disable display 显示编号
+disable mem 内存区域
 
 
+```
+如果不指定断点编号，则禁用多有的断点，否则禁用指定断点
+第3种命令禁用display命令定义的自动显示
+第4中格式禁用mem命令定义的内存区域
+可以省略breakpoints关键字
+
+格式：
+```
+enable [breakpoints]
+enable [breakpoints] 断点编号
+enable [breakpoints] once 断点编号
+enable [breakpoints] delete 断点编号
+enable display 显示编号
+enable mem 内存区域
+```
+
+这些格式用于显示断点，once指定的断点只启用一次，也就是说，程序运行到该断点并暂停后，该断点即被禁用。
+这与delete命令助攻的once不同，后者在运行暂停后删除断点
+
+------------------------------------------
+断点命令
+断点命令(commands)可以定义在断点中断后执行的命令
+格式：
+```
+commands 断点编号
+	命令
+	...
+	end
+
+```
+程序在执行到断点处暂停后，就会自动执行命令
+
+```
+(gdb)b main
+(gdb)command 2
+	>p *b
+	>end
+(gdb)c
+```
+
+与前面的条件断点组合使用，就可以在断点暂停时，执行复杂的显示动作等
+
+```
+break foo if x>0
+  commands
+    silent
+    printf "x is %d\n", x
+    cont
+  end
+```
+---------------------------------
+# 常用命令即省略形式 
+--------------
+
+```
+命令               简写形式         说明
+backtrace          bt、where       显示backtrace
+break              b               设置断点
+continue           c、cont         继续执行
+delete             d               删除断点
+finish                             运行到函数结束
+info breakpoints                   显示断点信息
+next               n               执行下一行
+print              p               显示表达式
+run                r               运行程序
+step               s               一次执行一行，包括函数内部
+x                                  显示内存内容
+until              u               执行到指定行
+其他命令
+directory          dir             插入目录
+disable            dis             禁用断点
+down               do              在当前调用的栈帧中选择要显示的栈帧
+edit               e               编辑文件或者函数
+frame              f               选择要显示的栈帧
+forward-search     fo              向前搜索
+generate-core-file gcore           生成内核转存储
+help                h              显示帮助一览
+info                i              显示信息
+list                l              显示函数或行
+nexti               ni             执行下一行(以汇编代码为单位)
+print-object        po             显示目标信息
+sharelibrary        share          加载共享的符号
+stepi               si             执行下一行
+```
+
+info命令能够显示调试对象的各种各样的信息，另外show命令能够显示GDB内部的功能、变量和选项等。
+--------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
 
