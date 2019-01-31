@@ -682,24 +682,186 @@ stepi               si             执行下一行
 ```
 
 info命令能够显示调试对象的各种各样的信息，另外show命令能够显示GDB内部的功能、变量和选项等。
+
 --------------
 
 
+# 值的历史
+通过print 命令显示过的值会记录在内部的值历史中，这些值可以在其他表达式中使用
+```
+(gdb)p argc
+(gdb)p *argc
+
+最后的值可以通过 p $ 访问
+也就说在这种情况下， p $  == > p *argc 
+
+```
+用 show value 命令可以显示历史中的最后 10 个值
+```
+(gdb)show value
+$1
+$2
+$3
+$4
+.
+.
+.
+
+
+```
+
+值历史的访问说明
+
+```
+变量                    说明
+$                       值历史的最后一个值
+$n                      值历史的第n个值
+$$                      值历史的倒数第2个值
+$$n                     值历史倒数第n个值
+$_                      x命令显示过的最后的地址
+$__                     x命令显示过的最后的地址的值
+$_exitcode              调试中的程序的返回码
+$bpnum                 最后设置的断点编号 
+```
+--------------------------------------------
+# 变量
+可以随意的定义变量，变量以$ 开头，由英文字母和数字组成
+```
+(gdb)set $i = 0
+(gdb)p $i
+$1 = 0
+```
+
+-------------------------------------------------
+# 命令历史
+可以将命令历史保存在文件中，保存命令历史后，就能在其它调试会话中重复利用这些命令(通过箭头键以查找以前的命令)、
+十分方便，默认的历史文件位于 ./.gdb_history
+显示历史命令
+```
+show history
+```
+
+格式：
+
+```
+set hitory expansion
+show history expansion
+```
+可以使用csh风格的！字符
+
+格式：
+
+```
+set hitory filename 文件名
+show history filename
+```
+可将命令历史保存到文件中，可以通过环境变量GDBHISTFILE改变默认文件名
+
+格式：
+
+```
+set history save
+show history save
+```
+启用命令历史保存到文件和恢复的功能
+
+格式：
+```
+set history size 数字
+show history size
+```
+设置保存到命令历史中的命令数量，默认值是256
+
+----------------------------------------------------
+
+# 初始化文件(.gdbinit)
+linux环境下初始化文件为 .gdbinit。如果存在.gdbinit 文件，GDB就会在启动之前将其作为命令文件运行，初始化文件和命令文件的运行顺序如下：
+1、$HOME/.gdbinit
+2、运行命令选项
+3、./.gdbinit
+4、通过 -x 选项给出的命令文件
+
+初始化文件的语法和命令文件的语法相同，都由gdb命令组成
+
+------------------------------
+# 命令定义
+利用define命令可以定义命令，还可以使用document命令给自定义的命令添加说明，用help命令名，可以查看定义的命令名
+格式：
+```
+define 命令名
+    命令
+    ...
+    end
+```
+
+格式：
+```
+document 命令名
+    说明
+    end
+```
+格式：
+```
+help 命令名
+```
+例：
+定义了一个 名为 li的命令，它能显示当前 $pc 所指的位置开始的10条指令。另外，用document命令给li命令定义了说明，使用help li可以查看说明；
+
+```
+define li
+    x/10i $pc
+end
+document
+     list machine instruction
+end
+``` 
+
+
+----------------------------------------
+除了使用初始化文件，还可以将各种设置文件写在文件中，，在运行调试器时读取这些文件
+格式;
+```
+source 文件名
+
+```
+
+-------------------------------
+# 调试必需的栈知识
+栈是程序存放数据的内存区域之一，其特征是LIFO(last in first out,后进先出)式数据结构，即后放进的数据先被取出，向栈中存储数据的操作称为PUSH(压入)，从栈中取出数据称为POP(弹出)，保存动态分配的自动变量时要使用栈，此外在函数调用时，栈还用于传递函数参数，以及用于保存返回地址和返回值。
+
+```
+       -mno-red-zone
+           Do not use a so-called "red zone" for x86-64 code.  The red zone is
+           mandated by the x86-64 ABI; it is a 128-byte area beyond the
+           location of the stack pointer that is not modified by signal or
+           interrupt handlers and therefore can be used for temporary data
+           without adjusting the stack pointer.  The flag -mno-red-zone
+           disables this red zone.
+```
+
+
+调试选择栈帧，除了使用frame n 指定，还可以使用up down up是选择上一层栈帧，dowm是选择下一层栈帧
+使用 info 命令的 frame 选项可以查看到更详细的栈帧信息，可以用帧编号作为该命令的选项
+```
+(gdb) info frame 0
+Stack frame at 0x7fffffffdd50:
+ rip = 0x40060e in main (sum.c:34); saved rip = 0x7ffff7a2d830
+ source language c.
+ Arglist at 0x7fffffffdd28, args: argc=<optimized out>, argv=0x7fffffffde28
+ Locals at 0x7fffffffdd28, Previous frame's sp is 0x7fffffffdd50
+ Saved registers:
+  rip at 0x7fffffffdd48
+
+```
+x/i $pc --> 以汇编的形式查看当前栈帧处的代码
+```
+(gdb) x/i $pc
+=> 0x400590 <main>:	sub    $0x18,%rsp
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+--------------------------------------------------------
 
 
 
