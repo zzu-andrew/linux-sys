@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#define MAX     (1UL << 20)
+#define MAX     (1UL << 30)
 
 typedef unsigned long long u64;
 typedef unsigned int u32;

@@ -616,7 +616,7 @@ enable mem 内存区域
 这与delete命令助攻的once不同，后者在运行暂停后删除断点
 
 ------------------------------------------
-断点命令
+# 断点命令
 断点命令(commands)可以定义在断点中断后执行的命令
 格式：
 ```
@@ -862,12 +862,48 @@ x/i $pc --> 以汇编的形式查看当前栈帧处的代码
 
 
 --------------------------------------------------------
+(gdb) info proc mapping   --> 查看该进程内存映射的命令
+process 13193
+Mapped address spaces:
 
+          Start Addr           End Addr       Size     Offset objfile
+            0x400000           0x401000     0x1000        0x0 /work/linux-sys/DEBUG/sum/sum
+            0x600000           0x601000     0x1000        0x0 /work/linux-sys/DEBUG/sum/sum
+            0x601000           0x602000     0x1000     0x1000 /work/linux-sys/DEBUG/sum/sum
+      0x7ffff7a0d000     0x7ffff7bcd000   0x1c0000        0x0 /lib/x86_64-linux-gnu/libc-2.23.so
+      0x7ffff7bcd000     0x7ffff7dcd000   0x200000   0x1c0000 /lib/x86_64-linux-gnu/libc-2.23.so
+      0x7ffff7dcd000     0x7ffff7dd1000     0x4000   0x1c0000 /lib/x86_64-linux-gnu/libc-2.23.so
+      0x7ffff7dd1000     0x7ffff7dd3000     0x2000   0x1c4000 /lib/x86_64-linux-gnu/libc-2.23.so
+      0x7ffff7dd3000     0x7ffff7dd7000     0x4000        0x0 
+      0x7ffff7dd7000     0x7ffff7dfd000    0x26000        0x0 /lib/x86_64-linux-gnu/ld-2.23.so
+      0x7ffff7fd0000     0x7ffff7fd3000     0x3000        0x0 
+      0x7ffff7ff7000     0x7ffff7ffa000     0x3000        0x0 [vvar]
+      0x7ffff7ffa000     0x7ffff7ffc000     0x2000        0x0 [vdso]
+      0x7ffff7ffc000     0x7ffff7ffd000     0x1000    0x25000 /lib/x86_64-linux-gnu/ld-2.23.so
+      0x7ffff7ffd000     0x7ffff7ffe000     0x1000    0x26000 /lib/x86_64-linux-gnu/ld-2.23.so
+      0x7ffff7ffe000     0x7ffff7fff000     0x1000        0x0 
+      0x7ffffffde000     0x7ffffffff000    0x21000        0x0 [stack] -->表示栈空间 ， 0x21000也就是栈空间的顶端
+  0xffffffffff600000 0xffffffffff601000     0x1000        0x0 [vsyscall]
+(gdb) p $pc
+$1 = (void (*)()) 0x400590 <main>   pc的值为 0x400590 >  0x21000 说明还在栈内，没有栈溢出要是PC的值小于栈空间顶端的值，就是出现了栈溢出
+(gdb) x/i $pc
+=> 0x400590 <main>:	sub    $0x18,%rsp
 
+说明：
+可以使用info proc mapping 查看进程的内存映射，要保证占空间的栈顶端的值小于$pc的，否则就是出现了栈溢出
+进程的内存映射也就是  /proc/<PID>/maps信息
+注意后面显示的[stack] 。它表示栈空间，占空间的顶端的值要小于$pc的值，程序才能正常运行，说明栈没有溢出
+但是使用该命令时，GDB文件会打开/proc/<PID>/maps，因此在分析coredump文件的时候无法使用，分析coredump文件的时候
+可以使用下面的命令得到相同的信息。
+(gdb)info files 
+或者
+(gdb)info target
 
-
+---------------------------
  
+# 调试器的backtrace
 
+GDB等调试器的backtrace功能是通过搜索栈中的保存信息来实现的。
 
 
 
