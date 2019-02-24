@@ -21,6 +21,9 @@ int main(int argc, char * argv[])
 
     func(100, 35000L, 5, 'A', 123456789LL, 3.14, 2.99792458e8, 
             &v1, &v2, "string");
+    func(100, 35000L, 5, 'A', 123456789LL, 3.14, 2.99792458e8, 
+            &v1, &v2, "string");
+
     return EXIT_SUCCESS;
 
 }
