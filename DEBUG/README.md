@@ -1,3 +1,7 @@
+# GDB就应该这样使用
+
+													- [x] Andrew
+
 [TOC]
 
  # 代码调试记录
@@ -828,8 +832,8 @@ source 文件名
 # 调试必需的栈知识
 栈是程序存放数据的内存区域之一，其特征是LIFO(last in first out,后进先出)式数据结构，即后放进的数据先被取出，向栈中存储数据的操作称为PUSH(压入)，从栈中取出数据称为POP(弹出)，保存动态分配的自动变量时要使用栈，此外在函数调用时，栈还用于传递函数参数，以及用于保存返回地址和返回值。
 
-```
-       -mno-red-zone
+```bash
+-mno-red-zone
            Do not use a so-called "red zone" for x86-64 code.  The red zone is
            mandated by the x86-64 ABI; it is a 128-byte area beyond the
            location of the stack pointer that is not modified by signal or
@@ -841,7 +845,7 @@ source 文件名
 
 调试选择栈帧，除了使用frame n 指定，还可以使用up down up是选择上一层栈帧，dowm是选择下一层栈帧
 使用 info 命令的 frame 选项可以查看到更详细的栈帧信息，可以用帧编号作为该命令的选项
-```
+```bash
 (gdb) info frame 0
 Stack frame at 0x7fffffffdd50:
  rip = 0x40060e in main (sum.c:34); saved rip = 0x7ffff7a2d830
@@ -853,7 +857,7 @@ Stack frame at 0x7fffffffdd50:
 
 ```
 x/i $pc --> 以汇编的形式查看当前栈帧处的代码
-```
+```bash
 (gdb) x/i $pc
 => 0x400590 <main>:	sub    $0x18,%rsp
 ```
@@ -864,7 +868,7 @@ x/i $pc --> 以汇编的形式查看当前栈帧处的代码
 (gdb) info proc mapping   --> 查看该进程内存映射的命令
 process 13193
 Mapped address spaces:
-
+```bash
           Start Addr           End Addr       Size     Offset objfile
             0x400000           0x401000     0x1000        0x0 /work/linux-sys/DEBUG/sum/sum
             0x600000           0x601000     0x1000        0x0 /work/linux-sys/DEBUG/sum/sum
@@ -887,7 +891,7 @@ Mapped address spaces:
 $1 = (void (*)()) 0x400590 <main>   pc的值为 0x400590 >  0x21000 说明还在栈内，没有栈溢出要是PC的值小于栈空间顶端的值，就是出现了栈溢出
 (gdb) x/i $pc
 => 0x400590 <main>:	sub    $0x18,%rsp
-
+```
 说明：
 可以使用info proc mapping 查看进程的内存映射，要保证占空间的栈顶端的值小于$pc的，否则就是出现了栈溢出
 进程的内存映射也就是  /proc/<PID>/maps信息
@@ -958,6 +962,7 @@ Oops信息的解读方法Oops信息是内核发生致命错误时输出的内核
 
 ## 栈溢出导致SIGSEGV的应对方法
 ## backtrace 无法正确显示
+
  - ==线程冲突导致的栈破坏为例讲述backtrace无法正确显示时的调试方法==
  栈破坏有事会导致问题难以分析，特别是，由于无法获取bcktrace信息，追溯到问题发生的路径非常难
  ~~为什么会产生这种信息不全的core文件~~
@@ -986,10 +991,143 @@ Oops信息的解读方法Oops信息是内核发生致命错误时输出的内核
 
 ### 调查栈的方法
 
-```
+```bash
 (gdb) x/30c $esp-15
 p (char *) $esp-20
 ```
+
+
+
+##  确定破坏跳转地址值的位置(GOT破坏)
+
+访问互数据空间中静态分配的数组时，如果出现bug也会出现类似的现象
+
+# 利用监视点检查非法内存访问
+
+- 监视点能在指定的变量或地址的数据被访问时展厅程序运行
+
+- [x] 具体使用见上文
+
+调试时程序在手头并且可以立即复现bug使用监视点调试 能够高效的确定bug所在。
+
+- 监视点设置
+
+`(gdb) watch *0x80459a8`
+
+直接指定地址而不是变量或者函数需要加上`*`
+
+# malloc() 和 free()发生故障
+
+## 错误的使用内存相关函数引起的Bug
+
+```bash
+gdb ./membug -c core
+```
+
+不正常的使用*malloc*和*free*可能造成内存破坏，程序继续运行，此时、可能产生以下后果
+
+- 会在完全没关系的地方产生**SIGSEGV**
+- 使用被破坏的数据进行计算，产生错误的结果
+
+##　利用**MALLOC_CHECK_**进行调试
+
+现在glibc中有个方便的调试标志，可以利用环境变量进行调试
+
+例如：
+
+```c
+env MALLOC_CHECK_=1 ./membug
+```
+
+可以进行检查
+
+但是该方法只是检查出有问题，并没有检查出问题出在哪里，也没有说明应用程序有bug
+
+
+
+
+
+## 使用nuttcp 测量吞吐量
+
+《Debug Hacks中文版--深入调试的技术和工具》本书是Miracle Linux的创始人吉冈弘隆和几位工程师们多年从事内核开发的经验积累。从调试器的基本使用方法、汇编的基础知识开始，到内核错误信息捕捉、应用程序调试、内核调试，本书深入浅出地讲解了Linux下应用程序和内核的调试技巧。本节为大家介绍使用nuttcp 测量吞吐量。
+
+**使用nuttcp 测量吞吐量**
+
+下面测量普通的网络设备和VLAN 设备的吞吐量，这里使用nuttcp。nuttcp 是个TCP/UDP 网络测试工具，可以测量吞吐量。
+
+```bash
+# wget -t0 -c http://www.lcp.nrl.navy.
+mil/nuttcp/nuttcp-5.5.5.tar.bz2  
+# tar jxvf nuttcp-5.5.5.tar.bz2  
+# cd nuttcp-5.5.5  
+# gcc -O2 -o nuttcp nuttcp-5.5.5.c  
+在receiver 上通过以下选项启动nuttcp 服务器。  
+[receiver]# ./nuttcp -S 
+```
+
+同样在sender 上执行nuttcp 发包，用-n 选项设置发送的总数据量为1GB。为使数据包分段，可以通过-l 选项设置数据写入长度为1500 字节。
+
+```bash
+[sender]# ./nuttcp -n1G -l1500 192.168.1.100 /* 一般网络 */  
+1023.9987 MB / 9.12 sec = 941.3975 Mbps 12 %TX 18 %RX  
+[sender]# ./nuttcp -n1G -l1500 192.168.0.100 /* VLAN 网络 */  
+1023.9987 MB / 9.15 sec = 938.5309 Mbps 22 %TX 19 %RX 
+```
+
+开头的数据为发送的数据大小，通过选项设置成发送1GB。下一个值是发送数据所需的时间，接下来是吞吐量（Mbps）。VLAN 网络的吞吐量稍稍低一些。此外，%TX和%RX 为发送进程（sender）和接收进程（receiver）的CPU 使用率。ps 等命令中的CPU 使用率是进程生存期间使用的CPU 时间百分比，但nuttcp 是根据发送接收信息之前到发送接收信息完成之后的时间段中，所用的CPU 时间（用户时间+内核时间）计算的百分比。可见，一般网络中发送进程的CPU 使用率（%TX）为12%，而VLAN网络中该值为22%。尽管吞吐量没有太大差异，但CPU使用率却增加了10%。
+
+# strace寻找问题故障
+
+使用`strace`定位问题，可以使用命令
+
+```c
+ strace -t -p `pidof`
+```
+
+- -t的意识是加上时间戳
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|      |      |      |      |      |
+| ---- | ---- | ---- | ---- | ---- |
+|      |      |      |      |      |
+|      |      |      |      |      |
+|      |      |      |      |      |
+|      |      |      |      |      |
+|      |      |      |      |      |
+
+
+
+
 
 
 
