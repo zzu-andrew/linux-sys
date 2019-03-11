@@ -1086,7 +1086,242 @@ mil/nuttcp/nuttcp-5.5.5.tar.bz2
 
 - -t的意识是加上时间戳
 
+-  strace能够跟踪进程使用的系统调用，并显示其内容。因此，调试内容不明的故障时，首先使用strace找出系统调用出错的地方，通常能够得出故障发生的线索，特别是与文件有关的错误、参数错误等
 
+  > 该方法能够有效的发现系统调用失败有关的故障，但无法发现用户写出的程序或共享库中发生的错误。
+
+  
+
+## strace 使用的范例
+
+找不到要访问的文件或无权限访问文件等情况下，系统调用通常会原样返回错误内容。下面用程序st1.c确认下实际情况。
+
+```c
+//##########################################
+//使用 dbg 调试段错误
+//##########################################
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char * argv[])
+{
+
+    FILE *fp;
+    fp = fopen("/etc/shadow", "r");
+    if (fp == NULL)
+    {
+        printf("Error !\n");
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+
+
+```
+
+```bash
+$ ./segment 
+Error !
+```
+
+- 执行失败的原因是试图打开一般用户没有读权限的`/etc/shadow`文件
+
+- 输出错误但是错误的消息不明显，这时使用GDB也很难设置断点进行调试
+
+```c
+andrew@andrew-Thurley:/work/linux-sys/DEBUG/str$ strace ./segment 
+execve("./segment", ["./segment"], [/* 63 vars */]) = 0
+brk(NULL)                               = 0x1cc6000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=144422, ...}) = 0
+mmap(NULL, 144422, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fe166260000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\t\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=1868984, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fe16625f000
+mmap(NULL, 3971488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fe165c95000
+mprotect(0x7fe165e55000, 2097152, PROT_NONE) = 0
+mmap(0x7fe166055000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c0000) = 0x7fe166055000
+mmap(0x7fe16605b000, 14752, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fe16605b000
+close(3)                                = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fe16625e000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fe16625d000
+arch_prctl(ARCH_SET_FS, 0x7fe16625e700) = 0
+mprotect(0x7fe166055000, 16384, PROT_READ) = 0
+mprotect(0x600000, 4096, PROT_READ)     = 0
+mprotect(0x7fe166284000, 4096, PROT_READ) = 0
+munmap(0x7fe166260000, 144422)          = 0
+brk(NULL)                               = 0x1cc6000
+brk(0x1ce7000)                          = 0x1ce7000
+open("/etc/shadow", O_RDONLY)           = -1 EACCES (Permission denied)
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 19), ...}) = 0
+write(1, "Error !\n", 8Error !
+)                = 8
+exit_group(1)                           = ?
++++ exited with 1 +++
+
+```
+
+
+
+##  使用strace + GDB对程序进行详细调查
+
+- 使用`strace -i`可以显示程序在哪个地址进行了系统调用，可以将该地址作为断点使用。 
+
+```c
+andrew@andrew-Thurley:/work/linux-sys/DEBUG/str$ strace -i ./segment 
+[00007f5dace1d777] execve("./segment", ["./segment"], [/* 63 vars */]) = 0
+[00007f851d2a04b9] brk(NULL)            = 0xf7a000
+[00007f851d2a13c7] access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+[00007f851d2a13c7] access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+[00007f851d2a1367] open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+[00007f851d2a12f4] fstat(3, {st_mode=S_IFREG|0644, st_size=144422, ...}) = 0
+[00007f851d2a14ba] mmap(NULL, 144422, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f851d487000
+[00007f851d2a1467] close(3)             = 0
+[00007f851d2a13c7] access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+[00007f851d2a1367] open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+[00007f851d2a1387] read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\t\2\0\0\0\0\0"..., 832) = 832
+[00007f851d2a12f4] fstat(3, {st_mode=S_IFREG|0755, st_size=1868984, ...}) = 0
+[00007f851d2a14ba] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f851d486000
+[00007f851d2a14ba] mmap(NULL, 3971488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f851cebc000
+[00007f851d2a1557] mprotect(0x7f851d07c000, 2097152, PROT_NONE) = 0
+[00007f851d2a14ba] mmap(0x7f851d27c000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c0000) = 0x7f851d27c000
+[00007f851d2a14ba] mmap(0x7f851d282000, 14752, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f851d282000
+[00007f851d2a1467] close(3)             = 0
+[00007f851d2a14ba] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f851d485000
+[00007f851d2a14ba] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f851d484000
+[00007f851d286bd5] arch_prctl(ARCH_SET_FS, 0x7f851d485700) = 0
+[00007f851d2a1557] mprotect(0x7f851d27c000, 16384, PROT_READ) = 0
+[00007f851d2a1557] mprotect(0x600000, 4096, PROT_READ) = 0
+[00007f851d2a1557] mprotect(0x7f851d4ab000, 4096, PROT_READ) = 0
+[00007f851d2a1537] munmap(0x7f851d487000, 144422) = 0
+[00007f851cfb8e19] brk(NULL)            = 0xf7a000
+[00007f851cfb8e19] brk(0xf9b000)        = 0xf9b000
+[00007f851cfb3040] open("/etc/shadow", O_RDONLY) = -1 EACCES (Permission denied)
+[00007f851cfb2c34] fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 19), ...}) = 0
+[00007f851cfb32c0] write(1, "Error !\n", 8Error !
+) = 8
+[00007f851cf88748] exit_group(1)        = ?
+[????????????????] +++ exited with 1 +++
+andrew@andrew-Thurley:/work/linux-sys/DEBUG/str$ 
+```
+
+- 在各行开头  `[]`中的数字就是执行系统的代码地址，子啊GDB中执行该地址并显示`backtrace`.
+
+
+
+
+
+## strace attach 到进程上
+
+- 刚才使用`strace`启动进程并检查了它的行为，接下来以下面的程序为例讲解一下如何使用`strace`查看运行中的进程(如守护进程)的行为。
+
+- 改进从上述程序 增加循环，是程序一直循环去尝试打开没有权限的文件
+- 函数如下:
+
+```c
+
+//##########################################
+//##########################################
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(int argc, char * argv[])
+{
+    while(1)
+    {
+        FILE *fp;
+        fp = fopen("/etc/shadow", "r");
+        if (fp == NULL)
+        {
+            printf("Error !\n");
+        }
+        else
+        {
+            fclose(fp);
+        }
+        sleep(3);
+    }
+    return EXIT_SUCCESS;
+}
+
+
+
+```
+
+
+
+
+
+- 首先执行
+
+```bash
+andrew@andrew-Thurley:/work/linux-sys/DEBUG/strace-demo$ ./segment &
+```
+
+**打开另外一个窗口**
+
+- 使用`strace attach`上正在运行的进程 
+
+
+
+```c
+andrew@andrew-Thurley:/work/linux-sys/DEBUG/strace-demo$ sudo strace -p `pidof segment`
+[sudo] andrew 的密码： 
+strace: Process 7729 attached
+restart_syscall(<... resuming interrupted nanosleep ...>) = 0
+open("/etc/shadow", O_RDONLY)           = -1 EACCES (Permission denied)
+write(1, "Error !\n", 8)                = 8
+nanosleep({3, 0}, 0x7ffe0f047cb0)       = 0
+open("/etc/shadow", O_RDONLY)           = -1 EACCES (Permission denied)
+write(1, "Error !\n", 8)                = 8
+nanosleep({3, 0}, 0x7ffe0f047cb0)       = 0
+open("/etc/shadow", O_RDONLY)           = -1 EACCES (Permission denied)
+write(1, "Error !\n", 8)                = 8
+nanosleep({3, 0}, 0x7ffe0f047cb0)       = 0
+open("/etc/shadow", O_RDONLY)           = -1 EACCES (Permission denied)
+
+```
+
+
+
+
+
+---
+
+### 其它方便的用法
+
+**如下加上 -o 选项可以将显示的内容输出到文件中**
+
+==`$ strace -o output.log commad`==
+
+`strace`的输出为标准错误输出，因此可以像下面这样将显示的内容输出到标准输出上在传给grep、less等
+
+```bash
+$strace command 2>$1 | grep map
+$strace command 2>$1 | grep less
+
+```
+
+进程执行fork之后要跟踪fork()之后的进程，可以使用 ==-f==选项。
+
+```bash
+$strace -f command
+```
+
+系统调用执行时刻可以使用`-t`或`-tt`选项来显示。两者不同的地方是， -t 以秒为单位， `-tt`以毫秒为单位
+
+
+
+```bash
+$strace -t command
+$strace -tt command
+```
 
 
 
