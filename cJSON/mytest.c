@@ -106,8 +106,8 @@ end:
 
 int main(int argc, char * argv[])
 {
-    create_monitor();
-
+    //create_monitor();
+    printf("%s\n",create_monitor());
 
     return 0;
 }
