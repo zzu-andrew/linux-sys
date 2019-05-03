@@ -12,8 +12,7 @@ int main(int argc, char * argv[])
     //读取命令结果
     fp = popen("cat /etc/passwd", "r");
     char buf[512];
-    memset(buf, 0, sizeof(buf));
-    while(fgets(buf,sizeof(buf), fp) != NULL)
+    memset(buf, 0, sizeof(buf));    while(fgets(buf,sizeof(buf), fp) != NULL)
     {
         printf("%s", buf);
     }

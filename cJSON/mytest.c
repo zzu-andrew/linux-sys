@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "cJSON.h"
 
-
 //< 头文件引用有先后之分，后面后面=头文件要是用到前面头文件的中的定义一定要放到后面再调用
 
 /*
@@ -23,7 +22,6 @@
         }
     ]
 }
-
 */
 
 //create a monitor with a list of supported resolutions
@@ -89,6 +87,7 @@ char* create_monitor(void)
         cJSON_AddItemToObject(resolution, "height", height);
     }
 
+    //< 只是生成字符串形式的指针文件
     string = cJSON_Print(monitor);
     if (string == NULL)
     {
@@ -107,6 +106,7 @@ end:
 int main(int argc, char * argv[])
 {
     //create_monitor();
+    //< 将生成的 字符串形式的文件输出
     printf("%s\n",create_monitor());
 
     return 0;
