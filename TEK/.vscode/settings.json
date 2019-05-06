@@ -3,6 +3,9 @@
         "stdlib.h": "c",
         "tell.h": "c",
         "unistd.h": "c",
-        "shm.h": "c"
+        "shm.h": "c",
+        "stdio.h": "c",
+        "string.h": "c",
+        "sem.h": "c"
     }
 }
