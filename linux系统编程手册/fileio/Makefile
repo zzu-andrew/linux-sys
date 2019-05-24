@@ -1,6 +1,14 @@
+include ../Makefile.inc
+
+EXE = copy
+
+all : ${EXE}
+
+clean : 
+	${RM} ${EXE} *.o
+
+showall :
+	@ echo ${EXE}
 
 
-copy : copy.c
-	gcc copy.c -o copy
-
-
+#${EXE} : ${TLPI_LIB}		# True as a rough approximation
