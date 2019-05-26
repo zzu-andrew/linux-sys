@@ -80,3 +80,4 @@ $ ls -l tfile
 
 
 
+![码上嵌入式](./../../doc/picture/weixin.jpg)
