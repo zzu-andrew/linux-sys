@@ -1,12 +1,59 @@
+[TOC]
+
+## 文件描述符
+
+​	所有的I/O操作的系统调用都以文件描述符，一个非负整数(通常是小整数)，来指代打开的文件。
+
+- open函数打开pathname所标识的文件，并返回文件描述文件描述符
+
+```c  #include <sys/types.h>
+       #include <sys/stat.h>
+       #include <fcntl.h>
+
+       int open(const char *pathname, int flags);
+       int open(const char *pathname, int flags, mode_t mode);
+
+       int creat(const char *pathname, mode_t mode);
+
+       int openat(int dirfd, const char *pathname, int flags);
+       int openat(int dirfd, const char *pathname, int flags, mode_t mode);
+```
+
+- read函数，调用从fd所指代的打开的文件中，读取至多count字节的数据，并保存到buf中去
+
+```c
+ #include <unistd.h>
+ ssize_t read(int fd, void *buf, size_t count);
+
+```
+
+- write函数，调用从buf中读取多达count字节数，将数据写入到fd指代的已打开的文件中
+
+```c
+       #include <unistd.h>
+
+       ssize_t write(int fd, const void *buf, size_t count);
+```
+
+- close函数， 关闭已打开的文件描述符 fd
+
+```c
+       #include <unistd.h>
+
+       int close(int fd);
+```
+
+
+
+
+
+```c
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
-
-
-
 
 #ifndef BUF_SIZE        /* Allow "cc -D" to override definition */
 #define BUF_SIZE 1024
@@ -51,4 +98,8 @@ int main(int argc, char *argv[])
 
     exit(EXIT_SUCCESS);
 }
+
+```
+
+
 

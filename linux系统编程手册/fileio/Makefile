@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-EXE = copy
+EXE = copy seek_io t_readv
 
 all : ${EXE}
 
@@ -9,6 +9,5 @@ clean :
 
 showall :
 	@ echo ${EXE}
-
 
 #${EXE} : ${TLPI_LIB}		# True as a rough approximation
