@@ -40,7 +40,7 @@ void notify_pipe()
 
 }
 
-//销毁管道
+//销毁管道```
 void destroy_pipe()
 {
     close(fd[0]);

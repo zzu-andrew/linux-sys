@@ -1,7 +1,7 @@
 # Makefile.inc - common definitions used by all makefiles
 
 TLPI_DIR = ..
-#TLPI_LIB = ${TLPI_DIR}
+TLPI_LIB = ${TLPI_DIR}/lib/libsys_man.a
 TLPI_INCL_DIR = ${TLPI_DIR}/include
 
 LINUX_LIBRT = -lrt
