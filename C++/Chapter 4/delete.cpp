@@ -19,6 +19,7 @@ int main()
     return 0;
 }
 
+//< 指针可以返回，但是使用参数的形式获取就必须使用指向指针的指针
 char * getname()        // return pointer to new string
 {
     char temp[80];      // temporary storage

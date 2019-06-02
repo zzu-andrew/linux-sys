@@ -39,6 +39,7 @@ void Swap(T &a, T &b)
     b = temp;
 }
 
+//< 说明模板函数并不是要所有的参数都得是模板类型的
 template <typename T>
 void Swap(T a[], T b[], int n)
 {

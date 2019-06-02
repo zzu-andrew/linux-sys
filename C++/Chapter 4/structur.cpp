@@ -10,6 +10,7 @@ struct inflatable   // structure declaration
 int main()
 {
     using namespace std;
+    //< 结构体初始化
     inflatable guest =
     {
         "Glorious Gloria",  // name value

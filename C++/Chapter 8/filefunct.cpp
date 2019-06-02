@@ -8,7 +8,10 @@ void file_it(ostream & os, double fo, const double fe[],int n);
 const int LIMIT = 5;
 int main()
 {
-    ofstream fout;
+    ofstream fout, filed;
+
+
+
     const char * fn = "ep-data.txt";
     fout.open(fn);
     if (!fout.is_open())
@@ -28,6 +31,7 @@ int main()
         cout << "Eyepiece #" << i + 1 << ": ";
         cin >> eps[i];
     }
+    //< fout 是ostream的派生类，派生类能偶使用基类的类型定义，也能够正常使用
     file_it(fout, objective, eps, LIMIT);
     file_it(cout, objective, eps, LIMIT);
     cout << "Done\n";

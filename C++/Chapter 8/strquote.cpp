@@ -19,7 +19,7 @@ int main()
     result = version1(input, "***");
     cout << "Your string enhanced: " << result << endl;
     cout << "Your original string: " << input << endl;
- 
+    //< 函数直接返回的是 input变量
     result = version2(input, "###");
     cout << "Your string enhanced: " << result << endl;
     cout << "Your original string: " << input << endl;
@@ -55,5 +55,8 @@ const string & version3(string & s1, const string & s2)   // bad design
 
     temp = s2 + s1 + s2;
 // unsafe to return reference to local variable
+//< 返回一个指向临时变量的引用，将引起错误的产生
+//< 能够通过编译，但是会发出警告，告诉你返回了local的变量
+//<strquote.cpp:54:12: warning: reference to local variable ‘temp’ returned [-Wreturn-local-addr]
     return temp;
 }

@@ -18,6 +18,7 @@ int main()
     double y = 81.7;
     cout << "x, y = " << x << ", " << y << ".\n";
     cout << "Using compiler-generated double swapper:\n";
+    //< 使用函数模板是在编译阶段，编译器根据传入不同的参数将函数生成不同的函数用来调用
     Swap(x,y);  // generates void Swap(double &, double &)
     cout << "Now x, y = " << x << ", " << y << ".\n";
     // cin.get();

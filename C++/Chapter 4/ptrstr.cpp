@@ -20,6 +20,7 @@ int main()
     ps = animal;                // set ps to point to string
     cout << ps << "!\n";       // ok, same as using animal
     cout << "Before using strcpy():\n";
+    //< 如果向cout提供的是一个字符串指针 cout将打印出字符串  如果向打印出地址必须强制转换为 (int *)类型才行
     cout << animal << " at " << (int *) animal << endl;
     cout << ps << " at " << (int *) ps << endl;
 

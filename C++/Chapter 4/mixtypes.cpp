@@ -1,14 +1,17 @@
 // mixtypes.cpp --some type combinations
 #include <iostream>
-
+#include <array>
 struct antarctica_years_end
 {
     int year;
  /* some really interesting data, etc. */
 };
 
-int main()
-{
+using namespace std;
+
+int main(){
+    array<int, 5> ai;
+
     antarctica_years_end s01, s02, s03; 
     s01.year = 1998;
     antarctica_years_end * pa = &s02;

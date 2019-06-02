@@ -5,6 +5,7 @@ double pam(int);
 
 // second argument is pointer to a type double function that
 // takes a type int argument
+//< 函数指针的声明，就只需将函数变成指针就行了，函数指针  -- 》 函数变指针
 void estimate(int lines, double (*pf)(int));
 
 int main()

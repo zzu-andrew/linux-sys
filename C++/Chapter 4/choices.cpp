@@ -2,9 +2,15 @@
 #include <iostream>
 #include <vector>   // STL C++98
 #include <array>    // C++0x
+#include <cstring>
+using namespace std;
+
 int main()
 {
+    string name;
+    
     using namespace std;
+    cin.get(char)
 // C, original C++
     double a1[4] = {1.2, 2.4, 3.6, 4.8};
 // C++98 STL
