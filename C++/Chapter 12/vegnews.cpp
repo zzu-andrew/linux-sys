@@ -9,6 +9,7 @@ void callme2(StringBad);    // pass by value
 
 int main()
 {
+    int *ptr = nullptr; //< C++中声明一个空指针
     using std::endl;
     {
         cout << "Starting an inner block.\n";

@@ -14,7 +14,7 @@ int main()
     int i = 10, j = 20;
     cout << "i, j = " << i << ", " << j << ".\n";
     cout << "Using compiler-generated int swapper:\n";
-    Swap(i,j);              // matches original template
+    Swap(i ,j);              // matches original template
     cout << "Now i, j = " << i << ", " << j << ".\n";
 
     int d1[Lim] = {0,7,0,4,1,7,7,6};

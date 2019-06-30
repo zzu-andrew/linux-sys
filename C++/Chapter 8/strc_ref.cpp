@@ -61,6 +61,8 @@ void set_pc(free_throws & ft)
         ft.percent = 0;
 }
 
+//< 返回的是函数本身也就是该函数其实是可以作为左值使用的
+//< free_throws & target == 传入的参数自身，因此该函数返回的也是传入参数自身
 free_throws & accumulate(free_throws & target, const free_throws & source)
 {
     target.attempts += source.attempts;

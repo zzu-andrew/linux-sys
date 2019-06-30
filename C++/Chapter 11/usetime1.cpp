@@ -24,6 +24,7 @@ int main()
     fixing.Show();
     cout << endl;
 
+    //< 使用重载的运算符
     total = coding + fixing;
     // operator notation
     cout << "coding + fixing = ";

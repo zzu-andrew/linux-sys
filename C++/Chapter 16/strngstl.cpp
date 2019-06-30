@@ -19,7 +19,7 @@ int main()
         cout << "Enter next sequence (quit to quit): ";
     }
     cout << "Done.\n";
-    // cin.get();
-    // cin.get();
+  
+  
     return 0;
 }

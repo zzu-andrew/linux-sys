@@ -15,6 +15,7 @@ public:
     baseDMA(const baseDMA & rs);
     virtual ~baseDMA();
     baseDMA & operator=(const baseDMA & rs);
+    //友元函数
     friend std::ostream & operator<<(std::ostream & os, 
                                      const baseDMA & rs);
 };
@@ -51,5 +52,8 @@ public:
     friend std::ostream & operator<<(std::ostream & os, 
                                      const hasDMA & rs);
 };
+
+
+//< 友元函数也是直接进行了继承，继承之后按照传入的类型进行函数的调用
 
 #endif

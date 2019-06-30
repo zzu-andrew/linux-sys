@@ -4,9 +4,42 @@
 const int BUF = 512;
 const int N = 5;
 char buffer[BUF];      // chunk of memory
+
+//< 定义一个命名空间
+namespace Jill{
+    int i;;
+    double pi;
+    double get_pi(void)
+    {
+
+
+        
+        return pi;
+    }
+}
+
+namespace NUM{
+    namespace NN
+    {
+        namespace NMNN
+        {
+
+        }
+    }
+}
+
+//<使用对命名空间重命名的方式减少命名空间的嵌套
+namespace NNN = NUM::NN::NMNN;
+
 int main()
 {
+    
     using namespace std;
+
+
+using Jill::get_pi;
+    double Jill_temp;
+    Jill_temp = get_pi();
 
     double *pd1, *pd2;
     int i;

@@ -5,6 +5,7 @@
 int main()
 {
     using namespace std;
+    //< 使用默认构造函数定义一个栈
     Stack st; // create an empty stack
     char ch;
     unsigned long po;

@@ -31,6 +31,7 @@ void Time::Reset(int h, int m)
     minutes = m;
 }
 
+//< 参数声明为引用是为了提高函数的效率
 const Time Time::Sum(const Time & t) const
 {
     Time sum;

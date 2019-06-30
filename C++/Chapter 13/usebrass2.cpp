@@ -5,6 +5,8 @@
 #include "brass.h"
 const int CLIENTS = 4;
 
+//< 基类的虚构函数使用虚函数
+
 int main()
 {
    using std::cin;

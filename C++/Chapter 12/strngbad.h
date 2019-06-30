@@ -13,6 +13,7 @@ public:
     StringBad();               // default constructor
     ~StringBad();              // destructor
 // friend function
+//< 使用友元函数，因为cout 属于 std os类中的成员
     friend std::ostream & operator<<(std::ostream & os, 
                        const StringBad & st);
 };

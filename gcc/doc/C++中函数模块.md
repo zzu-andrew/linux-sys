@@ -30,7 +30,7 @@ void simple()
 
 ```
 
-## 返回引用的函数课可以作为左值使用
+## 返回引用的函数可以作为左值使用
 
 ```c
 //strc_ref.cpp -- using structure references

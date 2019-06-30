@@ -35,8 +35,10 @@ int main()
     set_difference(A.begin(), A.end(), B.begin(), B.end(), out);
     cout << endl;
 
+//< 创建关联容器
     set<string> C;
     cout << "Set C:\n";
+    //< 模板类。迭代器中放
     set_union(A.begin(), A.end(), B.begin(), B.end(),
         insert_iterator<set<string> >(C, C.begin()));
     copy(C.begin(), C.end(), out);

@@ -6,10 +6,13 @@
 int main()
 {
     using namespace std;
+    //初始化为  对应的字符串
     string one("Lottery Winner!");     // ctor #1
     cout << one << endl;               // overloaded <<
+    //初始化为 20 个 $字符
     string two(20, '$');               // ctor #2
     cout << two << endl;
+    //用one初始化为  three
     string three(one);                 // ctor #3
     cout << three << endl;
     one += " Oops!";                   // overloaded +=

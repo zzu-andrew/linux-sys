@@ -32,7 +32,7 @@ int main()
 
 void swapr(int & a, int & b)    // use references
 {
-    int temp;
+    int temp; 
 
     temp = a;       // use a, b for values of variables
     a = b;

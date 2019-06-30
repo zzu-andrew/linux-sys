@@ -87,7 +87,7 @@ void BrassPlus::ViewAcct() const
     format initialState = setFormat();
     precis prec = cout.precision(2);
 
-    Brass::ViewAcct();   // display base portion
+    Brass::ViewAcct();   // display base portion  直接调用另一个类的成员函数的方法
     cout << "Maximum loan: $" << maxLoan << endl;
     cout << "Owed to bank: $" << owesBank << endl;
     cout.precision(3);  // ###.### format

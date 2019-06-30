@@ -16,6 +16,7 @@ public:
     void show_lbs() const;        // show weight in pounds format
     void show_stn() const;        // show weight in stone format
 // conversion functions
+//< 类型转换函数声明
     operator int() const;
     operator double() const;
 };

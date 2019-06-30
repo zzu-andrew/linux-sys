@@ -17,6 +17,10 @@ int main()
 {
     using namespace std;
     int things[6] = {13, 31, 103, 301, 310, 130};
+    {
+        //< 代码块中的变量隐藏上面定义的变量，局部变量优先
+        int things[6] = {13, 31, 103, 301, 310, 130};
+    }
     struct debts mr_E[3] =
     {
         {"Ima Wolfe", 2400.0},
@@ -46,7 +50,7 @@ void ShowArray(T arr[], int n)
     cout << "template A\n";
     for (int i = 0; i < n; i++)
         cout << arr[i] << ' ';
-    cout << endl;
+    cout << endl;                                                                                    
 }
 
 template <typename T>

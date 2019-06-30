@@ -18,6 +18,8 @@ int main()
     empty.reserve(50);
     cout << "Capacity after empty.reserve(50): " 
          << empty.capacity() << endl;
+         empty  = "aaaa";;
+    cout << empty.size() << endl;
 	// cin.get();
     return 0;
 }

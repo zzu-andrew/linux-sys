@@ -2,7 +2,6 @@
 // compile with stonewt1.cpp
 #include <iostream>
 #include "stonewt1.h"
-
 int main()
 {
     using std::cout;

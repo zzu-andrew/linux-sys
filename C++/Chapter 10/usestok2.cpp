@@ -7,8 +7,8 @@ const int STKS = 4;
 int main()
 {{
 // create an array of initialized objects
-    Stock stocks[STKS] = {
-        Stock("NanoSmart", 12, 20.0),
+    Stock stocks[STKS] = { //< 使用列表就行初始化
+        Stock("NanoSmart", 12, 20.0), /* 创建一个临时变量，然后将临时变量的值复制给数组的对象 */
         Stock("Boffo Objects", 200, 2.0),
         Stock("Monolithic Obelisks", 130, 3.25),
         Stock("Fleep Enterprises", 60, 6.5)
