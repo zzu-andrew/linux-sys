@@ -15,8 +15,10 @@ int main()
     //用one初始化为  three
     string three(one);                 // ctor #3
     cout << three << endl;
+    // 增加  Oops字符
     one += " Oops!";                   // overloaded +=
     cout << one << endl;
+    //赋值初始化
     two = "Sorry! That was ";
     three[0] = 'P';
     string four;                       // ctor #4

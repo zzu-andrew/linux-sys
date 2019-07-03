@@ -14,7 +14,7 @@ int main()
     /*
      * 声明一个迭代器
     */
-    vector<string>::iterator pd;
+    vector<string>::iterator pd;  //< 迭代器中声明类型，就是初始化迭代器
     pd = titles.begin();
     cout << "You will do exactly as told. You will enter\n"
          << NUM << " book titles and your ratings (0-10).\n";

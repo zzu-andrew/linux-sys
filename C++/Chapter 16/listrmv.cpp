@@ -13,6 +13,7 @@ int main()
     list<int> lb(la);
     
     cout << "Original list contents:\n\t";
+    //< 遍历之后将指针解引用放到对应的 show函数中
     for_each(la.begin(), la.end(), Show);
     cout << endl;
     la.remove(4);

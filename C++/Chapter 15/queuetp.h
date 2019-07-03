@@ -7,6 +7,7 @@ class QueueTP
 {
 private:
     enum {Q_SIZE = 10};
+    //< 嵌套类定义现场
     // Node is a nested class definition
     class Node
     {

@@ -1,0 +1,6 @@
+build
+env
+*.swp
+*.swo
+*.o
+*.dylib
