@@ -1,6 +1,11 @@
 include ../Makefile.inc
 
-EXE = getdaytimetcpclient 
+EXE = getdaytimetcpclient  getdaytimeclientv6 putdaytimesrv
+
+
+
+
+
 
 all : ${EXE}
 

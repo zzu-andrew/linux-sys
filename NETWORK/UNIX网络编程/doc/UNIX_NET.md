@@ -1,0 +1,385 @@
+[TOC]
+
+![](./../picture/svg/linux.svg)![](./../picture/svg/markdown.svg)
+
+# UNIX_NET
+
+## 获取服务器时间
+
+### connect函数
+
+```c
+#include <sys/types.h>          /* See NOTES */
+#include <sys/socket.h>
+int connect(int sockfd, const struct sockaddr *addr,
+            socklen_t addrlen);
+
+DESCRIPTION
+       The  connect()  system  call connects the socket referred to by the file descriptor sockfd to the address specified by addr.  The addrlen argument specifies the size of addr.  The format  of  the address  in  addr is determined by the address space of the socket sockfd; see socket(2) for fur‐
+       ther details.
+
+    If the socket sockfd is of type SOCK_DGRAM, then addr is the address to which datagrams are  sent by  default,  and  the  only address from which datagrams are received.  If the socket is of type SOCK_STREAM or SOCK_SEQPACKET, this call attempts to make a connection  to  the  socket  that  is bound to the address specified by addr.
+
+    Generally, connection-based protocol sockets may successfully connect() only once; connectionless protocol sockets may use connect() multiple times to change  their  association.   Connectionless sockets  may  dissolve  the  association by connecting to an address with the sa_family member of sockaddr set to AF_UNSPEC (supported on Linux since kernel 2.2).
+    
+RETURN VALUE
+       If the connection or binding succeeds, zero is returned.  On error, -1 is returned, and errno  is set appropriately.
+
+```
+
+
+
+### 获取时间客户端程序实现
+
+```c
+#include "unix_net_public.h"
+#include <stdio.h>
+#include <strings.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <errno.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+#define MAXLINE 4096
+
+
+int main(int argc, char *argv[])
+{
+    int sockfd, n;
+    char recvline[MAXLINE + 1];
+    struct sockaddr_in servaddr;
+
+    //< 没有指定IP进行报错处理
+    if (argc != 2)
+    {
+        UNIX_NET_DEBUG("usage: <IPaddress>\n");
+        exit(1);
+    }
+    //< AF_INET 通常代表地址族协议  PF_INET 通产代表网络协议族协议
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) <  0)
+    {
+        perror("socket error!\n");
+    }
+
+    //<  将地址结构体中的数据进行清空处理
+    bzero(&servaddr, sizeof(servaddr));
+    
+    //< 构造结构体
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(8560); // 没有找到时间服务器使用ssh端口连接自己的电脑测试连 connect函数的实现
+
+
+    //< 将点十进制地址转换为网络地址
+    if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0)
+    {
+        perror("inet_pton error  \n");
+    }
+
+    //< 使用connect创建连接
+    UNIX_NET_DEBUG("connect start\n");
+    if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
+    {
+        perror("connect error\n");
+    }
+    UNIX_NET_DEBUG("connect is end !\n");
+    //< 接受服务器的回复数据
+    while((n = read(sockfd, recvline, MAXLINE)) > 0)
+    {
+        recvline[n] = 0;
+        if(fputs(recvline, stdout) == EOF)
+        {
+            perror("fputs error\n");
+        }
+    }
+
+    if (n < 0)
+    {
+        perror("error exit()");
+    }
+    
+    
+    return 0;
+}
+
+```
+
+**支持IPv6的实现**
+
+```c
+#include "unix_net_public.h"
+
+
+int
+main(int argc, char **argv)
+{
+	int					sockfd, n;
+	struct sockaddr_in6	servaddr;
+	char				recvline[MAXLINE + 1];
+
+	if (argc != 2)
+		UNIX_NET_DEBUG("usage: a.out <IPaddress>");
+
+    //< 使用网际协议  字节流的形式创建 socket句柄
+	if ( (sockfd = socket(AF_INET6, SOCK_STREAM, 0)) < 0)
+		UNIX_NET_DEBUG("socket error");
+
+	bzero(&servaddr, sizeof(servaddr));
+
+	servaddr.sin6_family = AF_INET6;
+	servaddr.sin6_port   = htons(8560);	/* daytime server */
+    //< 将IP地址转换为网络地址
+	if (inet_pton(AF_INET6, argv[1], &servaddr.sin6_addr) <= 0)
+		UNIX_NET_DEBUG("inet_pton error for %s", argv[1]);
+
+	if (connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
+		UNIX_NET_DEBUG("connect error");
+
+    //< 使用阻塞的凡是进行read函数读取数据
+	while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
+		recvline[n] = 0;	/* null terminate */
+		if (fputs(recvline, stdout) == EOF)
+			UNIX_NET_DEBUG("fputs error");
+	}
+	if (n < 0)
+		UNIX_NET_DEBUG("read error");
+
+	return 0;
+}
+
+```
+
+
+
+### 获取时间服务器实现
+
+```c
+#include "unix_net_public.h"
+
+
+int
+main(int argc, char **argv)
+{
+	int					listenfd, connfd;
+	struct sockaddr_in	servaddr;
+	char				buff[MAXLINE];
+	time_t				ticks;
+
+    //< 创建套接字，文件描述符
+	listenfd = socket(AF_INET, SOCK_STREAM, 0);
+
+	bzero(&servaddr, sizeof(servaddr));
+	servaddr.sin_family      = AF_INET;
+    //< 监听所有的笛子， Address to accept any incoming messages. 
+	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    //< 尽量使用大于8000的端口，小端口在linux上使用可能会报错不让使用
+	servaddr.sin_port        = htons(8560);	/* daytime server */
+
+    //< 绑定套接字
+	bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+
+	listen(listenfd, LISTENQ);
+
+	for ( ; ; ) {
+		connfd = accept(listenfd, (struct sockaddr *) NULL, NULL);
+
+        ticks = time(NULL);
+        snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
+        write(connfd, buff, strlen(buff));
+
+		close(connfd);
+	}
+}
+
+```
+
+
+
+
+
+**测试**
+
+```c
+$ ./putdaytimesrv &
+[1] 2952
+$ ./getdaytimetcpclient 127.0.0.1
+[getdaytimetcpclient.c], lien  = [47]connect start
+[getdaytimetcpclient.c], lien  = [52]connect is end !
+Sun Jul 14 14:57:22 2019
+```
+
+
+
+数据发送的过程刚好是三次握手，四次挥手加上一次(PSH,ACK)
+
+----
+
+### 一些声明
+
+netstat -i 提供网络接口的信息，我们还指定-n 标志以输出数值地址，而不是试图将它们反向解析成名字
+
+其中环回(loopback)接口称为lo，以太网接口称为eth0。
+
+netstat -r 展示路由表相当于 route -n 
+
+```bash
+andrew@andrew-Thurley:/work/linux-sys/NETWORK/UNIX网络编程$ route -n
+内核 IP 路由表
+目标            网关            子网掩码        标志  跃点   引用  使用 接口
+0.0.0.0         192.168.0.1     0.0.0.0         UG    600    0        0 wlp3s0b1
+169.254.0.0     0.0.0.0         255.255.0.0     U     1000   0        0 wlp3s0b1
+192.168.0.0     0.0.0.0         255.255.255.0   U     600    0        0 wlp3s0b1
+andrew@andrew-Thurley:/work/linux-sys/NETWORK/UNIX网络编程$ netstat -r
+内核 IP 路由表
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         192.168.0.1     0.0.0.0         UG        0 0          0 wlp3s0b1
+link-local      *               255.255.0.0     U         0 0          0 wlp3s0b1
+192.168.0.0     *               255.255.255.0   U         0 0          0 wlp3s0b1
+
+```
+
+使用ifconfig 可以获取各个网络接口的详细信息 
+
+**找出本地网络众中众多主机的方法**
+
+在ifconfig之后
+
+```bash
+andrew@andrew-Thurley:/work/linux-sys/NETWORK/UNIX网络编程$ ifconfig
+enp4s0    Link encap:以太网  硬件地址 xxxxxxxxxxxxxxxxxx  
+          UP BROADCAST MULTICAST  MTU:1500  跃点数:1
+          接收数据包:0 错误:0 丢弃:0 过载:0 帧数:0
+          发送数据包:0 错误:0 丢弃:0 过载:0 载波:0
+          碰撞:0 发送队列长度:1000 
+          接收字节:0 (0.0 B)  发送字节:0 (0.0 B)
+
+lo        Link encap:本地环回  
+          inet 地址:127.0.0.1  掩码:255.0.0.0
+          inet6 地址: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  跃点数:1
+          接收数据包:77460 错误:0 丢弃:0 过载:0 帧数:0
+          发送数据包:77460 错误:0 丢弃:0 过载:0 载波:0
+          碰撞:0 发送队列长度:1000 
+          接收字节:6116834 (6.1 MB)  发送字节:6116834 (6.1 MB)
+
+wlp3s0b1  Link encap:以太网  硬件地址 xxxxxxxxxxxxxxxxxxxx  
+          inet 地址:192.168.0.103  广播:192.168.0.255  掩码:255.255.255.0
+          inet6 地址: xxxxxxxxxxxxxxxxxxxxxx Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  跃点数:1
+          接收数据包:1071740 错误:0 丢弃:0 过载:0 帧数:0
+          发送数据包:446685 错误:0 丢弃:0 过载:0 载波:0
+          碰撞:0 发送队列长度:1000 
+          接收字节:1504629481 (1.5 GB)  发送字节:55271250 (55.2 MB)
+
+```
+
+通过ping 广播地址可以得到
+
+```bash
+$ ping -b 192.168.0.255
+WARNING: pinging broadcast address
+PING 192.168.0.255 (192.168.0.255) 56(84) bytes of data.
+64 bytes from 192.168.0.1: icmp_seq=1 ttl=64 time=3.49 ms
+
+```
+
+通过ping -b + 广播地址，可以回复ping的设备都会对设备进行回复，这样就能找到同一局域网下面的主机的个数以及IP
+
+当然找到了之后可以使用nmap进行扫描发现主机开放的端口，使用cain破解一些加密信息(仅用于测试)
+
+当64位系统出现时，数据占位大小的方面有以下变化：
+
+| 数据类型 | ILP32模型 | Lp64模型 |
+| -------- | --------- | -------- |
+| char     | 8         | 8        |
+| short    | 16        | 16       |
+| int      | 32        | 32       |
+| long     | 32        | 64       |
+| 指针     | 32        | 64       |
+
+在上述实现的获取时间的客户端和服务器中，客户端使用connect建立连接，完成三次握手，服务器使用accept完成三次握手
+
+![[三次握手]([https://baike.baidu.com/item/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/5111559?fr=aladdin](https://baike.baidu.com/item/三次握手/5111559?fr=aladdin))](./../picture/network/三次握手.jpg)
+
+
+
+-----
+
+## 基本的套接字编程
+
+### 套接字的地址结构
+
+> 大多数的套接字函数都需要一个指向套接字地址结构的指针作为参数，每个协议族都定义它自己的套接字地址结构。这些结构的名字均以sockaddr_开头，并以每个协议族的唯一的后缀结尾
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------
+
+## 小技巧
+
+### 宏定义的使用&&变参函数的宏定义实现
+
+```c
+#define UNIX_NET_DEBUG(...) do { \
+                    printf("[%s], lien  = [%d]", __FILE__, __LINE__); \
+                    printf(__VA_ARGS__); \
+                     }while(0)
+```
+
+
+
+
+
+## 源码地址
+
+[github]([https://github.com/zzu-andrew/linux-sys/tree/dfew/NETWORK/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B](https://github.com/zzu-andrew/linux-sys/tree/dfew/NETWORK/UNIX网络编程))
+
+**关注公众号**
+
+![扫码关注，持续更新](./../picture/weixin.jpg)
+

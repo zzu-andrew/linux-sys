@@ -8,6 +8,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 
 #define UNIX_NET_DEBUG(...) do { \
@@ -15,6 +17,10 @@
                     printf(__VA_ARGS__); \
                      }while(0)
   
+
+#define MAXLINE 4096
+
+#define LISTENQ 1024
 
 
 
