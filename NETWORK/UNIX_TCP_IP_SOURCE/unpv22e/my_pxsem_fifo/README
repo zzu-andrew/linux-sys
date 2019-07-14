@@ -1,0 +1,17 @@
+The following directories contain implementations of Posix message queues
+of Posix semaphores, using some other technique:
+
+	my_pxmsg_mmap/	implements Posix message queues using mmap
+	my_pxsem_fifo/	implements Posix semaphores using FIFOs
+	my_pxsem_mmap/	implements Posix semaphores using mmap
+	my_pxsem_svsem/	implements Posix semaphores using System V semaphores
+
+In these directories the functions, structures, and datatypes are all
+prefixed with the two characters "my".  This makes it much easier to
+include the headers and functions along with the normal system headers
+and libraries.  But in the source code shown in the book, the "my"
+is removed, to make the code more readable.
+
+Also assumed in each of these directories is that an #include of a
+filename in double quotes looks in that directory, and not in a
+system directory.

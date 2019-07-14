@@ -15,11 +15,12 @@ void fake_download(uv_work_t *req) {
     while (downloaded < size) {
         percentage = downloaded*100.0/size;
         async.data = (void*) &percentage;
+        //< 同样是非阻塞的函数，调用后会立即返回
         uv_async_send(&async);
 
         sleep(1);
         downloaded += (200+random())%1000; // can only download max 1000bytes/sec,
-                                           // but at least a 200;
+                                           // but at least a 2030;
     }
 }
 
@@ -33,6 +34,11 @@ void print_progress(uv_async_t *handle) {
     fprintf(stderr, "Downloaded %.2f%%\n", percentage);
 }
 
+ /**
+  * 很多时候，你希望，正在运行的线程之间能够相互之间发送消息
+  * 
+  */
+ 
 int main() {
     loop = uv_default_loop();
 

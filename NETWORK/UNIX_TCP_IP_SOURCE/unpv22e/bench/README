@@ -1,0 +1,16 @@
+     Not all of the tests in this directory run on all systems.
+First execute "make clean" and then build all the programs that will
+compile: "make -i".  You will get an error for every program that will
+not compile, but at the end the only executables are the ones that will
+run.
+
+     Then run "bw_lat.sh" and "incr.sh" to measure the bandwidth,
+latency, and synchronization times.  Notice that these two shell scripts
+require at least the 1993 KornShell (ksh93) and they skip any executable
+that does not exist.
+
+	The three files "lat_signal.c", "lat_sigwait.c", and
+"lat_sigqueue.c" were developed after the book was published and
+were not in the source code tar ball until Sept. 21, 1998.  These
+three programs measure the latency involved when using signals as
+a form of IPC (which should not really be done).

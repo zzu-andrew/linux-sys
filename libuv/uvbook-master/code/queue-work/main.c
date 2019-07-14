@@ -19,7 +19,12 @@ void fib(uv_work_t *req) {
     if (random() % 2)
         sleep(1);
     else
+    {
+        /* code */
         sleep(3);
+    }
+    
+       
     long fib = fib_(n);
     fprintf(stderr, "%dth fibonacci is %lu\n", n, fib);
 }

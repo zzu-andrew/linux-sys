@@ -20,9 +20,12 @@ int main() {
     args[1] = "test-dir";
     args[2] = NULL;
 
+
     options.exit_cb = on_exit;
     options.file = "mkdir";
     options.args = args;
+    //< 指定执行的文件目录
+    options.cwd = "aa";
 
     int r;
     if ((r = uv_spawn(loop, &child_req, &options))) {

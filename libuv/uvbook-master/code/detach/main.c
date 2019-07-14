@@ -14,7 +14,7 @@ int main() {
     args[1] = "100";
     args[2] = NULL;
 
-    options.exit_cb = NULL;
+    options.exit_cb = NULL; //< 执行结束时候调用的回调函数
     options.file = "sleep";
     options.args = args;
     options.flags = UV_PROCESS_DETACHED;

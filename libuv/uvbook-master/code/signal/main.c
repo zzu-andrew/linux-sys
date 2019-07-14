@@ -15,7 +15,8 @@ uv_loop_t* create_loop()
 void signal_handler(uv_signal_t *handle, int signum)
 {
     printf("Signal received: %d\n", signum);
-    uv_signal_stop(handle);
+    //< 终止每一个 uv_signal_t 最终程序退出
+   // uv_signal_stop(handle);
 }
 
 // two signal handlers in one loop

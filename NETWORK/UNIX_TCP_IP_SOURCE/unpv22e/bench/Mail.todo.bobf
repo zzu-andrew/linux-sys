@@ -1,0 +1,80 @@
+From bfriesen@simple.dallas.tx.us  Wed Apr 22 19:49:55 1998
+Received: from kalae.kohala.com (kalae.kohala.com [209.75.135.35]) by kohala.kohala.com (8.8.5/8.8.3) with ESMTP id TAA00007 for <rstevens@kohala.kohala.com>; Wed, 22 Apr 1998 19:49:54 -0700 (MST)
+Received: from mailhost.cyberramp.net (mailhost.cyberramp.net [207.158.64.11])
+	by kalae.kohala.com (8.8.5/8.8.5) with ESMTP id TAA08360
+	for <rstevens@kohala.com>; Wed, 22 Apr 1998 19:49:52 -0700 (MST)
+Received: from fuzzylog.simple.dallas.tx.us (dal-tsa15-11.cyberramp.net [207.158.83.75])
+	by mailhost.cyberramp.net (8.8.8/8.8.8/wdh-980422-1538-MARK) with ESMTP id VAA00032
+	for <rstevens@kohala.com>; Wed, 22 Apr 1998 21:49:50 -0500 (CDT)
+Received: from scooby (scooby [192.168.1.3])
+	by fuzzylog.simple.dallas.tx.us (8.8.8/8.8.8) with SMTP id VAA26369
+	for <rstevens@kohala.com>; Wed, 22 Apr 1998 21:49:47 -0500 (CDT)
+Date: Wed, 22 Apr 1998 21:49:46 -0500 (CDT)
+From: Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
+X-Sender: bfriesen@scooby
+To: "W. Richard Stevens" <rstevens@kohala.com>
+Subject: Re: Book Review
+In-Reply-To: <199804221310.GAA28121@kohala.kohala.com>
+Message-ID: <Pine.GSO.3.95.980422213657.567C-100000@scooby>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Status: ORr
+
+Richard,
+
+I tried running your benchmark code under Solaris 2.6 and ran into some
+peculiar problems with bw_lat.sh.  It seems that the shell was not happy about
+something.  At any rate, I made a few edits (including adding a missing 
+argument to the doors benchmark) and things seem to run mostly ok now.  I
+notice that the doors benchmark returns an error sometimes.  I also notice
+that when running the bw_svmsg benchmark, the benchmark hangs if xfersize is
+set greater than 2048 (a Solaris limit according to your draft book).
+
+I am attaching a diff containing my modifications.
+
+Bob
+======================================
+Bob Friesenhahn
+bfriesen@simple.dallas.tx.us
+http://www.cyberramp.net/~bfriesen
+
+--- bw_lat.sh.old	Wed Apr 22 21:40:56 1998
++++ bw_lat.sh	Wed Apr 22 21:31:37 1998
+@@ -1,13 +1,14 @@
+-# !/usr/dt/bin/dtksh
+-# !/bin/ksh
+-# set -x
++#!/usr/dt/bin/dtksh
++#!/bin/ksh
++#set -x
+ 
+ # Requires a ksh newer than 11/16/88 because it uses floating point
+ # arithmetic and printf.  /usr/dt/bin/dtksh on Solaris and Digital Unix
+ # is such a beast, as are some vendor's ksh93 binary.
+ # /usr/dt/bin/dtksh on Digital Unix 4.0B appears brain dead.
+ 
+-float sum=0.0 usec=0.0
++float sum=0.0
++float usec=0.0
+ 
+ function doit
+ {
+@@ -69,7 +70,7 @@
+ 
+ if [ -x bw_svmsg ]
+ then
+-	for xfersize in 1024 2048 4096 8192 16384
++	for xfersize in 1024 2048 #4096 8192 16384
+ 	do
+ 		for i in 1 2 3 4 5
+ 		do
+@@ -116,7 +117,7 @@
+ then
+ 	for i in 1 2 3 4 5
+ 	do
+-		doit "lat_door 10000"
++		doit "lat_door /tmp/bench 10000"
+ 	done
+ 	echo "*****"
+ 	average_lat 5
+

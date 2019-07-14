@@ -1,0 +1,83 @@
+# This file is a shell script that caches the results of configure
+# tests run on this system so they can be shared between configure
+# scripts and configure runs.  It is not useful on other systems.
+# If it contains results you don't want to keep, you may remove or edit it.
+#
+# By default, configure uses ./config.cache as the cache file,
+# creating it if it does not exist already.  You can give configure
+# the --cache-file=FILE option to use a different cache file; that is
+# what configure does when it calls configure scripts in
+# subdirectories, so they share the cache.
+# Giving --cache-file=/dev/null disables caching, for debugging configure.
+# config.status only pays attention to the cache file if you give it the
+# --recheck option to rerun configure.
+#
+ac_cv_func_bzero=${ac_cv_func_bzero='yes'}
+ac_cv_func_fattach=${ac_cv_func_fattach='yes'}
+ac_cv_func_isfdtype=${ac_cv_func_isfdtype='no'}
+ac_cv_func_poll=${ac_cv_func_poll='yes'}
+ac_cv_func_pselect=${ac_cv_func_pselect='no'}
+ac_cv_func_sigwait=${ac_cv_func_sigwait='yes'}
+ac_cv_func_snprintf=${ac_cv_func_snprintf='yes'}
+ac_cv_func_valloc=${ac_cv_func_valloc='yes'}
+ac_cv_func_vsnprintf=${ac_cv_func_vsnprintf='yes'}
+ac_cv_have_gethostname_proto=${ac_cv_have_gethostname_proto='yes'}
+ac_cv_have_getrusage_proto=${ac_cv_have_getrusage_proto='yes'}
+ac_cv_have_isfdtype_proto=${ac_cv_have_isfdtype_proto='no'}
+ac_cv_have_pselect_proto=${ac_cv_have_pselect_proto='no'}
+ac_cv_have_semun_union=${ac_cv_have_semun_union='no'}
+ac_cv_have_shm_open_proto=${ac_cv_have_shm_open_proto='no'}
+ac_cv_have_siginfo_t_struct=${ac_cv_have_siginfo_t_struct='yes'}
+ac_cv_have_snprintf_proto=${ac_cv_have_snprintf_proto='yes'}
+ac_cv_have_thr_setconcurrency_proto=${ac_cv_have_thr_setconcurrency_proto='yes'}
+ac_cv_have_timespec_struct=${ac_cv_have_timespec_struct='yes'}
+ac_cv_header_door_h=${ac_cv_header_door_h='yes'}
+ac_cv_header_errno_h=${ac_cv_header_errno_h='yes'}
+ac_cv_header_fcntl_h=${ac_cv_header_fcntl_h='yes'}
+ac_cv_header_limits_h=${ac_cv_header_limits_h='yes'}
+ac_cv_header_mqueue_h=${ac_cv_header_mqueue_h='yes'}
+ac_cv_header_poll_h=${ac_cv_header_poll_h='yes'}
+ac_cv_header_pthread_h=${ac_cv_header_pthread_h='yes'}
+ac_cv_header_rpc_rpc_h=${ac_cv_header_rpc_rpc_h='yes'}
+ac_cv_header_semaphore_h=${ac_cv_header_semaphore_h='yes'}
+ac_cv_header_signal_h=${ac_cv_header_signal_h='yes'}
+ac_cv_header_stdc=${ac_cv_header_stdc='yes'}
+ac_cv_header_stdio_h=${ac_cv_header_stdio_h='yes'}
+ac_cv_header_stdlib_h=${ac_cv_header_stdlib_h='yes'}
+ac_cv_header_string_h=${ac_cv_header_string_h='yes'}
+ac_cv_header_strings_h=${ac_cv_header_strings_h='yes'}
+ac_cv_header_stropts_h=${ac_cv_header_stropts_h='yes'}
+ac_cv_header_sys_filio_h=${ac_cv_header_sys_filio_h='yes'}
+ac_cv_header_sys_ioctl_h=${ac_cv_header_sys_ioctl_h='yes'}
+ac_cv_header_sys_ipc_h=${ac_cv_header_sys_ipc_h='yes'}
+ac_cv_header_sys_mman_h=${ac_cv_header_sys_mman_h='yes'}
+ac_cv_header_sys_msg_h=${ac_cv_header_sys_msg_h='yes'}
+ac_cv_header_sys_select_h=${ac_cv_header_sys_select_h='yes'}
+ac_cv_header_sys_sem_h=${ac_cv_header_sys_sem_h='yes'}
+ac_cv_header_sys_shm_h=${ac_cv_header_sys_shm_h='yes'}
+ac_cv_header_sys_stat_h=${ac_cv_header_sys_stat_h='yes'}
+ac_cv_header_sys_sysctl_h=${ac_cv_header_sys_sysctl_h='no'}
+ac_cv_header_sys_time_h=${ac_cv_header_sys_time_h='yes'}
+ac_cv_header_sys_types_h=${ac_cv_header_sys_types_h='yes'}
+ac_cv_header_sys_wait_h=${ac_cv_header_sys_wait_h='yes'}
+ac_cv_header_time=${ac_cv_header_time='yes'}
+ac_cv_header_time_h=${ac_cv_header_time_h='yes'}
+ac_cv_header_unistd_h=${ac_cv_header_unistd_h='yes'}
+ac_cv_lib_posix4_mq_open=${ac_cv_lib_posix4_mq_open='yes'}
+ac_cv_lib_posix4_shm_open=${ac_cv_lib_posix4_shm_open='yes'}
+ac_cv_lib_pthread_pthread_key_create=${ac_cv_lib_pthread_pthread_key_create='yes'}
+ac_cv_lib_rt_mq_open=${ac_cv_lib_rt_mq_open='no'}
+ac_cv_prog_CC=${ac_cv_prog_CC='gcc'}
+ac_cv_prog_CPP=${ac_cv_prog_CPP='gcc -E'}
+ac_cv_prog_RANLIB=${ac_cv_prog_RANLIB='ranlib'}
+ac_cv_prog_cc_cross=${ac_cv_prog_cc_cross='no'}
+ac_cv_prog_cc_g=${ac_cv_prog_cc_g='yes'}
+ac_cv_prog_cc_works=${ac_cv_prog_cc_works='yes'}
+ac_cv_prog_gcc=${ac_cv_prog_gcc='yes'}
+ac_cv_type_int16_t=${ac_cv_type_int16_t='yes'}
+ac_cv_type_int32_t=${ac_cv_type_int32_t='yes'}
+ac_cv_type_size_t=${ac_cv_type_size_t='yes'}
+ac_cv_type_ssize_t=${ac_cv_type_ssize_t='yes'}
+ac_cv_type_uint16_t=${ac_cv_type_uint16_t='yes'}
+ac_cv_type_uint32_t=${ac_cv_type_uint32_t='yes'}
+ac_cv_type_uint8_t=${ac_cv_type_uint8_t='yes'}

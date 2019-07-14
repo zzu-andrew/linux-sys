@@ -304,10 +304,11 @@ void after_fib(uv_work_t *req, int status) {
 `uv_cancel()`函数同样可以用在`uv_fs_t`和`uv_getaddrinfo_t`请求上。对于一系列的文件系统操作函数来说，`uv_fs_t.errorno`会同样被设置为`UV_ECANCELED`。  
 
 ##### Tip
+
 >一个良好设计的程序，应该能够终止一个已经开始运行的长耗时任务。  
 >Such a worker could periodically check for a variable that only the main process sets to signal termination.
 
-##Inter-thread communication
+## Inter-thread communication
 
 很多时候，你希望正在运行的线程之间能够相互发送消息。例如你在运行一个持续时间长的任务（可能使用uv_queue_work），但是你需要在主线程中监视它的进度情况。下面有一个简单的例子，演示了一个下载管理程序向用户展示各个下载线程的进度。  
 

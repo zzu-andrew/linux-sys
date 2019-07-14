@@ -1,0 +1,18 @@
+kohala % tcpdump tcp and host kalae and port 2234
+tcpdump: listening on le0
+12:22:45.244577 kohala.kohala.com.32966 > kalae.kohala.com.2234: S 1432068023:1432068023(0) win 8760 <mss 1460> (DF)
+12:22:45.245291 kalae.kohala.com.2234 > kohala.kohala.com.32966: S 3259045795:3259045795(0) ack 1432068024 win 8760 <mss 1460> (DF)
+12:22:45.245471 kohala.kohala.com.32966 > kalae.kohala.com.2234: . ack 1 win 8760 (DF)
+12:22:45.248909 kohala.kohala.com.32966 > kalae.kohala.com.2234: P 1:49(48) ack 1 win 8760 (DF)
+12:22:45.250092 kalae.kohala.com.2234 > kohala.kohala.com.32966: P 1:33(32) ack 49 win 8760 (DF)
+12:22:45.250224 kohala.kohala.com.32966 > kalae.kohala.com.2234: . ack 33 win 8760 (DF)
+12:22:45.254693 kohala.kohala.com.32966 > kalae.kohala.com.2234: P 49:97(48) ack 33 win 8760 (DF)
+12:22:45.255489 kalae.kohala.com.2234 > kohala.kohala.com.32966: P 33:65(32) ack 97 win 8760 (DF)
+12:22:45.267750 kohala.kohala.com.32966 > kalae.kohala.com.2234: F 97:97(0) ack 65 win 8760 (DF)
+12:22:45.268250 kalae.kohala.com.2234 > kohala.kohala.com.32966: . ack 98 win 8760 (DF)
+12:22:45.268526 kalae.kohala.com.2234 > kohala.kohala.com.32966: F 65:65(0) ack 98 win 8760 (DF)
+12:22:45.268722 kohala.kohala.com.32966 > kalae.kohala.com.2234: . ack 66 win 8760 (DF)
+^?
+814 packets received by filter
+0 packets dropped by kernel
+

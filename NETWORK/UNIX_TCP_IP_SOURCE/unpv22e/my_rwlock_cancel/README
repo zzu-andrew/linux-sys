@@ -1,0 +1,2 @@
+This directory contains a version of the Pthreads read-write lock
+functions that implement cancelation handling.

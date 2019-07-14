@@ -1,0 +1,39 @@
+#include	"unpipc.h"
+
+struct sigevent	sigev;
+mqd_t	mqd;
+
+#if	defined(sun) && defined(__svr4__)
+#define	sigev_notify_function	_sigev_un._sigev_notify_function
+#define	sigev_notify_attributes	_sigev_notify_attributes
+#endif
+
+static void	notify_thread(union sigval);		/* our thread function */
+
+int
+main(int argc, char **argv)
+{
+	if (argc != 2)
+		err_quit("usage: mqnotify2 <name>");
+
+	mqd = Mq_open(argv[1], O_RDONLY);
+
+	sigev.sigev_notify = SIGEV_THREAD;
+	sigev.sigev_value.sival_ptr = NULL;
+	sigev.sigev_notify_function = notify_thread;
+	sigev.sigev_notify_attributes = NULL;
+	Mq_notify(mqd, &sigev);
+
+	for ( ; ; )
+		pause();
+
+	exit(0);
+}
+
+static void
+notify_thread(union sigval arg)
+{
+	printf("notify_thread started\n");
+	Mq_notify(mqd, &sigev);			/* reregister */
+	pthread_exit(NULL);
+}

@@ -13,12 +13,15 @@ void on_exit(uv_process_t *req, int64_t exit_status, int term_signal) {
     uv_close((uv_handle_t*) req, NULL);
 }
 
+
+//< 向子进程传递文件描述符
 int main() {
     loop = uv_default_loop();
 
     size_t size = 500;
     char path[size];
     uv_exepath(path, &size);
+    printf("%s\n\n\n", path);
     strcpy(path + (strlen(path) - strlen("proc-streams")), "test");
 
     char* args[2];
@@ -27,7 +30,7 @@ int main() {
 
     /* ... */
 
-    options.stdio_count = 3;
+    options.stdio_count = 3;// 
     uv_stdio_container_t child_stdio[3];
     child_stdio[0].flags = UV_IGNORE;
     child_stdio[1].flags = UV_IGNORE;

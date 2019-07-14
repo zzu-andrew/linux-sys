@@ -1,0 +1,338 @@
+dnl
+dnl autoconf script for UNP 2/e Volume 2 source code.
+dnl Process this file with autoconf to produce a configure script.
+dnl
+dnl The end result of running configure is the "config.h" file and the
+dnl "Make.defines" file in the current directory.  These two files are
+dnl created from the "config.h.in" and "Make.defines.in" files in the
+dnl current directory.
+dnl
+dnl The header "unpipc.h" that is in every source directory then does a
+dnl #include "../config.h" and the Makefile in each source directory
+dnl then does a include of ../Make.defines.
+dnl
+AC_INIT(lib/unpipc.h)
+AC_CANONICAL_HOST
+AC_CONFIG_HEADER(config.h)
+
+dnl The following cpu_vendor_os string goes into config.h.
+dnl
+AC_DEFINE_UNQUOTED(CPU_VENDOR_OS, "$host")
+
+dnl ##################################################################
+dnl Checks for programs.
+dnl
+
+dnl Some system-specific stuff ...
+dnl Some operating systems require additional flags in order to get all
+dnl the definitions that we're looking for in some system headers.
+dnl The configure script uses both CFLAGS and CPPFLAGS when compiling.
+case "$host_os" in
+*aix*)		CPPFLAGS="$CPPFLAGS -D_ALL_SOURCE" ;;
+*hpux*)		CPPFLAGS="$CPPFLAGS -D_HPUX_SOURCE" ;;
+*osf*)		CPPFLAGS="$CPPFLAGS -D_SOCKADDR_LEN" ;;
+*solaris2*)	CPPFLAGS="$CPPFLAGS -D__STDC__ -D__EXTENSIONS__" ;;
+esac
+
+AC_PROG_CC
+AC_PROG_RANLIB
+
+dnl ##################################################################
+dnl Checks for libraries.
+dnl The order of these tests is the *reverse* order of the libraries in
+dnl the LIBS variable that is constructed: each new one gets prepended,
+dnl not appended.
+dnl
+dnl We are building two strings here; something like:
+dnl	LIBS="-lresolv -lsocket -lnsl -lpthread"
+dnl	LIBUNPIPC="./libunpipc.a"
+dnl
+dnl If a threads library is found, need to update CFLAGS too.
+dnl
+AC_CHECK_LIB(pthread, pthread_key_create)
+if test "$ac_cv_lib_pthread_pthread_key_create" = yes ; then
+   CFLAGS="$CFLAGS -D_REENTRANT"
+else
+   AC_CHECK_LIB(pthreads, pthread_key_create)
+   if test "$ac_cv_lib_pthreads_pthread_key_create" = yes ; then
+      CFLAGS="$CFLAGS -D_REENTRANT"
+   fi
+fi
+
+dnl Solaris requires -lposix4.
+dnl
+AC_CHECK_LIB(posix4, mq_open)
+
+dnl Digital Unix 4.0B requires -lrt
+dnl
+AC_CHECK_LIB(rt, mq_open)
+
+dnl We now need to check for our own libraries, but we cannot prepend
+dnl them to the LIBS variable, as that variable is used when compiling
+dnl programs later in this script, and that would mess things up.
+dnl
+dnl If the user has a file named $HOME/libunpipc.a, then use it.
+dnl Else store our library in current directory.
+dnl I use this because my source directory is NFS mounted from my various
+dnl systems, but I have a unique home directory on each system.
+dnl
+AC_MSG_CHECKING(for $HOME/libunpipc.a)
+if test -f $HOME/libunpipc.a ; then
+	AC_MSG_RESULT(yes)
+	LIBUNPIPC="$HOME/libunpipc.a"
+	LIBUNPIPC_NAME=$HOME/libunpipc.a
+else
+	AC_MSG_RESULT(no, using ./libunpipc.a)
+	LIBUNPIPC="../libunpipc.a"
+	LIBUNPIPC_NAME=../libunpipc.a
+fi
+
+dnl Check for any system-specific libraries needed for Sun RPC.
+dnl
+AC_MSG_CHECKING(for /usr/lib/libnsl.so)
+if test -f /usr/lib/libnsl.so ; then
+	AC_MSG_RESULT(yes)
+	LIBS_RPC="-lnsl"
+else
+	AC_MSG_RESULT(no)
+fi
+
+dnl ##################################################################
+dnl Checks for header files.
+dnl
+dnl The list of headers in the AC_CHECK_HEADERS macro is the same as in
+dnl our "unpipc.h" header.  <sys/sysctl.h> is not #included by "unpipc.h",
+dnl but used in "lib/wrapunix.c".
+dnl
+AC_HEADER_STDC
+AC_CHECK_HEADERS(sys/types.h sys/time.h time.h errno.h fcntl.h limits.h signal.h stdio.h stdlib.h string.h sys/stat.h unistd.h sys/wait.h sys/ipc.h sys/msg.h sys/sem.h sys/shm.h mqueue.h semaphore.h sys/mman.h sys/select.h poll.h stropts.h strings.h sys/ioctl.h sys/filio.h pthread.h door.h rpc/rpc.h sys/sysctl.h)
+
+dnl ##################################################################
+dnl Checks for typedefs.
+dnl
+dnl We use our own AC_UNP_CHECK_TYPE macro, instead of AC_CHECK_TYPE,
+dnl to #include more headers.  Our macro is defined in "aclocal.m4".
+dnl
+AC_HEADER_TIME
+AC_UNP_CHECK_TYPE(uint8_t, unsigned char)
+AC_UNP_CHECK_TYPE(int16_t, short)
+AC_UNP_CHECK_TYPE(uint16_t, unsigned short)
+AC_UNP_CHECK_TYPE(int32_t, int)
+AC_UNP_CHECK_TYPE(uint32_t, unsigned int)
+AC_UNP_CHECK_TYPE(size_t, unsigned int)
+AC_UNP_CHECK_TYPE(ssize_t, int)
+
+dnl ##################################################################
+dnl Check for function prototypes in headers.
+dnl AC_CHECK_FUNC_PROTO is our own macro in "aclocal.m4".
+dnl
+AC_CHECK_FUNC_PROTO(gethostname, unistd.h)
+AC_CHECK_FUNC_PROTO(getrusage, sys/resource.h)
+AC_CHECK_FUNC_PROTO(isfdtype, sys/stat.h)
+AC_CHECK_FUNC_PROTO(pselect, sys/select.h)
+AC_CHECK_FUNC_PROTO(shm_open, sys/mman.h)
+
+dnl Cannot get the above to work under Solaris 2.6.  It is the stupid
+dnl POSIX_C_SOURCE feature test macro that hides the prototypes.
+dnl Following tries to get around that.
+if test $ac_cv_lib_posix4_mq_open = yes ; then
+	AC_CHECK_LIB(posix4, shm_open)
+	if test $ac_cv_lib_posix4_shm_open = yes ; then
+		AC_DEFINE(HAVE_SHM_OPEN_PROTO)
+	fi
+fi
+
+AC_CHECK_FUNC_PROTO(snprintf, stdio.h)
+AC_CHECK_FUNC_PROTO(thr_setconcurrency, thread.h)
+
+dnl ##################################################################
+dnl Check for structure definitions.
+dnl
+AC_CACHE_CHECK(for siginfo_t{}, ac_cv_have_siginfo_t_struct,
+	AC_EGREP_HEADER(siginfo_t, signal.h,
+		ac_cv_have_siginfo_t_struct=yes,
+		ac_cv_have_siginfo_t_struct=no))
+if test $ac_cv_have_siginfo_t_struct = yes ; then
+	AC_DEFINE(HAVE_SIGINFO_T_STRUCT)
+fi
+
+AC_CACHE_CHECK(for timespec{}, ac_cv_have_timespec_struct,
+	AC_EGREP_HEADER(timespec, time.h,
+		ac_cv_have_timespec_struct=yes,
+		ac_cv_have_timespec_struct=no))
+if test $ac_cv_have_timespec_struct = yes ; then
+	AC_DEFINE(HAVE_TIMESPEC_STRUCT)
+fi
+
+dnl The following union is not supposed to be defined in <sys/sem.h>
+dnl but some implementations do defint it (*BSD and Linux).
+
+AC_CACHE_CHECK(for union semun, ac_cv_have_semun_union,
+	AC_EGREP_HEADER(semun, sys/sem.h,
+		ac_cv_have_semun_union=yes,
+		ac_cv_have_semun_union=no))
+if test $ac_cv_have_semun_union = yes ; then
+	AC_DEFINE(HAVE_SEMUN_UNION)
+fi
+dnl ##################################################################
+dnl Check for devices.
+dnl
+AC_MSG_CHECKING(for /dev/zero)
+if test -r /dev/zero ; then
+	AC_DEFINE(HAVE_DEV_ZERO)
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+fi
+dnl ##################################################################
+dnl Check whether rpcgen supports -C (newer TI-RPC version).
+dnl
+AC_MSG_CHECKING(whether rpcgen supports -C option)
+echo "const foo = 5;" > /tmp/rpcgen.$$.x
+if rpcgen -C -c /tmp/rpcgen.$$.x > /dev/null 2> /dev/null ; then
+	AC_DEFINE(RPCGEN_ANSIC)
+	RPCGEN_OPTS="-C"
+	AC_MSG_RESULT(yes)
+else
+	RPCGEN_OPTS=
+	AC_MSG_RESULT(no)
+fi
+rm -f /tmp/rpcgen.$$.x
+
+dnl ##################################################################
+dnl Checks for library functions.
+dnl
+AC_CHECK_FUNCS(bzero)
+AC_CHECK_FUNCS(fattach)
+AC_CHECK_FUNCS(isfdtype)
+AC_CHECK_FUNCS(poll)
+AC_CHECK_FUNCS(pselect)
+AC_CHECK_FUNCS(sigwait)
+AC_CHECK_FUNCS(snprintf)
+AC_CHECK_FUNCS(valloc)
+AC_CHECK_FUNCS(vsnprintf)
+
+dnl ##################################################################
+dnl Check for system services.
+
+dnl ##################################################################
+dnl Build the list of object files to build from the source files in
+dnl the lib/ directory.
+dnl
+LIB_OBJS=
+LIB_OBJS="$LIB_OBJS daemon_inetd.o"
+LIB_OBJS="$LIB_OBJS daemon_init.o"
+LIB_OBJS="$LIB_OBJS error.o"
+LIB_OBJS="$LIB_OBJS gf_time.o"
+if test "$ac_cv_func_isfdtype" = no ; then
+   LIB_OBJS="$LIB_OBJS isfdtype.o"
+fi
+LIB_OBJS="$LIB_OBJS lock_reg.o"
+LIB_OBJS="$LIB_OBJS lock_test.o"
+if test "$ac_cv_func_pselect" = no ; then
+   LIB_OBJS="$LIB_OBJS pselect.o"
+fi
+LIB_OBJS="$LIB_OBJS my_shm.o"
+LIB_OBJS="$LIB_OBJS px_ipc_name.o"
+LIB_OBJS="$LIB_OBJS readable_timeo.o"
+LIB_OBJS="$LIB_OBJS readline.o"
+LIB_OBJS="$LIB_OBJS readn.o"
+LIB_OBJS="$LIB_OBJS set_concurrency.o"
+LIB_OBJS="$LIB_OBJS set_nonblock.o"
+LIB_OBJS="$LIB_OBJS signal.o"
+LIB_OBJS="$LIB_OBJS signal_intr.o"
+LIB_OBJS="$LIB_OBJS sleep_us.o"
+if test $ac_cv_have_siginfo_t_struct = yes ; then
+    LIB_OBJS="$LIB_OBJS signal_rt.o"
+    LIB_OBJS="$LIB_OBJS signal_rt_intr.o"
+fi
+if test "$ac_cv_func_snprintf" = no ; then
+   LIB_OBJS="$LIB_OBJS snprintf.o"
+fi
+LIB_OBJS="$LIB_OBJS timing.o"
+LIB_OBJS="$LIB_OBJS tv_sub.o"
+if test "$ac_cv_header_door_h" = yes ; then
+   LIB_OBJS="$LIB_OBJS wrapdoor.o"
+fi
+if test "$ac_cv_header_pthread_h" = yes ; then
+   LIB_OBJS="$LIB_OBJS wrappthread.o"
+fi
+if test "$ac_cv_header_rpc_rpc_h" = yes ; then
+   LIB_OBJS="$LIB_OBJS wrapsunrpc.o"
+fi
+LIB_OBJS="$LIB_OBJS wrapstdio.o"
+LIB_OBJS="$LIB_OBJS wrapunix.o"
+LIB_OBJS="$LIB_OBJS writable_timeo.o"
+LIB_OBJS="$LIB_OBJS writen.o"
+
+dnl Now make certain that when configure is run, AC_OUTPUT replaces these
+dnl strings that we built in shell variables in the output files that
+dnl it generates.
+dnl
+AC_SUBST(LIB_OBJS)
+
+AC_SUBST(LIBS_RPC)
+AC_SUBST(RPCGEN_OPTS)
+
+AC_SUBST(LIBUNPIPC)
+
+AC_SUBST(LIBUNPIPC_NAME)
+
+dnl ##################################################################
+dnl Now that we're doing compiling, modify CFLAGS.
+dnl
+dnl If the directory $HOME/doc/unpv22e/src/include exists, the user can
+dnl place modified copies of the system's headers in there, with the
+dnl function prototypes corrected, as per Posix and X/Open.  Lots of
+dnl system headers today are missing const qualifiers, they have char*
+dnl instead of void*, and so on.
+dnl
+AC_MSG_CHECKING(for -I$HOME/doc/unpv22e/src/include)
+if test -d $HOME/doc/unpv22e/src/include ; then
+	CFLAGS="$CFLAGS -I$HOME/doc/unpv22e/src/include"
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+fi
+
+dnl If the compiler is gcc, enable all warnings.  Main purpose is to
+dnl catch any function call where the function has not been prototyped.
+dnl
+if test "$ac_cv_prog_gcc" = yes; then
+   CFLAGS="$CFLAGS -Wall"
+fi
+
+dnl Some system-specific stuff ...
+dnl Some operating systems require additional flags in order to get all
+dnl the definitions that we're looking for in some system headers.
+case "$host_os" in
+*aix*)		CFLAGS="$CFLAGS -D_ALL_SOURCE" ;;
+*hpux*)		CFLAGS="$CFLAGS -D_HPUX_SOURCE" ;;
+*osf*)		CFLAGS="$CFLAGS -D_SOCKADDR_LEN" ;;
+*solaris*)	if test "$ac_cv_prog_gcc" = yes; then
+		   CFLAGS="$CFLAGS -D__EXTENSIONS__"
+		else
+		   CFLAGS="$CFLAGS -D__STDC__"
+		fi
+		AC_DEFINE(POSIX_IPC_PREFIX, "/")
+		;;
+esac
+
+dnl ##################################################################
+dnl We also create a "Makefile" but it is not used for much.
+dnl
+AC_OUTPUT(Makefile Make.defines)
+
+dnl
+dnl If a directory exists whose name equals the host
+dnl (e.g., sparc-sun-solaris2.6), then save the three files that we
+dnl create in that directory also.
+dnl Quick and dirty to be able to NFS mount this directory on different
+dnl systems and move quickly between the systems, without having to
+dnl rerun configure each time.
+dnl The "myconfig" script in this directory does the move.
+dnl
+if test -d "$host" ; then
+   cp -p config.h config.cache config.status Makefile Make.defines $host
+   echo "saving copies in $host/"
+fi
