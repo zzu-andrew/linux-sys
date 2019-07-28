@@ -1,0 +1,8 @@
+@startuml color_sequence
+' 可以使用 << 和 >> 给参与者添加构造类型。
+' 在构造类型中,你可以使用 (X,color) 格式的语法添加一个圆圈圈起来的字符
+
+participant "Famous Bob" as Bob << Generated >>
+participant Alice << (C,#ADD1B2) Testable >>
+Bob->Alice: First message
+@enduml

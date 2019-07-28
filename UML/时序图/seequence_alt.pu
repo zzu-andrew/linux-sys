@@ -1,0 +1,29 @@
+@startuml alt
+' 我们可以通过以下关键词将组合消息:
+' • alt/else
+' • opt
+' • loop
+' • par
+' • break
+' • critical
+' • group, 后面紧跟着消息内容
+' 可以在标头 (header) 添加需要显示的文字 (group 除外)。
+' 关键词 end 用来结束分组。
+' 注意,分组可以嵌套使用
+
+Alice -> Bob: Authentication Request
+alt successful case
+Bob -> Alice: Authentication Accepted
+else some kind of failure
+Bob -> Alice: Authentication Failure
+group My own label
+Alice -> Log : Log attack start
+loop 1000 times
+Alice -> Bob: DNS Attack
+end
+Alice -> Log : Log attack end
+end
+else Another type of failure
+Bob -> Alice: Please repeat
+end
+@enduml

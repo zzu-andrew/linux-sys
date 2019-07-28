@@ -1,0 +1,11 @@
+@startuml sequene_[]
+[-> A: DoWork
+activate A
+A -> A: Internal call
+activate A
+A ->] : << createRequest >>
+A<--] : RequestCreated
+deactivate A
+[<- A: Done
+deactivate A
+@enduml

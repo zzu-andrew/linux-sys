@@ -1,0 +1,9 @@
+@startuml sequence_with_return
+' A new command return for generating a return message with optional text label. The point returned to is the point
+' that cause the most recently activated life-line. The syntax is simply return label where label, if provided, can be
+' any string acceptable on conventional messages.
+Bob -> Alice : hello
+activate Alice
+Alice -> Alice : some action
+return bye
+@enduml

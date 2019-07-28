@@ -1,0 +1,19 @@
+@startuml  life_line
+' 关键字 activate 和 deactivate 用来表示参与者的生命活动。
+' 一旦参与者被激活,它的生命线就会显示出来。
+' activate 和 deactivate 适用于以上情形。
+' destroy 表示一个参与者的生命线的终结。
+participant User
+User -> A: DoWork
+activate A
+A -> B: << createRequest >>
+activate B
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+B --> A: RequestCreated
+deactivate B
+A -> User: Done
+deactivate A
+@enduml

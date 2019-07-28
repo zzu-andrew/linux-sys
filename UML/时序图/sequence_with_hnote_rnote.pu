@@ -1,0 +1,9 @@
+@startuml rnote_hnote
+caller -> server : conReq
+hnote over caller : idle
+caller <- server : conConf
+rnote over server
+"r" as rectangle
+"h" as hexagon
+end rnote
+@enduml

@@ -1,0 +1,12 @@
+@startuml  spqce
+' 你可以使用 ||| 来增加空间。
+' 还可以使用数字指定增加的像素的数量。
+Alice -> Bob: message 1
+Bob --> Alice: ok
+|||
+Alice -> Bob: message 2
+Bob --> Alice: ok
+||45||
+Alice -> Bob: message 3
+Bob --> Alice: ok
+@enduml

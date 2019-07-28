@@ -1,0 +1,15 @@
+@startuml squence_lifeline
+participant User
+User -> A: DoWork
+activate A #FFBBBB
+A -> A: Internal call
+activate A #DarkSalmon
+A -> B: << createRequest >>
+activate B
+B --> A: RequestCreated
+deactivate B 
+deactivate A 
+A -> User: Done 
+deactivate A 
+
+@enduml

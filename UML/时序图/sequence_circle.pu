@@ -1,0 +1,10 @@
+@startuml sequence_with_circle
+
+' 默认使用 guillemet 字符来显示构造类型。你可以使用外观参数 guillemet 来修改显示行为。
+skinparam guillemet false
+participant "Famous Bob" as Bob << Generated >>
+participant Alice << (C,#ADD1B2) Testable >>
+
+Bob->Alice: First message
+@enduml
+

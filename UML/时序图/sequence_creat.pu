@@ -1,0 +1,11 @@
+@startuml create_sequence
+' 你可以把关键字 create 放在第一次接收到消息之前,以强调本次消息实际上是在创建新的对象
+Bob -> Alice : hello
+create Other
+Alice -> Other : new
+create control String
+Alice -> String
+note right : You can also put notes!
+Alice --> Bob : ok
+
+@enduml 
