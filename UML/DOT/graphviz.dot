@@ -1,0 +1,28 @@
+digraph g {
+    nodesep = .5;
+    rankdir = LR;    //指定绘图的方向 (LR从左到右绘制)
+
+    //定义竖直节点
+    node[shape=record, width=.1, height=.1];
+    node0[label="<f0> |<f1> |<f2> |<f3> |<f4> |<f5> |<f6> ", height=2.5]; //我是一个属性, 我有7个属性
+
+    //定义横向节点
+    node[width=1.5];
+    node1[label="{<n> a13 | 111 | <p>}"]; //我也是一个节点, 定义了3个属性
+    node2[label="{<n> hello | 2387 | <p>}"];
+    node3[label="{<n> g23 | 344 | <p>}"];
+    node4[label="{<n> k535 | 246 | <p>}"];
+    node5[label="{<n> h25 | 13 | <p>}"];
+    node6[label="{<n> dj | 04 | <p>}"];
+    node7[label="{<n> sbd | 0x543 | <p>}"];
+
+    //建立节点之间的联系
+    node0:f0 -> node1:n;
+    node0:f1 -> node2:n;
+    node0:f2 -> node3:n;
+    node0:f5 -> node4:n;
+    node0:f6 -> node5:n;
+    node2:p -> node6:n;
+    node4:p -> node7:n;
+}
+```

@@ -1,0 +1,15 @@
+@startuml autonumber_start_increment
+
+' 语句 autonumber start 用于指定编号的初始值,而 autonumber start increment 可以同时指定编号
+' 的初始值和每次增加的值。
+autonumber
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+autonumber 15
+Bob -> Alice : Another authentication Request
+Bob <- Alice : Another authentication Response
+autonumber 40 10
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
+
+@enduml 

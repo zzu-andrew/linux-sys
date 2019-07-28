@@ -1,0 +1,10 @@
+@startuml sequence_no_alphabet
+
+' 你可以使用引号定义参与者，还可以使用关键字 as 给参与者定义别名
+Alice -> "Bob()" : Hello
+"Bob()" -> "This is very\nlong" as Long
+' You can also declare:
+' "Bob()" -> Long as "This is very\nlong"
+Long --> "Bob()" : ok
+
+@enduml 

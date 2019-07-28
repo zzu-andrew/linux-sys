@@ -1,0 +1,6 @@
+@startuml sequence_order
+' 通过order 定义参与者顺序
+participant Last order 30
+participant Middle order 20
+participant First order 10
+@enduml

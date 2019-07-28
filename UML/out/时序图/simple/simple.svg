@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="206px" preserveAspectRatio="none" style="width:273px;height:206px;" version="1.1" viewBox="0 0 273 206" width="273px" zoomAndPan="magnify"><defs><filter height="300%" id="f773s2ystv984" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="34" x2="34" y1="36.7383" y2="167.4805"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="246" x2="246" y1="36.7383" y2="167.4805"/><rect fill="#FEFECE" filter="url(#f773s2ystv984)" height="28.7383" style="stroke: #A80036; stroke-width: 1.5;" width="49" x="8" y="3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="35" x="15" y="22.6602">Alice</text><rect fill="#FEFECE" filter="url(#f773s2ystv984)" height="28.7383" style="stroke: #A80036; stroke-width: 1.5;" width="49" x="8" y="166.4805"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="35" x="15" y="186.1406">Alice</text><rect fill="#FEFECE" filter="url(#f773s2ystv984)" height="28.7383" style="stroke: #A80036; stroke-width: 1.5;" width="35" x="227" y="3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="21" x="234" y="22.6602">Bob</text><rect fill="#FEFECE" filter="url(#f773s2ystv984)" height="28.7383" style="stroke: #A80036; stroke-width: 1.5;" width="35" x="227" y="166.4805"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="21" x="234" y="186.1406">Bob</text><polygon fill="#A80036" points="234.5,62.4238,244.5,66.4238,234.5,70.4238,238.5,66.4238" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="34.5" x2="240.5" y1="66.4238" y2="66.4238"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="133" x="41.5" y="62.4941">Authentication Request</text><polygon fill="#A80036" points="45.5,90.1094,35.5,94.1094,45.5,98.1094,41.5,94.1094" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="39.5" x2="245.5" y1="94.1094" y2="94.1094"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="139" x="51.5" y="90.1797">Authentication Response</text><polygon fill="#A80036" points="234.5,117.7949,244.5,121.7949,234.5,125.7949,238.5,121.7949" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="34.5" x2="240.5" y1="121.7949" y2="121.7949"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="182" x="41.5" y="117.8652">Another authentication Request</text><polygon fill="#A80036" points="45.5,145.4805,35.5,149.4805,45.5,153.4805,41.5,149.4805" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="39.5" x2="245.5" y1="149.4805" y2="149.4805"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="188" x="51.5" y="145.5508">another authentication Response</text><!--
+@startuml simple 
+
+Alice -> Bob: Authentication Request
+Bob - -> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <- - Bob: another authentication Response
+
+
+@enduml 
+
+PlantUML version 1.2019.06(Sat May 25 01:10:25 CST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_211-b12
+Operating System: Linux
+OS Version: 4.15.0-54-generic
+Default Encoding: UTF-8
+Language: zh
+Country: CN
+--></g></svg>

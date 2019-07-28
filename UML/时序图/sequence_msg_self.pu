@@ -1,0 +1,3 @@
+@startuml sequence_msg_to_self
+Alice->Alice: This is a signal to self.\nIt also demonstrates\nmultiline \ntext
+@enduml

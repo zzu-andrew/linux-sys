@@ -1,0 +1,19 @@
+ digraph html {
+    abc [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+        
+        <tr>
+            <td rowspan="1" colspan="1">类型(17或18)</td>
+            <td rowspan="1" colspan="1">代码(0)</td>
+            <td rowspan="1" colspan="2">校验和</td>
+        </tr>
+        <tr>
+            <td rowspan="1" colspan="2">标示符</td>
+            <td rowspan="1" colspan="2">序列号</td>
+        </tr>
+        <tr>
+            <td rowspan="1" colspan="4">32位子网掩码</td>
+        </tr>
+        
+    </table>>];
+}
