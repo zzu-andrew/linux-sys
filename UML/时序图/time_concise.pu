@@ -1,0 +1,17 @@
+@startuml concise 
+/'
+使用 concise or robust 关键字声明参与者, 选择哪个取决于所需的显示样式。
+通过 @ 标注, 和 is 动词定义状态.
+'/
+
+robust "Web 浏览器" as WB
+concise "Web 用户" as WU
+@0
+WU is 空闲
+WB is 空闲
+@100
+WU is 等待中
+WB is 处理中
+@300
+WB is 等待中
+@enduml

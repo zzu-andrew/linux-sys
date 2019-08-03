@@ -1,0 +1,9 @@
+@startuml left_right_up_down
+' 还可以通过给箭头添加 left, right, up 或 down 等关键字来改变方向
+' 这些方向关键字也可以只是用首字母或者前两个字母的缩写来代替。
+' 但是请注意,这样的缩写不要乱用,Graphviz 不喜欢这样
+:user: -left-> (dummyLeft)
+:user: -right-> (dummyRight)
+:user: -up-> (dummyUp)
+:user: -down-> (dummyDown)
+@enduml

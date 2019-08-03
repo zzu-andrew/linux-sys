@@ -1,0 +1,14 @@
+@startuml direction 
+/'
+默认情况下,对象之间用 --连接,并且连接是竖直的。不过可以使用一个横线或者点设置水平方向的连
+接,就行这样:
+'/
+
+[Component] --> Interface1
+[Component] -> Interface2
+
+
+Interface3 <-- [Component1]
+Interface4 <- [Component1]
+
+@enduml

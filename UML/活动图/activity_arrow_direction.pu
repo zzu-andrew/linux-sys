@@ -1,0 +1,13 @@
+@startuml direction
+/'
+你可以使用 -> 定义水平方向箭头,还可以使用下列语法强制指定箭头的方向:
+• -down-> (default arrow)
+• -right-> or ->
+• -left->
+• -up->
+'/
+(*) -up-> "First Activity"
+-right-> "Second Activity"
+--> "Third Activity"
+-left-> (*)
+@enduml

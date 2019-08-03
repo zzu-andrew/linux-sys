@@ -1,0 +1,12 @@
+@startuml
+' 你可以在定义了两个类之间的关系后定义一个 关系类 association class 例如:
+class Student {
+Name
+}
+Student "0..*" - "1..*" Course
+(Student, Course) .. Enrollment
+class Enrollment {
+drop()
+cancel()
+}
+@enduml

@@ -1,0 +1,20 @@
+@startuml generics
+newpage
+' 你也可以使用 show/hide 命令来隐藏类
+' 如果你定义了一个大的!included 文件,且想在文件包含之后隐藏部分类,该功能会很有帮助。
+class Foo1
+class Foo2
+Foo2 *-- Foo1
+hide Foo2
+
+
+' 你可以用 < 和 > 来定义类的泛型
+
+class Foo<? extends Element> {
+int size()
+}
+Foo *- Element
+
+
+
+@enduml

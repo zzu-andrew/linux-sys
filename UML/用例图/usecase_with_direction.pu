@@ -1,0 +1,16 @@
+@startuml with direction
+
+
+'default
+top to bottom direction
+user1 --> (Usecase 1)
+user2 --> (Usecase 2)
+
+' 你可以用 left to right direction 命令改变图示方向。
+newpage
+
+left to right direction
+user3 --> (Usecase 3)
+user4 --> (Usecase 4)
+
+@enduml

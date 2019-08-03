@@ -1,0 +1,11 @@
+@startuml stract 
+' 通过修饰符 {static} 或者 {abstract},可以定义静态或者抽象的方法或者属性。
+' 这些修饰符可以写在行的开始或者结束。也可以使用 {classifier} 这个修饰符来代替 {static}.
+
+
+class Dummy {
+{static} String id
+{abstract} void methods()
+}
+
+@enduml

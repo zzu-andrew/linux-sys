@@ -1,0 +1,48 @@
+@startuml interface 
+' 为了声明字段 (对象属性)或者方法,你可以使用后接字段名或方法名。
+' 系统检查是否有括号来判断是方法还是字段。
+Object <|-- ArrayList
+Object : equals()
+ArrayList : Object[] elementData
+ArrayList : size()
+
+
+class Dummy {
+String data
+void methods()
+}
+class Flight {
+flightNumber : Integer
+departureTime : Date
+}
+
+' 你可以(显式地)使用 {field} 和 {method} 修饰符来覆盖解析器的对于字段和方法的默认行为 <block-
+' quote> You can use {field} and {method} modifiers to override default behaviour of the parser about fields and
+' methods. </blockquote>
+class Dummy {
+{field} A field (despite parentheses)
+{method} Some method
+}
+
+
+
+' 一旦你定义了域或者方法,你可以定义相应条目的可访问性质。
+
+class Dummy2 {
+-field1
+#field2
+~method1()
++method2()
+}
+
+newpage
+' 你可以采用以下命令停用这些特性 skinparam classAttributeIconSize 0 :
+skinparam classAttributeIconSize 0
+class Dummy {
+-field1
+#field2
+~method1()
++method2()
+}
+
+@enduml

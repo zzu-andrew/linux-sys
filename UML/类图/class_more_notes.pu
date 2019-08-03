@@ -1,0 +1,27 @@
+@startuml more_notes
+' 可以在注释中使用部分 html 标签:
+' • <b>
+' • <u>
+' • <i>
+' • <s>, <del>, <strike>
+' • <font color="#AAAAAA"> or <font color="colorName">
+' • <color:#AAAAAA> or <color:colorName>
+' • <size:nn> to change font size
+' • <img src="file"> or <img:file>: the file must be accessible by the filesystem
+' 你也可以在注释中展示多行。
+' 你也可以在定义的 class 之后直接使用 note left, note right, note top, note bottom 来定义注释。
+
+class Foo
+note left: On last defined class
+note top of Object
+In java, <size:18>every</size> <u>class</u>
+<b>extends</b>
+<i>this</i> one.
+end note
+note as N1
+This note is <u>also</u>
+<b><color:royalBlue>on several</color>
+<s>words</s> lines
+And this is hosted by <img:sourceforge.jpg>
+end note
+@enduml

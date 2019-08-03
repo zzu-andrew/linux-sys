@@ -1,0 +1,12 @@
+@startuml interface 
+/'
+接口可以使用 () 来定义 (因为这个看起来像个圆)。
+还可以使用关键字 interface 关键字来定义接口。并且还可以使用关键字 as 定义一个别名。这个别名
+可以在稍后定义关系的时候使用。
+我们稍后可以看到,接口的定义是可选的
+'/
+[First component]
+[Another component] as Comp2
+component Comp3
+component [Last\ncomponent] as Comp4
+@enduml

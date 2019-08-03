@@ -1,0 +1,43 @@
+@startuml skinparam
+' 用 skinparam 改变字体和颜色。
+' 可以在如下场景中使用:
+' • 在图示的定义中,
+' • 在引入的文件中,
+' • 在命令行或者 ANT 任务提供的配置文件中。
+' 你也可以给构造的角色和用例指定特殊颜色和字体。
+skinparam handwritten true
+skinparam usecase {
+BackgroundColor DarkSeaGreen
+BorderColor DarkSlateGray
+BackgroundColor<< Main >> YellowGreen
+BorderColor<< Main >> YellowGreen
+ArrowColor Olive
+ActorBorderColor black
+ActorFontName Courier
+ActorBackgroundColor<< Human >> Gold
+}
+
+User << Human >>
+:Main Database: as MySql << Application >>
+(Start) << One Shot >>
+(Use the application) as (Use) << Main >>
+User -> (Start)
+User --> (Use)
+MySql --> (Use)
+
+
+newpage
+
+left to right direction
+skinparam packageStyle rectangle
+actor customer
+actor clerk
+rectangle checkout {
+customer -- (checkout)
+(checkout) .> (payment) : include
+(help) .> (checkout) : extends
+(checkout) -- clerk
+}
+
+
+@enduml

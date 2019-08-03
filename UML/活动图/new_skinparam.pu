@@ -1,0 +1,7 @@
+@startuml
+start
+:starting progress;
+#HotPink:reading configuration files
+These files should edited at this point!;
+#AAAAAA:ending of the process;
+@enduml

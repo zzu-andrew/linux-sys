@@ -1,0 +1,8 @@
+@startuml copm1
+' 可以用方括号"[ ]" 在连线上添加描述。
+component comp1 [
+This component
+has a long comment
+on several lines
+]
+@enduml

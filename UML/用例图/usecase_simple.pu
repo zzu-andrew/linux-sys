@@ -1,0 +1,9 @@
+@startuml simple
+' 用例用圆括号括起来。
+' 也可以用关键字 usecase 来定义用例。还可以用关键字 as 定义一个别名,这个别名可以在以后定义关
+' 系的时候使用。
+(First usecase)
+(Another usecase) as (UC2)
+usecase UC3
+usecase (Last\nusecase) as UC4
+@enduml

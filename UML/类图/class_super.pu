@@ -1,0 +1,30 @@
+@startuml super
+' PlantUML 默认自动将方法和属性重新分组,你可以自己定义分隔符来重排方法和属性,下面的分隔符都
+' 是可用的:-- .. == __.
+' 还可以在分隔符中添加标题:
+class Foo1 {
+You can use
+several lines
+..
+as you want
+and group
+==
+things together.
+__
+You can have as many groups
+as you want
+--
+End of class
+}
+class User {
+.. Simple Getter ..
++ getName()
++ getAddress()
+.. Some setter ..
++ setName()
+__ private data __
+int age
+-- encrypted --
+String password
+}
+@enduml

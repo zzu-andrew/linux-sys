@@ -1,0 +1,22 @@
+@startuml toghrt
+/'
+有时候,默认布局并不完美...
+你可以使用 together 关键词将某些类进行分组:布局引擎会尝试将它们捆绑在一起(如同在一个包
+(package) 内)
+你也可以使用建立 隐藏链接的方式来强制布局
+'/
+
+
+
+class Bar1
+class Bar2
+together {
+class Together1
+class Together2
+class Together3
+}
+Together1 - Together2
+Together2 - Together3
+Together2 -[hidden]--> Bar1
+Bar1 -[hidden]> Bar2
+@enduml 

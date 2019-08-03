@@ -1,0 +1,7 @@
+@startuml arrow 
+/'
+元素之间可以使用虚线 (..)、直线 (--)、箭头 (-->) 进行连接。
+'/
+DataAccess - [First Component]
+[First Component] ..> HTTP : use
+@enduml

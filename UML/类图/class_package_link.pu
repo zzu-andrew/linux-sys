@@ -1,0 +1,9 @@
+@startuml class_link
+skinparam packageStyle rectangle
+package foo1.foo2 {
+}
+package foo1.foo2.foo3 {
+class Object
+}
+foo1.foo2 +-- foo1.foo2.foo3
+@enduml

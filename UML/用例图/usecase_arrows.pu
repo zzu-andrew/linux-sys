@@ -1,0 +1,13 @@
+@startuml arrow_function
+' 默认连接是竖直方向的,用 --表示,可以用一个横杠或点来表示水平连接 
+:user: --> (Use case 1)
+:user: -> (Use case 2)
+
+' 也可以通过翻转箭头来改变方向
+newpage
+
+@startuml
+(Use case 1) <.. :user:
+(Use case 2) <- :user:
+@enduml
+@enduml

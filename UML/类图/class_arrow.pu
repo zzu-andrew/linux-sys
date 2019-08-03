@@ -1,0 +1,6 @@
+@startuml
+' 类之间默认采用两个破折号 -- 显示出垂直方向的线. 要得到水平方向的可以像这样使用单破折号 (或者
+' 点):
+Room o- Student
+Room *-- Chair
+@enduml

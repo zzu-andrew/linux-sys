@@ -1,0 +1,13 @@
+@startuml link_notes 
+' 在定义链接之后,你可以用 note on link 给链接添加注释
+' 如果想要改变注释相对于标签的位置,你也可以用 note left on link,note right on link,note
+' bottom on link。(对应位置分别在 label 的左边,右边,下边)
+class Dummy
+Dummy --> Foo : A link
+note on link #red: note that is red
+Dummy --> Foo2 : Another link
+note right on link #blue
+this is my note on right link
+and in blue
+end note
+@enduml

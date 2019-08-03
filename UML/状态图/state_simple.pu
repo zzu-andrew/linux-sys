@@ -1,0 +1,12 @@
+@startuml state
+/'
+使用 ([*]) 开始和结束状态图。
+使用 --> 添加箭头。'/
+' 开始 到state1
+[*] --> State1
+State1 --> [*]
+State1 : this is a string
+State1 : this is another string
+State1 -> State2
+State2 --> [*]
+@enduml

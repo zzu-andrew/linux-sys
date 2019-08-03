@@ -1,0 +1,6 @@
+@startuml skinparam
+skinparam componentStyle uml2
+interface "Data Access" as DA
+DA - [First Component]
+[First Component] ..> HTTP : use
+@enduml

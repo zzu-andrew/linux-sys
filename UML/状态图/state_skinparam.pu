@@ -1,0 +1,28 @@
+@startuml skinparam 
+/'
+用 skinparam 改变字体和颜色。
+可以在如下场景中使用:
+• 在图示的定义中,
+• 在引入的文件中,
+• 在命令行或者 ANT 任务提供的配置文件中。
+还可以为状态的构造类型指定特殊的字体和颜色。
+'/
+skinparam backgroundColor LightYellow
+skinparam state {
+StartColor MediumBlue
+EndColor Red
+BackgroundColor Peru
+BackgroundColor<<Warning>> Olive
+BorderColor Gray
+FontName Impact
+}
+[*] --> NotShooting
+state "Not Shooting State" as NotShooting {
+state "Idle mode" as Idle <<Warning>>
+state "Configuring mode" as Configuring
+[*] --> Idle
+Idle --> Configuring : EvConfig
+Configuring --> Idle : EvConfig
+}
+NotShooting --> [*]
+@enduml

@@ -1,0 +1,23 @@
+@startuml comband 
+
+/'
+一个状态也可能是合成的,必须使用关键字 state 和花括号来定义合成状态。
+'/
+scale 350 width
+[*] --> NotShooting
+state NotShooting {
+    [*] --> Idle
+    Idle --> Configuring : EvConfig
+    Configuring --> Idle : EvConfig
+}
+state Configuring {
+    [*] --> NewValueSelection
+    NewValueSelection --> NewValuePreview : EvNewValue
+    NewValuePreview --> NewValueSelection : EvNewValueRejected
+    NewValuePreview --> NewValueSelection : EvNewValueSaved
+    
+    state NewValuePreview {
+    State1 -> State2
+    }
+}
+@enduml

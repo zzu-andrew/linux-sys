@@ -1,0 +1,26 @@
+@startuml  pages 
+/'
+有些情况下,会有一些很大的图片文件。
+可以用 page (hpages)x(vpages) 这个命令把生成的图片文件拆分成若干个文件。
+hpages 用来表示水平方向页面数,and vpages 用来表示垂直方面页面数。
+你也可以使用特定的皮肤设定来给分页添加边框(见例子)
+'/
+
+' Split into 4 pages
+page 2x2
+skinparam pageMargin 10
+skinparam pageExternalColor gray
+skinparam pageBorderColor black
+class BaseClass
+namespace net.dummy #DDDDDD {
+.BaseClass <|-- Person
+Meeting o-- Person
+.BaseClass <|- Meeting
+}
+namespace net.foo {
+net.dummy.Person <|- Person
+.BaseClass <|-- Person
+net.dummy.Meeting o-- Person
+}
+BaseClass <|-- net.unused.Person
+@enduml

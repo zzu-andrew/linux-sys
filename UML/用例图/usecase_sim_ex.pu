@@ -1,0 +1,9 @@
+@startuml ex_simple
+' 用箭头 --> 连接角色和用例。
+' 横杠 -越多,箭头越长。通过在箭头定义的后面加一个冒号及文字的方式来添加标签。
+' 在这个例子中,User 并没有定义,而是直接拿来当做一个角色使用。
+User -> (Start)
+User --> (Use the application) : A small label
+:Main Admin: ---> (Use the application) : This is\nyet another\nlabel
+
+@enduml

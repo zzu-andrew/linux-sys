@@ -1,0 +1,7 @@
+@startuml
+' 通常标记字符 (C, I, E or A) 用于标记类 (classes), 接口(interface), 枚举(enum)和抽象类(abstract classes)
+' .
+' 但是当你想定义原型时,可以增加对应的单个字符及颜色,来定义自己的标记(spot),就像下面一样:
+class System << (S,#FF7700) Singleton >>
+class Date << (D,orchid) >>
+@enduml

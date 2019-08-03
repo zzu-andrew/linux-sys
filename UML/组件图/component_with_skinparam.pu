@@ -1,0 +1,29 @@
+@startuml  skinparam 
+/'
+用 skinparam 改变字体和颜色。
+可以在如下场景中使用:
+• 在图示的定义中,
+• 在引入的文件中,
+• 在命令行或者 ANT 任务提供的配置文件中。
+可以为构造类型和接口定义特殊的颜色和字体
+'/
+skinparam interface {
+backgroundColor RosyBrown
+borderColor orange
+}
+skinparam component {
+FontSize 13
+BackgroundColor<<Apache>> Red
+BorderColor<<Apache>> #FF6655
+FontName Courier
+BorderColor black
+BackgroundColor gold
+ArrowFontName Impact
+ArrowColor #FF6655
+ArrowFontColor #777777
+}
+() "Data Access" as DA
+DA - [First Component]
+[First Component] ..> () HTTP : use
+HTTP - [Web Server] << Apache >>
+@enduml

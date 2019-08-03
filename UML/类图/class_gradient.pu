@@ -1,0 +1,27 @@
+@startuml color_dient
+/'
+You can use either standard color name or RGB code.
+You can also use color gradient in background, with the following syntax: two colors names separated either by:
+• |,
+• /,
+• \,
+• or -
+depending the direction of the gradient.
+For example, you could have:
+'/
+
+skinparam backgroundcolor AntiqueWhite/Gold
+skinparam classBackgroundColor Wheat|CornflowerBlue
+class Foo
+note left
+this is
+note on
+end note
+#red-green
+of Foo #blue\9932CC
+my
+this class
+package example #GreenYellow/LightGoldenRodYellow {
+class Dummy
+}
+@enduml

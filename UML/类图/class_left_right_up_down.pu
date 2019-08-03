@@ -1,0 +1,11 @@
+@startuml
+' 也可通过在箭头内部使用关键字,例如 left, right, up 或者 down,来改变方向
+foo -left-> dummyLeft
+foo -right-> dummyRight
+foo -up-> dummyUp
+foo -down-> dummyDown
+
+' You can shorten the arrow by using only the first character of the direction (for example, -d- instead of -down-)
+' or the two first characters (-do-).
+' Please note that you should not abuse this functionality : Graphviz gives usually good results without tweaking.
+@enduml

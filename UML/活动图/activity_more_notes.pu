@@ -1,0 +1,14 @@
+@startuml
+/'
+你可以在活动定义之后用 note left, note right, note top or note bottom, 命令给活动添加注释。
+如果想给开始点添加注释,只需把注释的定义放在活动图最开始的地方即可。
+也可以用关键字 endnote 定义多行注释
+'/
+(*) --> "Some Activity"
+note right: This activity has to be defined
+"Some Activity" --> (*)
+note left
+This note is on
+several lines
+end note
+@enduml

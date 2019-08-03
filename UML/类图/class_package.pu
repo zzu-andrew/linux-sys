@@ -1,0 +1,23 @@
+@startuml
+' 包可以定义不同的样式。
+' 你可以通过以下的命令来设置默认样式: skinparam packageStyle, 或者对包使用对应的模板:
+scale 750 width
+package foo1 <<Node>> {
+class Class1
+}
+package foo2 <<Rectangle>> {
+class Class2
+}
+package foo3 <<Folder>> {
+class Class3
+}
+package foo4 <<Frame>> {
+class Class4
+}
+package foo5 <<Cloud>> {
+class Class5
+}
+package foo6 <<Database>> {
+class Class6
+}
+@enduml

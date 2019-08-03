@@ -1,0 +1,13 @@
+@startuml note 
+robust "Web 浏览器" as WB
+concise "Web 用户" as WU
+@0
+WU is 空闲
+WB is 空闲
+@100
+WU -> WB : URL
+WU is 等待中
+WB is 处理中
+@300
+WB is 等待中
+@enduml

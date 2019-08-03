@@ -1,0 +1,12 @@
+@startuml simple 
+/'
+使用 (*) 作为活动图的开始点和结束点。
+有时,你可能想用 (*top) 强制开始点位于图示的顶端。
+使用 --> 绘制箭头。
+'/
+(*) --> "First Activity"
+"First Activity" --> (*)
+
+
+
+@enduml 

@@ -1,0 +1,8 @@
+@startuml class_as
+' 如果你想在类(或者枚举)的显示中使用非字母符号,你可以:
+' • 在类的定义中使用 as 关键字
+' • 在类名旁边加上 ""
+class "This is my class" as class1
+class class2 as "It works this way too"
+class2 *-- "foo/dummy" : use
+@enduml

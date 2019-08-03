@@ -1,0 +1,8 @@
+@startuml
+' 需要定义棒棒糖样式的接口时可以遵循以下语法:
+' • bar ()- foo
+' • bar ()-- foo
+' • foo -() bar
+class foo
+bar ()- foo
+@enduml

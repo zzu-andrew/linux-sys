@@ -1,0 +1,31 @@
+@startuml
+' 在使用包(package)时(区别于命名空间),类名是类的唯一标识。也就意味着,在不同的包(package)
+' 中的类,不能使用相同的类名。
+' <blockquote> In packages, the name of a class is the unique identifier of this class. It means that you cannot have
+' two classes with the very same name in different packages. </blockquote>
+' 在那种情况下(译注:同名、不同全限定名类),你应该使用命名空间来取而代之。<blockquote> In that
+' case, you should use namespaces instead of packages. </blockquote>
+' 你可以从其他命名空间,使用全限定名来引用类,默认命名空间(译注:无名的命名空间)下的类,以一
+' 个“." 开头(的类名)来引用(译注:示例中的 BaseClass).
+' <blockquote> You can refer to classes from other namespaces by fully qualify them. Classes from the default
+' namespace are qualified with a starting dot. </blockquote>
+' 注意:你不用显示地创建命名空间:一个使用全限定名的类会自动被放置到对应的命名空间。 <blockquote>
+' Note that you don't have to explicitly create namespace : a fully qualified class is automatically put in the right
+' namespace. </blockquote>
+class BaseClass
+namespace net.dummy #DDDDDD {
+    .BaseClass <|-- Person
+Meeting o-- Person
+.BaseClass <|- Meeting
+}
+namespace net.foo {
+net.dummy.Person <|- Person
+.BaseClass <|-- Person
+net.dummy.Meeting o-- Person
+}
+BaseClass <|-- net.unused.Person
+
+
+
+'  <blockquote> - .BaseClass 为默认命名空间下的类 - net.unused. 为自动生成的命名空间 </blockquote>
+@enduml

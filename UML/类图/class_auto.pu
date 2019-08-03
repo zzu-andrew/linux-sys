@@ -1,0 +1,14 @@
+@startuml
+' 使用命令 set namespaceSeparator ??? 你可以自定义命名空间分隔符(为“.”以外的字符).
+set namespaceSeparator ::
+class X1::X2::foo {
+some info
+}
+' 禁止自动创建包则可以使用 set namespaceSeparator none.
+
+
+set namespaceSeparator none
+class X1.X2.foo {
+some info
+}
+@enduml

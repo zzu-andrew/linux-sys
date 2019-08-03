@@ -1,0 +1,18 @@
+@startuml note 
+/'
+可以用 note left of, note right of, note top of, note bottom of 关键字来定义注释。
+还可以定义多行注释。
+'/
+[*] --> Active
+Active --> Inactive
+note left of Active : this is a short\nnote
+note right of Inactive
+A note can also
+be defined on
+several lines
+end note
+
+state foo
+note "This is a floating note" as N1
+
+@enduml

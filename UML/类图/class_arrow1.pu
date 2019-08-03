@@ -1,0 +1,5 @@
+@startuml
+' 你也可以通过改变倒置链接来改变方向
+Student -o Room
+Chair --* Room
+@enduml

@@ -1,0 +1,15 @@
+@startuml note 
+/'
+你可以使用 note left of , note right of , note top of , note bottom of 等关键字定义相对于对象
+位置的注释。
+也可以使用关键字 note 单独定义注释,然后使用虚线 (..) 将其连接到其他对象
+'/
+interface "Data Access" as DA
+DA - [First Component]
+[First Component] ..> HTTP : use
+note left of HTTP : Web Service only
+note right of [First Component]
+A note can also
+be on several lines
+end note
+@enduml

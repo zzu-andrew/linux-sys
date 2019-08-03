@@ -1,0 +1,7 @@
+@startuml com
+' 如果一个角色或者用例继承于另一个,那么可以用 <|--符号表示。
+:Main Admin: as Admin
+(Use the application) as (Use)
+User <|-- Admin
+(Start) <|-- (Use)
+@enduml

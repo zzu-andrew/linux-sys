@@ -1,0 +1,38 @@
+@startuml hide clas
+' 通过使用命令“hide/show”
+' ,你可以用参数表示类的显示方式。
+' 基础命令是: hide empty members. 这个命令会隐藏空白的方法和属性。
+' 除 empty members 外,你可以用:
+' • empty fields 或者 empty attributes 空属性,
+' • empty methods 空函数,
+' • fields 或 attributes 隐藏字段或属性,即使是被定义了
+' • methods 隐藏方法,即使是被定义了
+' • members 隐藏字段 和 方法,即使是被定义了
+' • circle 类名前带圈的,
+' • stereotype 原型。
+' 同样可以使用 hide 或 show 关键词,对以下内容进行设置:
+' • class 所有类,
+' • interface 所有接口,
+' • enum 所有枚举,
+' • <<foo1>> 实现 foo1 的类,
+' • 一个既定的类名。
+' 你可以使用 show/hide 命令来定义相关规则和例外
+class Dummy1 {
++myMethods()
+}
+class Dummy2 {
++hiddenMethod()
+}
+class Dummy3 <<Serializable>> {
+String name
+}
+hide members
+hide <<Serializable>> circle
+show Dummy1 methods
+show <<Serializable>> fields
+
+
+
+
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+' 用 skinparam 改变字体和颜色。
+' 可以在如下场景中使用:
+' • 在图示的定义中,
+' • 在引入的文件中,
+' • 在命令行或者 ANT 任务提供的配置文件中。
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor SeaGreen
+BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+Class01 "1" *-- "many" Class02 : contains
+Class03 o-- Class04 : aggregation
+
+
+newpage
+' You can define specific color and fonts for stereotyped classes.
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor SeaGreen
+BorderColor SpringGreen
+BackgroundColor<<Foo>> Wheat
+BorderColor<<Foo>> Tomato
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+skinparam stereotypeCBackgroundColor<< Foo >> DimGray
+Class01 <<Foo>>
+Class03 <<Foo>>
+Class01 "1" *-- "many" Class02 : contains
+Class03 o-- Class04 : aggregation
+
+@enduml
