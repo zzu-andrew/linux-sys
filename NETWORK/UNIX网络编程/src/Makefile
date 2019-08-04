@@ -1,6 +1,7 @@
 include ../Makefile.inc
 
-EXE = getdaytimetcpclient  getdaytimeclientv6 putdaytimesrv
+EXE = getdaytimetcpclient  getdaytimeclientv6 putdaytimesrv \
+		byteorser daytimetcpsrv1
 
 
 

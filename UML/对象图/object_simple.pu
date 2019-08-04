@@ -1,0 +1,35 @@
+@startuml simple 
+' object 
+object firstObject
+object "My Second Object" as o2
+
+
+object Object01
+object Object02
+object Object03
+object Object04
+object Object05
+object Object06
+object Object07
+object Object08
+
+
+
+Object01 <|-- Object02
+Object03*-- Object04
+Object05-- "4" Object06
+Object07.. Object08 : some labels
+
+
+object user
+user : name = "Dummy"
+user : id = 123
+
+object user1 {
+name = "Dummy"
+id = 123
+}
+/'
+类图中的通用定义
+'/
+@enduml

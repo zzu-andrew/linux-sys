@@ -1,0 +1,5 @@
+@startgantt short_name
+[Prototype design] as [D] lasts 15 days
+[Test prototype] as [T] lasts 10 days
+[T] starts at [D]'s end
+@endgantt

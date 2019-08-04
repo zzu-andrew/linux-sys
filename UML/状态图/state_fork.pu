@@ -13,6 +13,6 @@ CapsLockOn --> CapsLockOff : EvCapsLockPressed
 [*] -> ScrollLockOff
 ScrollLockOff --> ScrollLockOn : EvCapsLockPressed
 ScrollLockOn --> ScrollLockOff : EvCapsLockPressed
-ScrollLockOn --> CapsLockOff : EvCapsLockPressed
+
 }
 @enduml

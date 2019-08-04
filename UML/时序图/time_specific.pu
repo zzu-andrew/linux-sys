@@ -1,0 +1,8 @@
+@startuml specific
+concise "Web User" as WU
+' 设置像素点
+scale 100 as 50 pixels
+@WU
+0 is Waiting
++500 is ok
+@enduml

@@ -10,3 +10,4 @@ else (monoproc)
 :Treatment 1;
 :Treatment 2;
 endif
+@enduml

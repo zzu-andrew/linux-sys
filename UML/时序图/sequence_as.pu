@@ -1,4 +1,41 @@
 @startuml sequence_as
+/'
+可以通过使用 xxxFontColor, xxxFontSize , xxxFontName 三个参数,来修改绘图中的字体 (颜色、大小、
+名称)
+。
+<blockquote> You can change the font for the drawing using xxxFontColor, xxxFontSize and xxxFontName
+parameters. </blockquote>
+示例:
+skinparam classFontColor red
+skinparam classFontSize 10
+skinparam classFontName Aapex
+也可以使用 skinparam defaultFontName 命令, 来修改默认的字体。
+<blockquote> You can also change the default font for all fonts using skinparam defaultFontName. </block-
+quote>
+Example:
+skinparam defaultFontName Aapex
+请注意:字体名称高度依赖于操作系统,因此不要过度使用它,当你考虑到可移植性时。Helvetica and
+Courier 应该是全平台可用。
+<blockquote> Please note the fontname is highly system dependent, so do not over use it, if you look for portability.
+Helvetica and Courier should be available on all system. </blockquote>
+还有更多的参数可用,你可以通过下面的命令打印它们:
+java -jar plantuml.jar -language
+<blockquote> A lot of parameters are available. You can list them using the following command: java -jar plan-
+tuml.jar -language </blockquote>
+'/
+/'
+通过 left, right or center, 可以设置文本对齐.
+也可以 sequenceMessageAlign 指令赋值为 direction 或 reverseDirection 以便让文本对齐与箭头方
+向一致。
+<blockquote> Text alignment can be set up to left, right or center. You can also use direction or reverseDirection
+values for sequenceMessageAlign which align text depending on arrow direction. </blockquote>
+'/
+' 使用黑白
+' skinparam monochrome true
+' 使用黑白并翻转颜色
+skinparam monochrome reverse
+' 使用的文字居中对其
+skinparam sequenceMessageAlign center
 actor Bob #red
 ' The only difference between actor
 ' and participant is the drawing

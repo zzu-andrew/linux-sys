@@ -1,0 +1,11 @@
+@startgantt simple
+/'
+You are very welcome to create a new discussion on this future syntax. Your feedbacks, ideas and suggestions help
+us to find the right solution.
+The Gantt is described in natural language, using very simple sentences (subject-verb-complement).
+
+Tasks defined using square bracket. Their durations are defined using the last verb:
+'/
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+@endgantt

@@ -1,0 +1,6 @@
+@startgantt resources
+' You can affect tasks on resources using the on keyword and brackets for resource name.
+[Task1] on {Alice} lasts 10 days
+[Task2] on {Bob:50%} lasts 2 days
+then [Task3] on {Alice:25%} lasts 1 days
+@endgantt

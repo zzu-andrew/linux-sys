@@ -1,5 +1,7 @@
 @startuml change 
 
+' You can use hide empty description to render state as simple box.
+' 将空的状态描述进行隐藏
 hide empty description
 [*] --> State1
 State1 --> [*]

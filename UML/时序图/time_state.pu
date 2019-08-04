@@ -1,0 +1,17 @@
+@startuml time_state
+' It is also possible to hide some state 
+concise "Web User" as WU
+@0
+WU is {-}
+@100
+WU is A1
+@200
+WU is {-}
+@300
+' 从300开始隐藏
+WU is {hidden}
+@400
+WU is A3
+@500
+WU is {-}
+@enduml

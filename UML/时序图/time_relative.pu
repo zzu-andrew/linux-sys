@@ -1,4 +1,8 @@
 @startuml resolve 
+/'
+使用相对时间
+'/
+'  It is possible to use relative time with @.
 robust "DNS Resolver" as DNS
 robust "Web Browser" as WB
 concise "Web User" as WU

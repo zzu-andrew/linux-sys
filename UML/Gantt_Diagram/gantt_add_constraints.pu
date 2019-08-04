@@ -1,0 +1,13 @@
+@startgantt constraintts
+' It is possible to add constraints between task.
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+[Test prototype] starts at [Prototype design]'s end
+
+
+[NewPrototype design] lasts 10 days
+[Code prototype] lasts 10 days
+[Write tests] lasts 5 days
+[Code prototype] starts at [NewPrototype design]'s end
+[Write tests] starts at [Code prototype]'s start
+@endgantt

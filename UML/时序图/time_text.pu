@@ -1,0 +1,24 @@
+@startuml text 
+' You can optionally add a title, a header, a footer, a legend and a caption:
+title this is my title
+header: some header
+footer: some footer
+' 添加图例
+legend
+Some legend
+end legend
+' 添加说明文字
+caption some caption
+
+
+robust "Web Browser" as WB
+concise "Web User" as WU
+@0
+WU is Idle
+WB is Idle
+@100
+WU is Waiting
+WB is Processing
+@300
+WB is Waiting
+@enduml

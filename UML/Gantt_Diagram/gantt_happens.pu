@@ -1,0 +1,7 @@
+@startgantt happens
+[Test prototype] lasts 10 days
+' happens 标记重要事件
+[Prototype completed] happens at [Test prototype]'s end
+[Setup assembly line] lasts 12 days
+[Setup assembly line] starts at [Test prototype]'s end
+@endgantt

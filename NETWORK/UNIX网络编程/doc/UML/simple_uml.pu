@@ -1,0 +1,17 @@
+@startuml simple_tcp_srv_cli
+title TCP客户/服务器程序示例
+footer Page %page%
+
+autonumber  1 1 "<b>[000]"
+note left of TCP客户端
+从标准输入中读取 fgets
+end note
+TCP客户端 -[#blue]> TCP服务器 : writen   read
+
+TCP服务器 -[#OrangeRed]> TCP客户端 : readline writen
+
+note left of TCP客户端
+输出标准输出 puts
+end note
+
+@enduml 

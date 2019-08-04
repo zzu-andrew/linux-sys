@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <sqlite3.h>
 
+
+
 static int callback(void *data, int argc, char **argv, char **azColName){
    int i;
+   //< 每一行数据会进来一次
    fprintf(stderr, "%s: ", (const char*)data);
     printf("%d\n",argc);
    for(i=0; i<argc; i++){
@@ -12,6 +15,8 @@ static int callback(void *data, int argc, char **argv, char **azColName){
    printf("\n");
    return 0;
 }
+ 
+
 
 int main(int argc, char* argv[])
 {

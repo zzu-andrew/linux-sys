@@ -1,0 +1,4 @@
+@startuml component 
+ ' 你可以在声明一个组件时加上颜色的声明。 
+component [Web Server] #Yellow
+@enduml

@@ -1,0 +1,9 @@
+@startgantt separat 
+' You can use -- to separate sets of tasks.
+[Task1] lasts 10 days
+then [Task2] lasts 4 days
+-- Phase Two --
+then [Task3] lasts 5 days
+
+then [Task4] lasts 6 days
+@endgantt

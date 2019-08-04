@@ -1,7 +1,13 @@
 @startuml box
 ' 可以使用 box 和 end box 画一个盒子将参与者包裹起来。
 ' 还可以在 box 关键字之后添加标题或者背景颜色。
-
+box "Internal Service" #LightBlue
+participant Bob
+participant Alice
+end box
+participant Other
+Bob -> Alice : hello
+Alice -> Other : hello
 
 
 @enduml

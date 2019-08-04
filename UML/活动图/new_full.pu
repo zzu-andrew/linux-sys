@@ -19,3 +19,13 @@ endif
 else (false)
 endif
 if (do redirect?) then (yes)
+:redirect process;
+else
+if (do forward?) then (yes)
+:Forward request;
+else (no)
+:Render page template;
+endif
+endif
+stop
+@enduml

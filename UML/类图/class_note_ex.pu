@@ -5,6 +5,7 @@ Class01 "1" *-- "many" Class02 : contains
 Class03 o-- Class04 : aggregation
 Class05 --> "1" Class06
 
+' 在标签的开始或结束位置添加 < 或 > 以表明是哪个对象作用到哪个对象上。
 
 class Car
 Driver - Car : drives >

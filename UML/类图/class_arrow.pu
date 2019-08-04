@@ -3,4 +3,7 @@
 ' 点):
 Room o- Student
 Room *-- Chair
+
+
+
 @enduml

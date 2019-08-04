@@ -1,0 +1,14 @@
+@startgantt date 
+/'
+You can specify a starting date for the whole project. By default, the first task starts at this date.
+'/
+
+
+/'
+用脚本实现自动每周工作安排工作进度
+
+'/
+Project starts the 20th of september 2017
+[Prototype design] as [TASK1] lasts 13 days
+[TASK1] is colored in Lavender/LightBlue
+@endgantt

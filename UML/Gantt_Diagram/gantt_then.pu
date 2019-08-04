@@ -1,0 +1,14 @@
+@startgantt use_then
+' It's possible to use the then keyword to denote consecutive tasks.
+[Prototype design] lasts 14 days
+then [Test prototype] lasts 4 days
+then [Deploy prototype] lasts 6 days
+
+' You can also use arrow ->
+
+[Prototype design1] lasts 14 days
+[Build prototype] lasts 4 days
+[Prepare test] lasts 6 days
+[Prototype design1] -> [Build prototype]
+[Prototype design1] -> [Prepare test]
+@endgantt

@@ -1,5 +1,8 @@
 
 @startuml note_over
+' 可以使用 note left of,note right of 或 note over 在节点 (participant) 的相对位置放置注释。
+' 还可以通过修改背景色来高亮显示注释。
+' 以及使用关键字 end note 来添加多行注释
 participant Alice
 participant Bob
 note left of Alice #aqua
