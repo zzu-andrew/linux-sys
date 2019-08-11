@@ -12,16 +12,18 @@ Some HTML tags are also working:
 • <img:file> : the file must be accessible by the filesystem
 • <img:http://plantuml.com/logo3.png> : the URL must be available from the Internet
 '/
-listopeniconic
 
-/'@startuml
 :* You can change <color:red>text color</color>
 * You can change <back:cadetblue>background color</back>
 * You can change <size:18>size</size>
 * You use <u>legacy</u> <b>HTML <i>tag</i></b>
 * You use <u:red>color</u> <s:green>in HTML</s> <w:#0000FF>tag</w>
 ----
-* Use image : <img:http://plantuml.com/logo3.png>
-;
+* Use image : <img:http://plantuml.com/logo3.png>;
+
+
+/'
+listopeniconic
 '/
+
 @enduml

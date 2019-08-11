@@ -1,0 +1,5 @@
+[ time_t-->struct tm ] { shape: edge; }
+[ struct tm-->formit tm to string ] { shape: edge; }
+
+[ time ] -- [ time_t-->struct tm ]  --> [ localtime ]
+--[ struct tm-->formit tm to string ]--> [ strftime ]

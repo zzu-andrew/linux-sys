@@ -48,4 +48,6 @@ participant L as "I have a really\nlong name" #99FF99
 Alice->Bob: Authentication Request
 Bob->Alice: Authentication Response
 Bob->L: Log transaction
+
+
 @enduml

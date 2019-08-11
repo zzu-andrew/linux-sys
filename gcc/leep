@@ -1,0 +1,91 @@
+FPATHCONF(3)                            Linux Programmer's Manual                           FPATHCONF(3)
+
+NNAAMMEE
+       fpathconf, pathconf - get configuration values for files
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee <<uunniissttdd..hh>>
+
+       lloonngg ffppaatthhccoonnff((iinntt _f_d,, iinntt _n_a_m_e));;
+       lloonngg ppaatthhccoonnff((ccoonnsstt cchhaarr **_p_a_t_h,, iinntt _n_a_m_e));;
+
+DDEESSCCRRIIPPTTIIOONN
+       ffppaatthhccoonnff() gets a value for the configuration option _n_a_m_e for the open file descriptor _f_d.
+
+       ppaatthhccoonnff() gets a value for configuration option _n_a_m_e for the filename _p_a_t_h.
+
+       The  corresponding  macros  defined  in _<_u_n_i_s_t_d_._h_> are minimum values; if an application wants to
+       take advantage of values which may change, a call to ffppaatthhccoonnff() or ppaatthhccoonnff() can be made, which
+       may yield more liberal results.
+
+       Setting _n_a_m_e equal to one of the following constants returns the following configuration options:
+
+       __PPCC__LLIINNKK__MMAAXX
+              returns the maximum number of links to the file.  If _f_d or _p_a_t_h refer to a directory, then
+              the value applies to the whole directory.  The corresponding macro is __PPOOSSIIXX__LLIINNKK__MMAAXX.
+
+       __PPCC__MMAAXX__CCAANNOONN
+              returns the maximum length of a formatted input line, where _f_d or _p_a_t_h  must  refer  to  a
+              terminal.  The corresponding macro is __PPOOSSIIXX__MMAAXX__CCAANNOONN.
+
+       __PPCC__MMAAXX__IINNPPUUTT
+              returns  the  maximum  length of an input line, where _f_d or _p_a_t_h must refer to a terminal.
+              The corresponding macro is __PPOOSSIIXX__MMAAXX__IINNPPUUTT.
+
+       __PPCC__NNAAMMEE__MMAAXX
+              returns the maximum length of a filename in the directory _p_a_t_h or _f_d that the  process  is
+              allowed to create.  The corresponding macro is __PPOOSSIIXX__NNAAMMEE__MMAAXX.
+
+       __PPCC__PPAATTHH__MMAAXX
+              returns  the  maximum length of a relative pathname when _p_a_t_h or _f_d is the current working
+              directory.  The corresponding macro is __PPOOSSIIXX__PPAATTHH__MMAAXX.
+
+       __PPCC__PPIIPPEE__BBUUFF
+              returns the size of the pipe buffer, where _f_d must refer to a pipe or FIFO and  _p_a_t_h  must
+              refer to a FIFO.  The corresponding macro is __PPOOSSIIXX__PPIIPPEE__BBUUFF.
+
+       __PPCC__CCHHOOWWNN__RREESSTTRRIICCTTEEDD
+              returns nonzero if the cchhoowwnn(2) call may not be used on this file.  If _f_d or _p_a_t_h refer to
+              a directory, then this applies to all files in that directory.  The corresponding macro is
+              __PPOOSSIIXX__CCHHOOWWNN__RREESSTTRRIICCTTEEDD.
+
+       __PPCC__NNOO__TTRRUUNNCC
+              returns  nonzero  if  accessing  filenames longer than __PPOOSSIIXX__NNAAMMEE__MMAAXX generates an error.
+              The corresponding macro is __PPOOSSIIXX__NNOO__TTRRUUNNCC.
+
+       __PPCC__VVDDIISSAABBLLEE
+              returns nonzero if special character processing can be disabled, where  _f_d  or  _p_a_t_h  must
+              refer to a terminal.
+
+RREETTUURRNN VVAALLUUEE
+       The  limit  is  returned,  if  one exists.  If the system does not have a limit for the requested
+       resource, -1 is returned, and _e_r_r_n_o is unchanged.  If there is an  error,  -1  is  returned,  and
+       _e_r_r_n_o is set to reflect the nature of the error.
+
+AATTTTRRIIBBUUTTEESS
+       For an explanation of the terms used in this section, see aattttrriibbuutteess(7).
+
+       ┌────────────────────────┬───────────────┬─────────┐
+       │IInntteerrffaaccee               │ AAttttrriibbuuttee     │ VVaalluuee   │
+       ├────────────────────────┼───────────────┼─────────┤
+       │ffppaatthhccoonnff(), ppaatthhccoonnff() │ Thread safety │ MT-Safe │
+       └────────────────────────┴───────────────┴─────────┘
+
+CCOONNFFOORRMMIINNGG TTOO
+       POSIX.1-2001, POSIX.1-2008.
+
+NNOOTTEESS
+       Files  with  name lengths longer than the value returned for _n_a_m_e equal to __PPCC__NNAAMMEE__MMAAXX may exist
+       in the given directory.
+
+       Some returned values may be huge; they are not suitable for allocating memory.
+
+SSEEEE AALLSSOO
+       ggeettccoonnff(1), ooppeenn(2), ssttaattffss(2), ccoonnffssttrr(3), ssyyssccoonnff(3)
+
+CCOOLLOOPPHHOONN
+       This page is part of release 4.04 of the Linux _m_a_n_-_p_a_g_e_s project.  A description of the  project,
+       information  about  reporting  bugs,  and  the  latest  version  of  this  page,  can be found at
+       http://www.kernel.org/doc/man-pages/.
+
+GNU                                            2015-08-08                                   FPATHCONF(3)
