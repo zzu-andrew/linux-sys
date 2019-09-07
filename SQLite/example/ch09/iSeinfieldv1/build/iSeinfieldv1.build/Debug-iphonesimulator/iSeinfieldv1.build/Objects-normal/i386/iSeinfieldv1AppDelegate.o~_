@@ -1,0 +1,6 @@
+/Users/fuzz/Documents/iSeinfieldv1/Classes/iSeinfieldv1AppDelegate.m: In function '-[iSeinfieldv1AppDelegate applicationDidFinishLaunching:]':
+/Users/fuzz/Documents/iSeinfieldv1/Classes/iSeinfieldv1AppDelegate.m:34: warning: 'iSeinfieldv1AppDelegate' may not respond to '-checkAndCreateDatabase'
+/Users/fuzz/Documents/iSeinfieldv1/Classes/iSeinfieldv1AppDelegate.m:34: warning: (Messages without a matching method signature
+/Users/fuzz/Documents/iSeinfieldv1/Classes/iSeinfieldv1AppDelegate.m:34: warning: will be assumed to return 'id' and accept
+/Users/fuzz/Documents/iSeinfieldv1/Classes/iSeinfieldv1AppDelegate.m:34: warning: '...' as arguments.)
+/Users/fuzz/Documents/iSeinfieldv1/Classes/iSeinfieldv1AppDelegate.m:37: warning: 'iSeinfieldv1AppDelegate' may not respond to '-readFoodsFromDatabase'

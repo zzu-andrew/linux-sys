@@ -1,0 +1,412 @@
+Bakery|Bagels|The Strike
+Bakery|Bagels, raisin|The Strike,The Muffin Tops
+Bakery|Bavarian Cream Pie|The Soup Nazi
+Bakery|Bear Claws|The Strongbox,The Sniffing Accountant,The Raincoats 2
+Bakery|Black and White cookies|The Dinner Party,The Understudy
+Bakery|Bread (with nuts)|The Apology
+Bakery|Butterfingers|The Glasses
+Bakery|Carrot Cake|The Frogger
+Bakery|Chips Ahoy Cookies|The Cadillac 1
+Bakery|Chocolate Bobka|The Dinner Party
+Bakery|Chocolate Eclairs|The Gymnast
+Bakery|Chocolate Cream Pie|The Pie
+Bakery|Cinnamon Bobka|The Dinner Party
+Bakery|Cinnamon Swirls|The Glasses
+Bakery|Cookie|The Alternate Side
+Bakery|Crackers|The Bizarro Jerry
+Bakery|Cupcake|The Seven
+Bakery|Cupcakes|The Hot Tub
+Bakery|Devils Food Cake|The Burning
+Bakery|Dinky Donuts|The Note,The Glasses
+Bakery|Dog biscuits|The Andrea Doria
+Bakery|Donuts|The Strongbox
+Bakery|Drakes Coffee Cakes|The Suicide
+Bakery|Entenmann''s Cake|The Frogger
+Bakery|Kaiser Rolls|The Slicer
+Bakery|Marble Ryes|The Rye
+Bakery|Mini Ritz|The Jacket
+Bakery|Muffin|The Ticket
+Bakery|Muffin Tops|The Muffin Tops
+Bakery|Muffin Stumps|The Muffin Tops
+Bakery|Nut Bread|The Merv Griffin Show
+Bakery|Pastries (of the Gods)|The Statue
+Bakery|Peach Muffin|The Muffin Tops
+Bakery|Peppridge Farms Cookies (Milanos)|The Trip 1
+Bakery|Pizza Bagels|The Muffin Tops
+Bakery|Pie|The Stall
+Bakery|Pie (blueberry)|The Bubble Boy
+Bakery|Pie (Blackberry) Pie|The Bubble Boy
+Bakery|Pie (Boysenberry)|The Bubble Boy
+Bakery|Pie (Huckleberry)|The Bubble Boy
+Bakery|Pie (Raspberry)|The Bubble Boy
+Bakery|Pie (Strawberry)|The Bubble Boy
+Bakery|Pie (Cranberry)|The Bubble Boy
+Bakery|Pie (Peach)|The Bubble Boy
+Bakery|Poppy Seed Muffins|The Shower Head
+Bakery|Triscuits|The Suicide
+Bakery|Wedding Cake (Royal)|The Frogger
+Cereal|Bran|The Pilot 2
+Cereal|Cheerios|The Invitations
+Cereal|Corn Flakes|The Chinese Woman,The Finale 1
+Cereal|Double Crunch|The Pick
+Cereal|Fruit Loops|The Betrayal
+Cereal|Grape Nuts|The Finale 1
+Cereal|Honey Combs|The Doll
+Cereal|Kasha|The Cigar Store Indian,The Chinese Woman,The Doorman,The Postponement
+Cereal|Kix|The Big Salad
+Cereal|Life|The Finale 1
+Cereal|Pancakes|The Wife
+Cereal|Reese''s Peanut-Butter Puffs|The Beard
+Cereal|Rice Krispies|The Checks
+Cereal|Special K|The Finale 1
+Cereal|Tightly Wrapped Magic Pan Crepes|The English Patient
+Chicken/Fowl|Broiled Chicken|The Bubble Boy
+Chicken/Fowl|Casserole|The Beard
+Chicken/Fowl|Chicken|The Smelly Car
+Chicken/Fowl|Chicken (for wedding)|The Wait Out
+Chicken/Fowl|Chicken Cashew (not ordered)|The Race
+Chicken/Fowl|Chicken Kiev|The Abstinence
+Chicken/Fowl|Kung-Pao Chicken|The Jimmy
+Chicken/Fowl|Chicken Marsala|The Fatigues
+Chicken/Fowl|Chicken Piccata|The Fatigues
+Chicken/Fowl|Chicken with Poppy Seeds|The Shower Head
+Chicken/Fowl|Chicken, whole stuffed w/Gorganzolla and Ham|The Wink
+Chicken/Fowl|Chicken Skins|The Millennium
+Chicken/Fowl|Chicken Wing (Shoulder Blades)|The Apology
+Chicken/Fowl|Chicken (Kenny Rogers) |The Chicken Roaster
+Chicken/Fowl|Chicken (Tyler) |The Muffin Tops
+Chicken/Fowl|Colonel Chang Chicken|The Parking Garage
+Chicken/Fowl|Cornish Game Hen|The Rye
+Chicken/Fowl|Duck|The Couch,The Fatigues
+Chicken/Fowl|Duck, juicy breasts of|The Suicide
+Chicken/Fowl|Turkey|The Cafe,The Merv Griffin Show
+Chicken/Fowl|Turkey, Kramer|The Butter Shave
+Chicken/Fowl|Turkey Jerky|The Summer of George
+Chicken/Fowl|Turkey Chili|The Calzone
+Condiments|A1 Sauce|The Apology
+Condiments|Barbeque Sauce|The Doll
+Condiments|Dijon Mustard|The Seven
+Condiments|Dill|The Trip 1
+Condiments|Ginger|The Note
+Condiments|Gravy|The Bottle Deposit 2,The Merv Griffin Show 
+Condiments|Honey Mustard|The Chicken Roaster
+Condiments|Ketchup and Mustard together|The Voice,The Finale 1
+Condiments|Ketchup|The Sniffing Accountant,The Kiss Hello,The Dog,The Finale 1
+Condiments|Ketchup (secret)|The Shoes
+Condiments|Maple Syrup|The Wife
+Condiments|Mustard (fancy)|The Jimmy
+Condiments|Parsley|The Merv Griffin Show,The Butter Shave
+Condiments|Pepper|The Burning
+Condiments|Pesto|The Busboy
+Condiments|Salad Dressing|Good News Bad News
+Condiments|Salsa|The Pitch
+Condiments|Tarragon|The Trip 1
+Condiments|Tomatoe Sauce|The Smelly Car
+Condiments|Tomatoe Sauce (Hot and Spicey)|The English Patient
+Condiments|Oregano|The Butter Shave
+Condiments|Parmisan|The Butter Shave
+Dairy|Banana Yogurt|The Merv Griffin Show
+Dairy|Butter|The Butter Shave
+Dairy|Danon Blueberry Yogurt|The Glasses
+Dairy|Egg Beaters Omelette with cottage cheese|The Wizard
+Dairy|Egg White Omelette|The Big Salad,The Soup
+Dairy|Eggs for breakfast|The Pick
+Dairy|Eggs|The Little Jerry
+Dairy|Egg Rolls|The Chinese Restaurant
+Dairy|Egg Salad|The Trip 1
+Dairy|Fete Cheese Omelette|The Wizard
+Dairy|French Toast|The Statue
+Dairy|Large Block of Cheese|The Rye,The Foundation
+Dairy|Scambled Eggs with Lobster|The Hamptons
+Dairy|Soft Boiled Egg|The Pick
+Dairy|Swiss Cheese|The Soup
+Dairy|Quiche thing|The Wink
+Dairy|Western Omelette|The Soup
+Dip|Generic (as a meal)|The Face Painter
+Dip|Good Dip|The Stranded
+Dip|Guacamole Dip|The Implant
+Dip|Hummus|The Cartoon
+Drinks|Apple Cider|The Bottle Deposit 1
+Drinks|Arabian Mocha Java (beans)|The Money
+Drinks|Beaujolais|The Dinner Party
+Drinks|Beer|The Sniffing Accountant,The Soup
+Drinks|Bosco|The Secret Code,The Abstinence,The Baby Shower
+Drinks|Cafe Latte|The Postponement,The Maestro
+Drinks|Champagne Coolies|The Wig Master
+Drinks|Chardonnay|The Dinner Party
+Drinks|Cider|The Bottle Deposit 2
+Drinks|Club Soda|The Jacket
+Drinks|Coca Cola|The Abstinence
+Drinks|Cocoa|The Bookstore
+Drinks|Coffe|The Phone Message,The Subway
+Drinks|Colt 45|The Tape, The Nose Job
+Drinks|Cream Soda|The Blood
+Drinks|Cranberry juice with two limes|The Jacket
+Drinks|Decaf Coffee|Good News Bad News,The Soup
+Drinks|Decaf Cappaccino|The Ticket,The Pitch,The Good Samaritan
+Drinks|Dr. Pepper (diet)|The Puerto Rican Day
+Drinks|Duty Free Kalua|The Butter Shave
+Drinks|Folger''s Crystals|The Library
+Drinks|Gatorade|The Pez Dispenser
+Drinks|Grape Juice|The Couch
+Drinks|Morning Thunder (with caffine)|The Dog
+Drinks|Hennigen''s|The Alternate Side,The Fatigues,The Parking Space
+Drinks|Hershey''s|The Secret Code
+Drinks|Hot Coffee|The Maestro
+Drinks|Juice box|The Foundation
+Drinks|Latte|The Maestro
+Drinks|Mellow Yellow soda|The Bottle Deposit 1
+Drinks|Merlot|The Rye
+Drinks|Milk|The Abstinence,The Chicken Roaster
+Drinks|Milkshake|The Finale 1
+Drinks|Molotov Cocktail|The Statue
+Drinks|Morning Thunder (with caffein)|The Dog
+Drinks|Naya Water|The Cigar Store Indian,The Wife,The Junk Mail
+Drinks|Nestle''s Quick|The Fatigues
+Drinks|Orange Juice|The Wife,The Wink
+Drinks|Ovaltine|The Fatigues 
+Drinks|Peach Schnapps|The Betrayal
+Drinks|Pepsi|The Dinner Party,The Truth
+Drinks|Pertussin with Club Soda|The Hamptons
+Drinks|Postum|The Pez Dispenser
+Drinks|Prune Juice|The Cigar Store Indian
+Drinks|Royal Crown Cola|The Puerto Rican Day
+Drinks|Sanka|The Soup
+Drinks|Scotch|The Jacket
+Drinks|Seltzer|The Pitch
+Drinks|Snapple|The Virgin,The Abstinence
+Drinks|Sour milk out of the carton|The Pitch
+Drinks|Tea|The Hot Tub
+Drinks|Tomato Juice|The Smelly Car
+Drinks|Tropicana Orange Juice|The Wife
+Drinks|Vodka|The Comeback
+Drinks|Vodka and Cranberry Juice|The Red Dot
+Drinks|Water, bottled|The Non-Fat Yogurt
+Drinks|Wild Turkey|The Hot Tub
+Drinks|Wine, boxed|The Dinner Party
+Drinks|Wine|The Merv Griffin Show
+Drinks|Yoo Hoo|The Bubble Boy
+Fruit|Apple|The Phone Message,The Seven
+Fruit|Apple Pie|The Pie
+Fruit|Avacado|The Mango
+Fruit|Banana|The Face Painter,The Seven,The Apology
+Fruit|Canned Fruit|The Maestro
+Fruit|Cantaloupe|The Mango,The Glasses,The Ex-Girlfriend
+Fruit|Grape|The Stock Tip
+Fruit|Grapefruit|The Wink, The Subway
+Fruit|Hamptons Tomatoes|The Hamptons
+Fruit|Macinaw peaches|The Doodle
+Fruit|Mangos|The Mango
+Fruit|Melons|The Junior Mint
+Fruit|Nectarine|The Serenity Now
+Fruit|Oranges|The Checks
+Fruit|Papaya|The Mango,The Glasses
+Fruit|Peaches|The Mango
+Fruit|Pineapple|The Finale 1
+Fruit|Plantains|The Mango
+Fruit|Plumbs|The Mango
+Fruit|Prunes, Figs, any Dried Fruit|The Pilot 2
+Fruit|Raisins|The Pilot 1
+Fruit|Shredded Coconut|The Butter Shave
+Fruit|Strawberries with Chocolate Sauce|The Blood
+Junkfood|Almond Joy|The Pledge Drive
+Junkfood|All Day Sucker|The Betrayal
+Junkfood|Big Hunk| The Nap
+Junkfood|Black Jacks - black licorice gum|The Library
+Junkfood|Bubble Gum|The Bubble Boy
+Junkfood|Candy Apple|The Andrea Doria
+Junkfood|Cashew Nuts|The Doodle
+Junkfood|Cashews (bag of)|The Busboy
+Junkfood|Clark Bar|The Dinner Party
+Junkfood|Chinese Chewing Gum|The Gum
+Junkfood|Chocolates, box of|The Wife
+Junkfood|Chocolate Chip Mint|The Wait Out
+Junkfood|Chocolate Covered Cherries|The Stake Out
+Junkfood|Chuckles (5 flavors)|The Heart Attack,The Big Salad
+Junkfood|Chunky Bar|The Doodle
+Junkfood|Cracker Jacks|The Fire
+Junkfood|Cupcakes (upsidedown)|The Jimmy
+Junkfood|Dentyne|The Library
+Junkfood|Double Crunch Ice Cream|The Pick
+Junkfood|Double Fudge Sundae|The Soul Mate
+Junkfood|Doublemint Gum|The Pie
+Junkfood|Frozen Yogurt|The Non-Fat Yogurt
+Junkfood|Godiva Chocolates|The Stall
+Junkfood|Gum|The Stall,The Cartoon
+Junkfood|Jucyfruit Gum|The Little Jerry
+Junkfood|Haagen Dazs|The Pilot 2
+Junkfood|Hot Fudge Sundae|The Lip Reader
+Junkfood|Ice Cream|The Heart Attack,The Puerto Rican Day
+Junkfood|Ice Cream (Breyer''s vanilla)|The Statue
+Junkfood|Ice Cream Triple Minute Man|The Apology
+Junkfood|Ice Cream Rum and Raisin|The Apology
+Junkfood|Jello with Bananas|The Puffy Shirt
+Junkfood|JujyFruit|The Opposite
+Junkfood|Junior Mints|The Junior Mint 
+Junkfood|Klondike Bars|The Kiss Hello
+Junkfood|M and M''s|The Pledge Drive,The Soul Mate
+Junkfood|Macadamia Nuts|The Doodle
+Junkfood|Mints|The Trip 1,The Cartoon
+Junkfood|Mr. Goodbar|The Jimmy
+Junkfood|Nutrageous|The Nap
+Junkfood|Nuts, Filbert and Hazel|The Couch
+Junkfood|Oh Henry Bar|The Caddy
+Junkfood|Peanut Butter|The Soup
+Junkfood|Peanuts|The Voice
+Junkfood|Pecan|The Doodle
+Junkfood|Pez|The Pez Dispenser
+Junkfood|Pineapple Italian Ice|The Understudy
+Junkfood|Popcorn|The Opposite
+Junkfood|Pretzels (unsalted)|The Mom & Pop Store 
+Junkfood|Pretzels (salted)|The Alternate Side
+Junkfood|Pudding Skins|The Blood
+Junkfood|Ring Dings|The Dinner Party,The Glasses
+Junkfood|Rold Gold Pretzles|The Glasses
+Junkfood|Snackwells|The Postponement
+Junkfood|Snickers|The Pledge Drive
+Junkfood|Three Musketeers|The Muffin Tops
+Junkfood|Tic Tacs|The Merv Griffin Show,The Contest,The Trip 1
+Junkfood|Tootsie Pop|The Strongbox
+Junkfood|Twinkies|The Nap
+Junkfood|Twix Bar|The Dealership
+Junkfood|Wheat Thins (reduced fat)|The Cadillac 1
+Meat|Arby''s Roast Beef|The Dealership,The Burning
+Meat|Bacon|The Soul Mate
+Meat|Beef-A-Reeno|The Rye
+Meat|Brisket|The Fatigues
+Meat|Chili|The Soup
+Meat|Cold-cuts|The Slicer
+Meat|Dog Food|The Suicide
+Meat|Five Alarm Chili|The Couch
+Meat|Franks and Beans|The Cafe
+Meat|Gyro|The Cigar Store Indian
+Meat|Hamburger (Meduim)|The Shower Head
+Meat|Hamburger (Skyburger)|The Chinese Restaurant
+Meat|Hamburger|The Finale 1
+Meat|Hash|The Fatigues
+Meat|Sausages (homemade)|The Blood
+Meat|Hot Dog|The Gum,The Understudy,The Susie,The Wizard,The Soup
+Meat|Hot Dog (Papaya King)|The Movie
+Meat|Hot Dog (Nathan''s)|The Subway
+Meat|Hot Dog (phone)|The Andrea Doria
+Meat|Lamb Chops|The Wink
+Meat|Meat Loaf|Male Unbonding
+Meat|Meatball Sandwich|The Little Jerry
+Meat|Mutton|The Wink,The Bottle Deposit 2
+Meat|Pastrami|The Race
+Meat|Corned Beef|The Race
+Meat|Salami|The Race,The Heart Attack
+Meat|Bologna|The Race,The Heart Attack
+Meat|Pork Chops|The Wink
+Meat|Porterhouse Steak|The Wink
+Meat|Red Meat|The Secretary
+Meat|Salted Cured Meats|The Blood
+Meat|Steak|The Suicide,The Apology
+Meat|Stuffed Cabbage|The Fatigues
+Meat|Steak (T-Bone)|The Maid
+Meat|Tamale|The Little Jerry
+Meat|Steak (US Prime)|The Fatigues
+Rice/Pasta|Calzone (Paisano''s)|The Calzone
+Rice/Pasta|Canolli|The Calzone
+Rice/Pasta|Chow Fung (noodle)|The Virgin
+Rice/Pasta|Macaroni|The Understudy
+Rice/Pasta|Fusilli|The Fusilli Jerry
+Rice/Pasta|Paella|The Raincoats 1
+Rice/Pasta|Pasta Primavera|The Shoes
+Rice/Pasta|Pasta at Chadways|The Alternate Side
+Rice/Pasta|Pizza|The Sniffing Accountant,The Couch,Male Unbonding,The Frogger
+Rice/Pasta|Pizza (Paccino''s)|The Couch
+Rice/Pasta|Raviolli|The Fusilli Jerry
+Rice/Pasta|Rigatoni|The Cafe
+Rice/Pasta|Rissoto|The Switch,The Mango
+Rice/Pasta|Spaghetti|The Pilot 1,The Junior Mint
+Rice/Pasta|Tamales|The Pitch
+Rice/Pasta|Vegetable Lasagna|The Butter Shave
+Sandwiches|Atomic Sub|The Strike
+Sandwiches|Bologna|The Puffy Shirt,The Opposite
+Sandwiches|Bacon Club (no turkey)|The Soup
+Sandwiches|BLT|The Robbery
+Sandwiches|Brisket Sandwich|The Robbery
+Sandwiches|Chicken Salad on Rye|The Opposite
+Sandwiches|Cold Chicken|The Soup
+Sandwiches|Egg Salad|The Stock Tip,The Trip 1,Male Unbonding
+Sandwiches|Grilled Cheese|The Foundation,The Mango
+Sandwiches|Ham and Cheese|The Jimmy
+Sandwiches|Hero Sandwich|The Pie
+Sandwiches|Little sandwiches|The Stall
+Sandwiches|Ostrich Burger|The Maid
+Sandwiches|Pastrami Sandwich|The Blood
+Sandwiches|Peanut Butter|The Stall
+Sandwiches|Reuben|The Voice
+Sandwiches|Salami Sandwich|The Chicken Roaster
+Sandwiches|Salmon|The Stall
+Sandwiches|Tuna|The Stall,The Trip 1
+Sandwiches|Tuna on toast|The Opposite,The Soup
+Sandwiches|Turkey Club|The Bubble Boy,The Wizard,The Soup
+Sandwiches|Turkey Roll|Male Unbonding
+Sandwiches|Turkey Sandwich|The Maid,The Seven,The Understudy
+Seafood|Clams Casino|The Betrayal
+Seafood|Crab Legs|The Bottle Deposit 1
+Seafood|Flounder Supreme - #47|The Pothole
+Seafood|Halibut|The Heart Attack
+Seafood|Lobster|The Hamptons,The Fusilli Jerry,The Bizarro Jerry
+Seafood|Lobster on Monk''s menu|The Fusilli Jerry
+Seafood|Lobster Shells|The Millennium
+Seafood|Salmon|The Opposite,The Soup
+Seafood|Sardines|The Good Samaritan
+Seafood|Shrimp|The Comeback,The Andrea Doria,The Cafe
+Seafood|Sole|The Soup
+Seafood|Swordfish|The Soup
+Seafood|Tuna Fishy|The Soup Nazi
+Seafood|Whitefish|The Soul Mate
+Soup|Bouillabaisse|The Stake Out,The Shoes
+Soup|Carrot Soup|The Lip Reader
+Soup|Chicken Gumbo|The Soup Nazi,The Soup
+Soup|Consommé|The Soup|The Shoes
+Soup|Crab Bisque|The Soup Nazi
+Soup|Creamed Soups|The Sponge
+Soup|Cuppa Soup|The Merv Griffin Show
+Soup|Deli Soup|The Marine Biologist
+Soup|Jambalaya|The Soup Nazi
+Soup|Lobster Bisque|The Yada Yada
+Soup|Lima Bean Soup|The Soup Nazi
+Soup|Motzah Ball|The Soup
+Soup|Medium Turkey Chili|The Soup Nazi
+Soup|Mulligatawny soup|The Soup Nazi
+Soup|Mushroom Barley|The Soup
+Soup|Pea Soup|The Lip Reader
+Soup|Tomatoe Soup|The Soup
+Soup|Wild Mushroom|The Soup Nazi
+Soup|Yankee Bean|The Alternate Side
+Vegetables|Artichokes|The Bottle Deposit 1
+Vegetables|Baked Beans|The Frogger
+Vegetables|Baked Potato w/Sour Cream|The Wink
+Vegetables|Big Salad|The Big Salad,The Soup
+Vegetables|Brocolli|The Chicken Roaster
+Vegetables|Chef Salad|The Maid
+Vegetables|Carrots|The Lip Reader
+Vegetables|Cole Slaw|The Opposite
+Vegetables|Cucumber|The Heart Attack
+Vegetables|Egg Plant|The Calzone,The Finale 1
+Vegetables|Foliage (edible)|The Pony Remark
+Vegetables|French Fries|The Subway
+Vegetables|French Fried Onion Rings|The Suicide
+Vegetables|Hampton Tomatoes|The Hamptons
+Vegetables|Insalata Grande|The Abstinence
+Vegetables|Kugel|The Fatigues
+Vegetables|Kreplach|The Fatigues
+Vegetables|Latkas|The Fatigues
+Vegetables|Lettuce (as a brain)|The Abstinence
+Vegetables|Olives|The Wife,The Bizarro Jerry
+Vegetables|Onion|The Glasses,The Soul Mate
+Vegetables|Peas|The Pony Remark,The Lip Reader
+Vegetables|Pea Pods|The Virgin,The Visa
+Vegetables|Pickle|The Heart Attack
+Vegetables|Potato Salad|The Opposite,The Bookstore
+Vegetables|Potatoes|The Slicer
+Vegetables|Radish Roses|The Apology
+Vegetables|Roasted Potatoes|The Statue
+Vegetables|Salad|The Big Salad,The Soup
+Vegetables|Tzimmis|The Fatigues
+Vegetables|Veggie burger|The Handicap Spot
+Vegetables|Wax Beans (Generic brand)|The Merv Griffin Show

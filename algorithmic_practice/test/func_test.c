@@ -21,7 +21,7 @@ int test_func(void)
         UNIX_DEBUG("show_time is failed!\n");
     }
 
-    ret = linear_list_test();
+    ret = data_structure_test();
     if (OK != ret)
     {
         UNIX_DEBUG("linear_list_test is fialed!.\n");

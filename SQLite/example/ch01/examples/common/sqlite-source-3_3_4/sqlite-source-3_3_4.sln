@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlite-source-3_3_4", "sqlite-source-3_3_4.vcproj", "{B717727D-47B7-47F6-B680-B372A340B37B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B717727D-47B7-47F6-B680-B372A340B37B}.Debug.ActiveCfg = Debug|Win32
+		{B717727D-47B7-47F6-B680-B372A340B37B}.Debug.Build.0 = Debug|Win32
+		{B717727D-47B7-47F6-B680-B372A340B37B}.Release.ActiveCfg = Release|Win32
+		{B717727D-47B7-47F6-B680-B372A340B37B}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

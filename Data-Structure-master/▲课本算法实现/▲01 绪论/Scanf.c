@@ -1,8 +1,8 @@
 /*********************
  *                   *
- * 文件夹: ▲01 绪论 *
+ * �ļ���: ��01 ���� *
  *                   *
- * 文件名: Scanf.c   *
+ * �ļ���: Scanf.c   *
  *                   *
  *********************/
 
@@ -11,15 +11,15 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdarg.h>				//提供宏va_list、va_start、va_arg、va_end	
-#include <ctype.h> 				//提供isprint原型 
+#include <stdarg.h>				//�ṩ��va_list��va_start��va_arg��va_end	
+#include <ctype.h> 				//�ṩisprintԭ�� 
 
 /*
-    自定义的数据录入函数，用于从文件fp
-中读取格式化的输入。
+    �Զ��������¼�뺯�������ڴ��ļ�fp
+�ж�ȡ��ʽ�������롣
 
-    与fscanf不同之处在于此函数只会读取
-西文字符，对于中文字符，则会跳过。 
+    ��fscanf��֮ͬ�����ڴ˺���ֻ���ȡ
+�����ַ������������ַ������������ 
 */
 
 int Scanf(FILE *fp, char *format, ...)
@@ -37,11 +37,11 @@ int Scanf(FILE *fp, char *format, ...)
 	
 	for(count=0,k=2; k<=len; k=k+2)
 	{
-		while((tmp=getc(fp))!=EOF)			//跳过所有非西文字符 
+		while((tmp=getc(fp))!=EOF)			//�������з������ַ� 
 		{
 			if((tmp>=0 && tmp<=127))
 			{
-				ungetc(tmp, fp);			//遇到首个西文字符，将此西文字符放入输入流 
+				ungetc(tmp, fp);			//�����׸������ַ������������ַ����������� 
 				break;
 			}
 		}
@@ -49,7 +49,7 @@ int Scanf(FILE *fp, char *format, ...)
 		if(tmp==EOF)
 			break;
 		
-		if(format[k-1]=='c')				//读取字符		 
+		if(format[k-1]=='c')				//��ȡ�ַ�		 
 		{
 			ch = va_arg(ap, char*);
 						
@@ -57,7 +57,7 @@ int Scanf(FILE *fp, char *format, ...)
 				count += fscanf(fp, "%c", ch);					
 		}	
 		
-		if(format[k-1]=='d')				//读取整型 
+		if(format[k-1]=='d')				//��ȡ���� 
 		{
 			i = va_arg(ap, int*);
 			
@@ -74,7 +74,7 @@ int Scanf(FILE *fp, char *format, ...)
 				count += fscanf(fp, "%d", i);
 		}
 
-		if(format[k-1]=='f')				//读取浮点型 
+		if(format[k-1]=='f')				//��ȡ������ 
 		{
 			f = va_arg(ap, float*);
 			
@@ -91,7 +91,7 @@ int Scanf(FILE *fp, char *format, ...)
 				count += fscanf(fp, "%f", f);
 		}
 		
-		if(format[k-1]=='s')				//读取字符串 
+		if(format[k-1]=='s')				//��ȡ�ַ��� 
 		{
 			s = va_arg(ap, char*);
 			

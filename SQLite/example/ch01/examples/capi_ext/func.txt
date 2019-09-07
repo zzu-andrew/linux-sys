@@ -1,0 +1,10 @@
+function() : Called with 1 argumetns
+    arg 0: value=test    type=3
+
+function() : Called with 4 argumetns
+    arg 0: value=fail    type=3
+    arg 1: value=1       type=1
+    arg 2: value=2       type=1
+    arg 3: value=3       type=1
+
+execute() Error: function() : Failing because you told me to.

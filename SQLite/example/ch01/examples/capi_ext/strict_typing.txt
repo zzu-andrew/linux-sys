@@ -1,0 +1,88 @@
+owensmk@mike ch9 $ ./strict_typing
+Dropping table types, if exists.
+  TRACE: select count(*) from sqlite_master where name='types'
+  TRACE: drop table types
+Creating table types.
+  TRACE: create table types(
+id integer primary key, x int not null default 0,y float not null default 0.0);
+Populating table types.
+  TRACE: insert into types(x,y) values (1, 1.1)
+  TRACE: insert into types(x,y) values (2, 2.1)
+  TRACE: insert into types(x,y) values (3, 3.1)
+
+1. Add strict typing:
+  TRACE: select add_strict_type_check('types', '*')
+  TRACE: pragma table_info(types)
+  TRACE: select validate_int(null)
+  TRACE: CREATE TRIGGER types_insert_x_typecheck_tr
+BEFORE INSERT ON types
+BEGIN
+   SELECT CASE
+     WHEN(SELECT validate_int(new.x) != 1)
+     THEN RAISE(ABORT, 'invalid int value for types.x')
+   END;
+END;
+  TRACE: CREATE TRIGGER types_update_x_typecheck_tr
+BEFORE UPDATE OF x ON types
+FOR EACH ROW BEGIN
+  SELECT CASE
+    WHEN(SELECT validate_int(new.x) != 1)
+    THEN RAISE(ABORT, 'invalid int value for types.x')
+  END;
+END;
+  TRACE: select validate_float(null)
+  TRACE: CREATE TRIGGER types_insert_y_typecheck_tr
+BEFORE INSERT ON types
+BEGIN
+   SELECT CASE
+     WHEN(SELECT validate_float(new.y) != 1)
+     THEN RAISE(ABORT, 'invalid float value for types.y')
+   END;
+END;
+  TRACE: CREATE TRIGGER types_update_y_typecheck_tr
+BEFORE UPDATE OF y ON types
+FOR EACH ROW BEGIN
+  SELECT CASE
+    WHEN(SELECT validate_float(new.y) != 1)
+    THEN RAISE(ABORT, 'invalid float value for types.y')
+  END;
+END;
+
+2. Insert integer value -- should succeed:
+  TRACE: insert into types (x) values (1)
+
+3. Update with invalid values -- should fail:
+  TRACE: update types set x = 'abc'
+execute() Error: invalid int value for types.x
+  TRACE: update types set y = 'abc'
+execute() Error: invalid float value for types.y
+
+4. Remove strict typing
+  TRACE: select drop_strict_type_check('types', '*')
+  TRACE: pragma table_info(types)
+  TRACE: DROP TRIGGER types_insert_x_typecheck_tr
+  TRACE: DROP TRIGGER types_update_x_typecheck_tr
+  TRACE: DROP TRIGGER types_insert_y_typecheck_tr
+  TRACE: DROP TRIGGER types_update_y_typecheck_tr
+
+5. Update with non-integer value -- should succeed:
+  TRACE: update types set x = 'not an int'
+
+6. Select records:
+  TRACE: select * from types
+id x          y
+-- ---------- ---
+1  not an int 1.1
+2  not an int 2.1
+3  not an int 3.1
+4  not an int 0
+
+7. Test column_type() UDF
+  TRACE: select column_type('types', 'id') as 'id',
+         column_type('types', 'x')  as 'x',
+         column_type('types', 'y')  as 'y'
+id      x   y
+------- --- -----
+integer int float
+
+owensmk@mike ch9 $ pwd

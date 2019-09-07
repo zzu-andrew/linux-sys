@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlex", "sqlex.vcproj", "{A5021BE4-F472-45CE-8316-914BC20E2B28}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcre", "pcre.vcproj", "{689D1DFA-724E-4B19-BC7C-5D2B134D6632}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A5021BE4-F472-45CE-8316-914BC20E2B28}.Debug.ActiveCfg = Debug|Win32
+		{A5021BE4-F472-45CE-8316-914BC20E2B28}.Debug.Build.0 = Debug|Win32
+		{A5021BE4-F472-45CE-8316-914BC20E2B28}.Release.ActiveCfg = Release|Win32
+		{A5021BE4-F472-45CE-8316-914BC20E2B28}.Release.Build.0 = Release|Win32
+		{689D1DFA-724E-4B19-BC7C-5D2B134D6632}.Debug.ActiveCfg = Debug|Win32
+		{689D1DFA-724E-4B19-BC7C-5D2B134D6632}.Debug.Build.0 = Debug|Win32
+		{689D1DFA-724E-4B19-BC7C-5D2B134D6632}.Release.ActiveCfg = Release|Win32
+		{689D1DFA-724E-4B19-BC7C-5D2B134D6632}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

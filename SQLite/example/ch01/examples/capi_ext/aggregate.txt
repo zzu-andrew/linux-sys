@@ -1,0 +1,22 @@
+owensmk@mike ch9 $ ./aggregate
+Dropping table aggregate, if exists.
+  TRACE: select count(*) from sqlite_master where name='aggregate'
+Creating table aggregate.
+  TRACE: create table aggregate(id integer)
+Populating table aggregate.
+  TRACE: insert into aggregate values (1)
+  TRACE: insert into aggregate values (2)
+  TRACE: insert into aggregate values (3)
+
+Registering aggregate sum_int()
+
+Running query:
+  TRACE: select sum_int(id) from aggregate
+step()     : value=1, total=1
+step()     : value=2, total=3
+step()     : value=3, total=6
+finalize() : total=6
+
+sum_int(id)
+-----------
+6

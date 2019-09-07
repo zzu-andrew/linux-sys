@@ -1,0 +1,110 @@
+owensmk@mike ch9 $ ./collate
+Registering collation sequence oracle_date
+Dropping table dates, if exists.
+  TRACE: select count(*) from sqlite_master where name='dates'
+  TRACE: drop table dates
+Creating table dates.
+  TRACE: create table dates(
+    id integer primary key,
+    date ora_date )
+Populating table dates.
+  TRACE: insert into dates values (NULL, '1-JAN-2005')
+  TRACE: insert into dates values (NULL, '1-FEB-2005')
+  TRACE: insert into dates values (NULL, '1-MAR-2005')
+  TRACE: insert into dates values (NULL, '1-APR-2005')
+  TRACE: insert into dates values (NULL, '1-MAY-2005')
+  TRACE: insert into dates values (NULL, '1-JUN-2005')
+  TRACE: insert into dates values (NULL, '1-JUL-2005')
+  TRACE: insert into dates values (NULL, '1-AUG-2005')
+  TRACE: insert into dates values (NULL, '1-SEP-2005')
+  TRACE: insert into dates values (NULL, '1-OCT-2005')
+  TRACE: insert into dates values (NULL, '1-NOV-2005')
+  TRACE: insert into dates values (NULL, '1-DEC-2005')
+
+execute() Error: no such table: main.date
+Select records. Use default collation.
+  TRACE: select * from dates order by date
+id date
+-- ----------
+4  1-APR-2005
+8  1-AUG-2005
+12 1-DEC-2005
+2  1-FEB-2005
+1  1-JAN-2005
+7  1-JUL-2005
+6  1-JUN-2005
+3  1-MAR-2005
+5  1-MAY-2005
+11 1-NOV-2005
+10 1-OCT-2005
+9  1-SEP-2005
+
+Select records. Use Oracle data collation.
+  TRACE: select * from dates order by date collate oracle_date
+collate_fn() : date1=1-DEC-2005, date2=1-NOV-2005
+collate_fn() : date1=1-OCT-2005, date2=1-SEP-2005
+collate_fn() : date1=1-NOV-2005, date2=1-SEP-2005
+collate_fn() : date1=1-NOV-2005, date2=1-OCT-2005
+collate_fn() : date1=1-AUG-2005, date2=1-JUL-2005
+collate_fn() : date1=1-JUN-2005, date2=1-MAY-2005
+collate_fn() : date1=1-JUL-2005, date2=1-MAY-2005
+collate_fn() : date1=1-JUL-2005, date2=1-JUN-2005
+collate_fn() : date1=1-SEP-2005, date2=1-MAY-2005
+collate_fn() : date1=1-SEP-2005, date2=1-JUN-2005
+collate_fn() : date1=1-SEP-2005, date2=1-JUL-2005
+collate_fn() : date1=1-SEP-2005, date2=1-AUG-2005
+collate_fn() : date1=1-APR-2005, date2=1-MAR-2005
+collate_fn() : date1=1-FEB-2005, date2=1-JAN-2005
+collate_fn() : date1=1-MAR-2005, date2=1-JAN-2005
+collate_fn() : date1=1-MAR-2005, date2=1-FEB-2005
+collate_fn() : date1=1-MAY-2005, date2=1-JAN-2005
+collate_fn() : date1=1-MAY-2005, date2=1-FEB-2005
+collate_fn() : date1=1-MAY-2005, date2=1-MAR-2005
+collate_fn() : date1=1-MAY-2005, date2=1-APR-2005
+id date
+-- ----------
+1  1-JAN-2005
+2  1-FEB-2005
+3  1-MAR-2005
+4  1-APR-2005
+5  1-MAY-2005
+6  1-JUN-2005
+7  1-JUL-2005
+8  1-AUG-2005
+9  1-SEP-2005
+10 1-OCT-2005
+11 1-NOV-2005
+12 1-DEC-2005
+
+Convert Oracle date to ISO format.
+  TRACE: select iso_from_oradate('01-APR-05') as 'ISO Date'
+ISO Date
+----------
+2005-04-01
+
+Validate Oracle format. Should fail.
+  TRACE: select validate_oradate('01-NOT-2005')
+execute() Error: Invalid Oracle date format.
+
+Test Oracle insert trigger -- should fail.
+  TRACE: insert into dates (date) values ('01-NOT-2005')
+execute() Error: Invalid Oracle date format.
+
+Test Oracle update trigger -- should succeed.
+  TRACE: update dates set date='01-JAN-2005'
+  TRACE: select * from dates
+id date
+-- -----------
+1  01-JAN-2005
+2  01-JAN-2005
+3  01-JAN-2005
+4  01-JAN-2005
+5  01-JAN-2005
+6  01-JAN-2005
+7  01-JAN-2005
+8  01-JAN-2005
+9  01-JAN-2005
+10 01-JAN-2005
+11 01-JAN-2005
+12 01-JAN-2005
+owensmk@mike ch9 $

@@ -1,0 +1,1 @@
+This zip file incorporates all of the samples from the first edition.  You will need to use these in conjunction with the examples in the second edition

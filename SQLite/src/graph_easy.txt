@@ -1,0 +1,2 @@
+[ B-tree ] --> [ Pager ] --> [ os ] --> [ Database File ]
+[ os ] --> [ Journal File ]

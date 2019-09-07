@@ -1,0 +1,5 @@
+These files are for building the Seinfeld food database. You will need
+sqlite3-ruby installed on your machine, and zsh (although you can easily change
+this).
+
+Once these are installed, to build the database, simply type make.sh
