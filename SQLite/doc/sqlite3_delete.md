@@ -12,7 +12,7 @@
 
 ​	删除数据，注意并不是删除一个数据表，只是删除一个数据表中的一个数据项；
 
-`creat_db_delete.c` 代码仓库路径：<>
+`creat_db_delete.c` 代码仓库路径：<https://github.com/zzu-andrew/linux-sys/tree/dfew/SQLite>
 
 ```c
 #include <stdio.h>
