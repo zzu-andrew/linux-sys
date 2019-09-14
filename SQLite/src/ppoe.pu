@@ -1,0 +1,9 @@
+@startuml pppoe
+
+RTA --> RTB : PADI(发现报文，广播)
+RTB --> RTA : PADO(可提供服务，提供PADO offer报文)
+RTA --> RTB : PADR(单播一个PADR,请求报文)
+RTB --> RTA : PADS(确认报文)
+
+
+@enduml
