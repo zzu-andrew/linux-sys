@@ -121,3 +121,36 @@ int main(int argc, char* argv[])
 }
 ```
 
+- 数据表中 ID=2的数据项以被删除
+
+```bash
+Opened database successfully
+Table created successfully
+Table replace successfully
+----------------------------------------------------------!
+Before delete !!
+(null): ID = 1
+NAME = alice
+AGE = 18
+ADDRESS = 10.1.1.1
+SALARY = 100000.123
+
+(null): ID = 2
+NAME = alice
+AGE = 18
+ADDRESS = 10.1.1.1
+SALARY = 100000.123
+
+Table created successfully
+----------------------------------------------------------!
+# 数据表中 ID=2的数据项以被删除
+after delete !!
+Callback function called: ID = 1
+NAME = alice
+AGE = 18
+ADDRESS = 10.1.1.1
+SALARY = 100000.123
+
+Operation done successfully
+```
+

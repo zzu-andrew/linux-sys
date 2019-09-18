@@ -1,6 +1,6 @@
 include ../modules_make.inc
 
-DB_LIB = libdatastructure.a
+DS_LIB = libdatastructure.a
 
 
 
@@ -12,16 +12,16 @@ PUB_INC += ds_extern.h
 
 OBJS  := $(TLPI_INCL_SOURCE:.c=.o)
 
-all : ${DB_LIB}
+all : ${DS_LIB}
 
-${DB_LIB}: ${TLPI_INCL_SOURCE}
+${DS_LIB}: ${TLPI_INCL_SOURCE}
 	gcc ${CFLAGS} -c ${TLPI_INCL_SOURCE} 
-	ar -rc ${DB_LIB} ${OBJS}
+	ar -rc ${DS_LIB} ${OBJS}
 	cp -rf ${PUB_INC} ${INCLUDE_DIR}
-	cp -rf ${DB_LIB}  ${TLPI_DIR}/libs
+	cp -rf ${DS_LIB}  ${TLPI_DIR}/libs
 
 clean : 
-	${RM} ${DB_LIB} *.o
+	${RM} ${DS_LIB} *.o
 
 showall :
 	@ echo ${EXE}

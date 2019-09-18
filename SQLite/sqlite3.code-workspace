@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "LeetCode",
+			"path": "/work/LeetCode"
+		}
+	],
+    "settings": {
+        "maven.view": "hierarchical"
+    }
+}
