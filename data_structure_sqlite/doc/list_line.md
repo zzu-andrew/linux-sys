@@ -1,11 +1,27 @@
-#include "list_liner.h"
 
+[TOC]
 
-Status visit(ElemType c)
+## 单向链表实现
+
+**定义链表节点**
+
+`LinkList L;`
+
+```c
+typedef struct Node
 {
-    printf("%d ",c);
-    return OK;
-}
+    ElemType data;  // 节点中的数据
+    struct Node *next; // 指向下一个节点的指针
+}Node;
+
+typedef struct Node *LinkList; /* 定义LinkList */
+```
+
+**初始化单项链表**
+
+`InitList(&L);`
+
+```c
 /* 初始化顺序线性表 */
 Status InitList(LinkList *L)
 {
@@ -20,11 +36,16 @@ Status InitList(LinkList *L)
 
     return OK;
 }
+```
 
+**计算链表的长度**
+
+```c
 /* 初始条件：顺序线性表L已存在。操作结果：返回L中数据元素个数 */
 int ListLength(LinkList L)
 {
     int i=0;
+    //< 链表开始是在L->next指向的链表
     LinkList p=L->next; /* p指向第一个结点 */
 
     while(p)
@@ -35,6 +56,17 @@ int ListLength(LinkList L)
 
     return i;
 }
+```
+
+**查看链表数据**
+
+```c
+Status visit(ElemType c)
+{
+    printf("%d ",c);
+    return OK;
+}
+
 
 /* 初始条件：顺序线性表L已存在 */
 /* 操作结果：依次对L的每个数据元素输出 */
@@ -52,6 +84,12 @@ Status ListTraverse(LinkList L)
 
     return OK;
 }
+
+```
+
+**创建链表**
+
+```c
 
 /*  随机产生n个元素的值，建立带表头结点的单链线性表L（尾插法） */
 void CreateListTail(LinkList *L, int n)
@@ -72,9 +110,16 @@ void CreateListTail(LinkList *L, int n)
 	}
 
 	r->next = NULL;                       /* 表示当前链表结束 */
-	// 创建有环链表
-    //r->next = p;
 }
+```
+
+
+
+**获取链表中间值**
+
+​	 获取方法，search移动的速度是mid的两倍，search移动到末尾的时候mid刚好能取出链表中间值
+
+```c
 
 Status GetMidNode(LinkList L, ElemType *e)
 {
@@ -99,6 +144,13 @@ Status GetMidNode(LinkList L, ElemType *e)
 
     return OK;
 }
+```
+
+
+
+**函数实现**
+
+```c
 
 int main()
 {
@@ -149,5 +201,16 @@ int main()
         }
     }
 }
+
+```
+
+
+
+
+
+
+
+
+
 
 
