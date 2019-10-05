@@ -1,1 +1,0 @@
-../../cfb/stip68kgnu.h
