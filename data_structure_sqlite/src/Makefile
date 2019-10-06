@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-LINUX_EXE = list_liner
+LINUX_EXE = list_liner test one_way_circle_list josephus loop magician
 
 EXE =  ${LINUX_EXE}
 
