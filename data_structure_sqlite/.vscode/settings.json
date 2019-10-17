@@ -1,3 +1,6 @@
 {
-    "maven.view": "hierarchical"
+    "maven.view": "hierarchical",
+    "files.associations": {
+        "interpolationsearch.h": "c"
+    }
 }
