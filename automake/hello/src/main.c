@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
     puts("Hello world!\n");
-    puts("This is" PACKAGE_STRING ".");
+    puts("This is " PACKAGE_STRING ".");
     return 0;
 }
 
