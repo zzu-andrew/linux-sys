@@ -149,11 +149,17 @@ make[1]: Leaving directory '/home/andrew/work/hello'
 ```bash
 andrew@andrew-Thurley:~/work/hello$ cat configure.ac 
 # AC_ autoconf 宏，初始化autoconf
+# AC_INIT 中的参数列表，代表的意思，文件夹名，版本号，bug报告地址
 AC_INIT([hello], [1.0], [564631192@qq.com])
 # AM_ automake 宏 初始化automake
+# AM_INIT_AUTOMAKE 中的参数列表是，传递给automake的，
+# foreign 告诉automake这个工程不是标准的GNU项目，有些文件GNU中的必要的文件可以缺失
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+# 告诉configure去寻找C编译器，并使用CC编译hello,configure将CC定义成对应编译工具
 AC_PROG_CC
+# autoconf会将上述定义的变量，生成对应的宏定义放到对应的config.h中
 AC_CONFIG_HEADERS([config.h])
+p17
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
@@ -190,3 +196,20 @@ int main(int argc, char* argv[])
 
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[完整代码地址链接](https://github.com/zzu-andrew/linux-sys/tree/dfew/automake)
