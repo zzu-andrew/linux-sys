@@ -8,7 +8,7 @@
 
 
 
-## 小试牛刀
+## 管理单个可执行文件
 
 ### 所需文件
 
@@ -159,40 +159,115 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CC
 # autoconf会将上述定义的变量，生成对应的宏定义放到对应的config.h中
 AC_CONFIG_HEADERS([config.h])
-p17
+# 定义 configure应该根据 *.in等临时文件，生成的文件
+AC_CONFIG_FILES([
+    Makefile
+    src/Makefile
+])
+# 结束命令，实际生成，AC_CONFIG_HEADERS  AC_CONFIG_FILES 中注册的文件
+AC_OUTPUT
+```
+
+**Makefile.am**
+
+```bash
+# SUBDIRS 指定需要构建的文件夹
+# make dist时，会自动的将README发布，这里的dist_doc_DATA 是留给make install使用的
+# The line dist_doc_DATA = README causes README to be distributed and installed in
+# docdir.
+andrew@andrew-Thurley:~/work/hello$ cat Makefile.am 
+SUBDIRS = src
+dist_doc_DATA = README
+andrew@andrew-Thurley:~/work/hello$ 
+
+# 包含automake指令，用于构建和安装hello
+# bin_PROGRAMS 是需要安装的可执行文件，如果文件不需要安装可以使用 noinst_PROGRAMS
+# _PROGRAMS构建文件
+# _SCRIPTS 生成脚本
+# _DATA 生成数据文件
+# _LIBRARIES 生成库文件
+# make dist 发布文件时，source文件也会打到发布的文件中
+andrew@andrew-Thurley:~/work/hello$ cat src/Makefile.am 
+bin_PROGRAMS = hello
+hello_SOURCES = main.c
+```
+
+说明：
+
+`The line dist_doc_DATA = README causes README to be distributed and installed in
+docdir. Files listed with the _DATA primary are not automatically part of the tarball built
+with make dist, so we add the dist_ prefix so they get distributed. However, for README it
+would not have been necessary: automake automatically distributes any README file it en-
+counters (the list of other files automatically distributed is presented by automake --help).
+The only important effect of this second line is therefore to install README during make
+install.`
+
+### 发布程序
+
+`make dist`
+
+```bash
+andrew@andrew-Thurley:~/work/hello$ make dist
+make  dist-gzip am__post_remove_distdir='@:'
+make[1]: Entering directory '/home/andrew/work/hello'
+if test -d "hello-1.0"; then find "hello-1.0" -type d ! -perm -200 -exec chmod u+w {} ';' && rm -rf "hello-1.0" || { sleep 5 && rm -rf "hello-1.0"; }; else :; fi
+test -d "hello-1.0" || mkdir "hello-1.0"
+ (cd src && make  top_distdir=../hello-1.0 distdir=../hello-1.0/src \
+     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)
+make[2]: Entering directory '/home/andrew/work/hello/src'
+make[2]: Leaving directory '/home/andrew/work/hello/src'
+test -n "" \
+|| find "hello-1.0" -type d ! -perm -755 \
+	-exec chmod u+rwx,go+rx {} \; -o \
+  ! -type d ! -perm -444 -links 1 -exec chmod a+r {} \; -o \
+  ! -type d ! -perm -400 -exec chmod a+r {} \; -o \
+  ! -type d ! -perm -444 -exec /bin/bash /home/andrew/work/hello/install-sh -c -m a+r {} {} \; \
+|| chmod -R a+r "hello-1.0"
+tardir=hello-1.0 && ${TAR-tar} chof - "$tardir" | GZIP=--best gzip -c >hello-1.0.tar.gz
+make[1]: Leaving directory '/home/andrew/work/hello'
+if test -d "hello-1.0"; then find "hello-1.0" -type d ! -perm -200 -exec chmod u+w {} ';' && rm -rf "hello-1.0" || { sleep 5 && rm -rf "hello-1.0"; }; else :; fi
+```
+
+
+
+### 扩展
+
+**多个文件编译**
+
+```bash
+andrew@andrew-Thurley:/work/linux-sys/automake/zardoz$ cat configure.ac 
+AC_INIT([zardoz], [1.0], [564631192@qq.com])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AC_PROG_CC
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
 ])
 AC_OUTPUT
 
+andrew@andrew-Thurley:/work/linux-sys/automake/zardoz$ cat src/Makefile.am 
+bin_PROGRAMS = zardoz
+zardoz_SOURCES = main.c head.c float.c vortex9.c  gun.c
+zardoz_LDADD =  $(LIBOBJS)
+AM_CFLAGS = -lm -I./../inc
 
-andrew@andrew-Thurley:~/work/hello$ 
+```
 
-andrew@andrew-Thurley:~/work/hello$ cat Makefile.am 
-SUBDIRS = src
-dist_doc_DATA = README
-andrew@andrew-Thurley:~/work/hello$ 
+### build true and false
 
-andrew@andrew-Thurley:~/work/hello$ cat README 
-This is a test for automakeandrew@andrew-Thurley:~/work/hello$ 
+**使用不同的编译参数，构建多个文件**
 
+当需要构建不同的文件时，可以通过下面的方式实现构建多个文件，使用不同的编译选项
 
-andrew@andrew-Thurley:~/work/hello$ cat src/Makefile.am 
-bin_PROGRAMS = hello
-hello_SOURCES = main.c
+```bash
+andrew@andrew-Thurley:/work/linux-sys/automake/mulexec$ cat src/Makefile.am 
+bin_PROGRAMS = true false
+true_SOURCES = main.c
+true_CPPFLAGS = -lm -DTRUE
 
-
-andrew@andrew-Thurley:~/work/hello$ cat src/main.c 
-#include <stdio.h>
-#include "config.h"
-
-int main(int argc, char* argv[])
-{
-    puts("Hello world!\n");
-    puts("This is " PACKAGE_STRING ".");
-    return 0;
-}
+false_SOURCES = main.c
+false_CPPFLAGS =  -DFALSE
 
 ```
 
@@ -200,15 +275,57 @@ int main(int argc, char* argv[])
 
 
 
+## example
 
+**编译可执行文件**
 
+```bash
+#Makefile.am文件
+bin_PROGRAMS = xxx
+#bin_PROGRAMS 表示指定要生成的可执行应用程序文件，这表示可执行文件在安装时需要被安装到系统
+#中；如果只是想编译，不想被安装到系统中，可以用noinst_PROGRAMS来代替
 
+xxx_SOURCES = a.c b.c c.c main.c d.c xxx.c
+#xxx_SOURCES表示生成可执行应用程序所用的源文件，这里注意，xxx_是由前面的bin_PROGRAMS
+#指定的，如果前面是生成example,那么这里就是example_SOURCES，其它的类似标识也是一样
 
+xxx_CPPFLAGS = -DCONFIG_DIR=\"$(sysconfdir)\" -DLIBRARY_DIR=\"$(pkglibdir)\"
+#xxx_CPPFLAGS 这和Makefile文件中一样，表示C语言预处理参数，这里指定了DCONFIG_DIR，以后
+#在程序中，就可以直接使用CONFIG_DIR。不要把这个和另一个CFLAGS混淆，后者表示编译器参数
 
+xxx_LDFLAGS = -export-dynamic -lmemcached
+#xxx_LDFLAGS 连接的时候所需库文件的标识，这个也就是对应一些如-l,-shared等选项
 
+noinst_HEADERS = xxx.h
+#这个表示该头文件只是参加可执行文件的编译，而不用安装到安装目录下。如果需要安装到系统中，
+#可以用include_HEADERS来代替
 
+INCLUDES = -I/usr/local/libmemcached/include/
+#INCLUDES  链接时所需要的头文件
 
+xxx_LDADD = $(top_builddir)/sx/libsession.a \
+                $(top_builddir)/util/libutil.a
+#xxx_LDADD 链接时所需要的库文件，这里表示需要两个库文件的支持
+```
 
+**编译动态库**
+
+```bash
+#Makefile.am文件
+xxxlibdir=$(libdir)//新建一个目录，该目录就是lib目录，运行后xxx.so将安装在该目录下 
+xxxlib_PROGRAMS=xxx.so  
+xxx_so_SOURCES=xxx.c
+xxx_so_LDFLAGS=-shared -fpic //GCC编译动态库的选项
+```
+
+**编译静态库**
+
+```bash
+#Makefile.am文件 noinst 说明该库不需要安装
+noinst_LTLIBRARIES = xxx.a
+noinst_HEADERS = a.h b.h
+xxx_a_SOURCES = a.c b.c xxx.c
+```
 
 
 
