@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-
 typedef char ElemType;
 
 // 线索存储标志位
@@ -18,7 +15,6 @@ typedef struct BiThrNode
 	PointerTag ltag;
 	PointerTag rtag;
 } BiThrNode, *BiThrTree;
-
 
 // 创建一棵二叉树，约定用户遵照前序遍历的方式输入数据
 // 使用地柜创建二叉树
@@ -35,21 +31,12 @@ void visit( char c );
 void InOrderTraverse( BiThrTree T );
 
 
-
-
-
-
-
-
-
-
-
-
 // 全局变量，始终指向刚刚访问过的结点
 BiThrTree pre;
 
 // 创建一棵二叉树，约定用户遵照前序遍历的方式输入数据
 // 使用地柜创建二叉树
+// 使用前序遍历来实现二叉树的创建
 void CreateBiThrTree( BiThrTree *T )
 {
 	char c;
@@ -65,8 +52,9 @@ void CreateBiThrTree( BiThrTree *T )
 		(*T)->data = c;
 		(*T)->ltag = Link;
 		(*T)->rtag = Link;
-
+        //< 一直创建左子树，直到遇到空格
 		CreateBiThrTree(&(*T)->lchild);
+
 		CreateBiThrTree(&(*T)->rchild);
 	}
 }
