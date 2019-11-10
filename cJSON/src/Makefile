@@ -1,14 +1,18 @@
+include ../Makefile.inc
 
-all: test mytest1
+LINUX_EXE = mytest test
 
+EXE =  ${LINUX_EXE}
 
-test:test.c cJSON.c 
-	gcc test.c cJSON.c -o test -lm
-
-mytest1:mytest.c cJSON.c
-	gcc mytest.c cJSON.c -o mytest -lm
-
+all : ${EXE}
+	#graph-easy graph_easy.txt > graph_ascii.txt
 
 
 
+clean : 
+	${RM} ${EXE} *.o
 
+showall :
+	@ echo ${EXE}
+
+${EXE} : ${TLPI_LIB}		# True as a rough approximation
