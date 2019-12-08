@@ -20,6 +20,10 @@
 #define EXIT_SUCCESS 0
 #define EXIT_FAIL   -1
 
+#define UNIX_SYS_DEBUG(...) do { \
+                    printf("[%s], lien  = [%d]", __FILE__, __LINE__); \
+                    printf(__VA_ARGS__); \
+                     }while(0)
 
 
 int inetBind(const char *service, int type, socklen_t *addrlen);

@@ -4,7 +4,7 @@
 # (The library directory is first so that the library gets built first)
 #
 
-DIRS = lib fileio sockets
+DIRS = lib fileio sockets weak_func
 
 BUILD_DIRS = ${DIRS}
 
