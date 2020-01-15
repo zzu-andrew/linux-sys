@@ -53,6 +53,7 @@ void CreateBiThrTree( BiThrTree *T )
 		(*T)->ltag = Link;
 		(*T)->rtag = Link;
         //< 一直创建左子树，直到遇到空格
+        //< 使用递归，遇见空格之后才能跳出创建右子树
 		CreateBiThrTree(&(*T)->lchild);
 
 		CreateBiThrTree(&(*T)->rchild);
@@ -137,7 +138,7 @@ void InOrderTraverse( BiThrTree T )
 int main()
 {
 	BiThrTree P, T = NULL;
-
+    //< 使用递归创建二叉树
 	CreateBiThrTree( &T );
 
 	InOrderThreading( &P, T );

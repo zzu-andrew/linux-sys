@@ -1,9 +1,11 @@
+//<　建立hansh表
+
 #define HASHSIZE 12
 #define NULLKEY -32768
 
 typedef struct
 {
-	int *elem;	// 数据元素的基址，动态分配数组
+	int *elem;	// 数据元素的基地址，　动态分配的数组
 	int count;	// 当前数据元素的个数
 }HashTable;
 
@@ -22,28 +24,27 @@ int InitHashTable(HashTable *H)
 	return 0;
 }
 
-// 使用除留余数法
+// 使用除留余法
 int Hash(int key)
 {
 	return key % HASHSIZE;
 }
 
-// 插入关键字到散列表
+// 插入hash表
 void InsertHash(HashTable *H, int key)
 {
-	int addr;
-	
+	int addr;	
 	addr = Hash(key);
 	
-	while( H->elem[addr] != NULLKEY )	// 如果不为空，则冲突出现
+	while( H->elem[addr] != NULLKEY )	// ?????????????????
 	{
-		addr = (addr + 1) % HASHSIZE;	// 开放定址法的线性探测
+		addr = (addr + 1) % HASHSIZE;	// ?????????????????
 	}
 	
 	H->elem[addr] = key;
 }
 
-// 散列表查找关键字
+// 搜索hansh表
 int SearchHash(HashTable H, int key, int *addr)
 {
 	*addr = Hash(key);

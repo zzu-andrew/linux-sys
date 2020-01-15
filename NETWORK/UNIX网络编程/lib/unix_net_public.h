@@ -14,7 +14,7 @@
 
 
 #define UNIX_NET_DEBUG(...) do { \
-                    printf("[%s], lien  = [%d]", __FILE__, __LINE__); \
+                    printf("[%s], line = [%d]", __FILE__, __LINE__); \
                     printf(__VA_ARGS__); \
                      }while(0)
   

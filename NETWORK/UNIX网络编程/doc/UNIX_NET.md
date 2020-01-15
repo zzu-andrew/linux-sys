@@ -444,6 +444,69 @@ int close(int fd)；
 
 
 
+## 高级枚举型定义实现
+
+**C源文件**
+
+```c
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+/*
+实现原理说明：
+首先在枚举型结构体中定义宏定义　#define ENUM_(name,num,size,desc)  MACRO_##name = num,
+然后在引入头文件，头文件包含的宏定义的调用将在这里进行展开，展开之后，会得到一个由宏定义扩展之后的
+枚举型结构体
+*/
+enum MACRO_ENUM
+{
+    #define ENUM_(name,num,size,desc)  MACRO_##name = num,
+    #include "enum_example.h"
+    MACRO_MAX,
+};
+
+
+int main(int argc, char *argv[])
+{
+    /* 经过宏扩展的之后的枚举型变量大小 */
+    printf("after macro MACRO_MAX = [%d]\n", MACRO_MAX);
+
+    return 0;
+}
+
+```
+
+**`enum_example.h`**
+
+
+```c
+
+/**
+ * @brief  宏定义实现枚举型的扩展
+ * ＠　　　　该头文件仅用于扩展对应文件宏定义
+ */
+
+#define EXAM1_SIZE 1
+
+ENUM_(EXAM1,EXAM1_SIZE,sizeof(int),"this is a enum example")
+
+#define EXAM2_SIZE 2
+ENUM_(EXAM2,EXAM1_SIZE,sizeof(int),"this is a enum example")
+
+#define EXAM3_SIZE 30
+ENUM_(EXAM3,EXAM3_SIZE,sizeof(int),"this is a enum example")
+
+```
+
+
+
+
+
+
+
 
 
 

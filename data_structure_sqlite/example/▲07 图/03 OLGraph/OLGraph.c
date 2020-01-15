@@ -1,21 +1,21 @@
 /******************************
  *					          *
- * ÎÄ¼ş¼Ğ: ¡ø07 Í¼\03 OLGraph *
+ * æ–‡ä»¶å¤¹: â–²07 å›¾\03 OLGraph *
  * 					          *
- * ÎÄ¼şÃû: OLGraph.c          *
+ * æ–‡ä»¶å: OLGraph.c          *
  *    	    		          *
- * Ëã  ·¨: 7.3                * 
+ * ç®—  æ³•: 7.3                * 
  *    	    		          *
  ******************************/
 
 #ifndef OLGRAPH_C
 #define OLGRAPH_C
 
-#include "OLGraph.h" 								//**¡ø07 Í¼**//
+#include "OLGraph.h" 								//**â–²07 å›¾**//
 
-/*¨T¨T¨T¨T¨[
-¨U Ëã·¨7.3¨U 
-¨^¨T¨T¨T¨T*/
+/*â•â•â•â•â•—
+â•‘ ç®—æ³•7.3â•‘ 
+â•šâ•â•â•â•*/
 Status CreateDG_OL(FILE *fp, OLGraph *G)
 {
 	int i, j, k;
@@ -24,31 +24,31 @@ Status CreateDG_OL(FILE *fp, OLGraph *G)
 	ArcBox *p;
 	
 	Scanf(fp, "%d%d%d", &((*G).vexnum), &((*G).arcnum), &((*G).IncInfo));
-	Scanf(fp, "%c", &tmp);							//Ìø¹ı»»ĞĞ·û 
+	Scanf(fp, "%c", &tmp);							//è·³è¿‡æ¢è¡Œç¬¦ 
 	
-	for(i=1; i<=(*G).vexnum; i++)					//¹¹Ôì±íÍ·ÏòÁ¿ 
+	for(i=1; i<=(*G).vexnum; i++)					//æ„é€ è¡¨å¤´å‘é‡ 
 	{
-		Scanf(fp, "%c", &((*G).xlist[i].data));		//ÊäÈë¶¥µãÖµ	
-		(*G).xlist[i].firstin = NULL;				//³õÊ¼»¯Ö¸Õë 
+		Scanf(fp, "%c", &((*G).xlist[i].data));		//è¾“å…¥é¡¶ç‚¹å€¼	
+		(*G).xlist[i].firstin = NULL;				//åˆå§‹åŒ–æŒ‡é’ˆ 
 		(*G).xlist[i].firstout = NULL;
 	}
-	Scanf(fp, "%c", &tmp);							//Ìø¹ı»»ĞĞ·û
+	Scanf(fp, "%c", &tmp);							//è·³è¿‡æ¢è¡Œç¬¦
 		
-	for(k=1; k<=(*G).arcnum; k++)					//ÊäÈë¸÷»¡²¢¹¹ÔìÊ®×ÖÁ´±í 
+	for(k=1; k<=(*G).arcnum; k++)					//è¾“å…¥å„å¼§å¹¶æ„é€ åå­—é“¾è¡¨ 
 	{
-		Scanf(fp, "%c%c", &v1, &v2);				//ÊäÈëÒ»Ìõ»¡µÄÆğÊ¼µãºÍÖÕµã 
+		Scanf(fp, "%c%c", &v1, &v2);				//è¾“å…¥ä¸€æ¡å¼§çš„èµ·å§‹ç‚¹å’Œç»ˆç‚¹ 
 				
-		i = LocateVex_OL(*G, v1);					//È·¶¨v1ºÍv2ÔÚGÖĞÎ»ÖÃ 
+		i = LocateVex_OL(*G, v1);					//ç¡®å®šv1å’Œv2åœ¨Gä¸­ä½ç½® 
 		j = LocateVex_OL(*G, v2);
 		
 		if(!i || !j)
 			return ERROR;
 
-		p = (ArcBox *)malloc(sizeof(ArcBox));		//¼Ù¶¨ÓĞ×ã¹»¿Õ¼ä 
+		p = (ArcBox *)malloc(sizeof(ArcBox));		//å‡å®šæœ‰è¶³å¤Ÿç©ºé—´ 
 		if(!p)
 			exit(OVERFLOW);
 		
-		p->tailvex = i;								//¶Ô»¡½áµãºÍ¶¥µã½áµã¸³Öµ 
+		p->tailvex = i;								//å¯¹å¼§ç»“ç‚¹å’Œé¡¶ç‚¹ç»“ç‚¹èµ‹å€¼ 
 		p->headvex = j;
 		
 		p->hlink = (*G).xlist[j].firstin;
@@ -57,7 +57,7 @@ Status CreateDG_OL(FILE *fp, OLGraph *G)
 		p->tLink = (*G).xlist[i].firstout;
 		(*G).xlist[i].firstout = p;
 		
-		if((*G).IncInfo==1)							//±íÊ¾ÓĞ»¡µÄÆäËûĞÅÏ¢£¬Â¼Èë 
+		if((*G).IncInfo==1)							//è¡¨ç¤ºæœ‰å¼§çš„å…¶ä»–ä¿¡æ¯ï¼Œå½•å…¥ 
 			Input(fp, &(p->info));		
 	}
 	
@@ -169,7 +169,7 @@ Status InsertVex_OL(OLGraph *G, VertexType_OL v)
 	int i, k, t;
 	
 	if((*G).vexnum==MAX_VERTEX_NUM)
-		return ERROR;				//¶¥µãÊıÒÑÂú 
+		return ERROR;				//é¡¶ç‚¹æ•°å·²æ»¡ 
 
 	(*G).vexnum++;
 	
@@ -190,19 +190,19 @@ Status DeleteVex_OL(OLGraph *G, VertexType_OL v)
 	if(!k)
 		return ERROR;
 	
-	while((*G).xlist[k].firstout)						//É¾³ı´Ó¶¥µãv³ö·¢µÄ»¡ 
+	while((*G).xlist[k].firstout)						//åˆ é™¤ä»é¡¶ç‚¹vå‡ºå‘çš„å¼§ 
 	{
 		p = (*G).xlist[k].firstout;
 		DeleteArc_OL(G, (*G).xlist[p->tailvex].data, (*G).xlist[p->headvex].data);
 	}
 	
-	while((*G).xlist[k].firstin)						//É¾³ıÖ¸Ïò¶¥µãvµÄ»¡£¨ÊÊÓÃÓÚÓĞÏòÍ¼»òÓĞÏòÍø£©
+	while((*G).xlist[k].firstin)						//åˆ é™¤æŒ‡å‘é¡¶ç‚¹vçš„å¼§ï¼ˆé€‚ç”¨äºæœ‰å‘å›¾æˆ–æœ‰å‘ç½‘ï¼‰
 	{
 		p  = (*G).xlist[k].firstin;
 		DeleteArc_OL(G, (*G).xlist[p->tailvex].data, (*G).xlist[p->headvex].data);		
 	}
 	
-	for(i=k+1; i<=(*G).vexnum; i++)						//ÖØĞÂ°²ÅÅ¸÷¶¥µãÎ»ÖÃ 
+	for(i=k+1; i<=(*G).vexnum; i++)						//é‡æ–°å®‰æ’å„é¡¶ç‚¹ä½ç½® 
 	{
 		(*G).xlist[i-1].data = (*G).xlist[i].data;
 		(*G).xlist[i-1].firstin = (*G).xlist[i].firstin;
@@ -231,9 +231,9 @@ Status InsertArc_OL(OLGraph *G, VertexType_OL v, VertexType_OL w, ...)
 	p->tailvex = k1;
 	p->headvex = k2;
 	
-	va_list ap;											//´æÔÚ»¡ĞÅÏ¢£¬ÔòÂ¼Èë 
+	va_list ap;											//å­˜åœ¨å¼§ä¿¡æ¯ï¼Œåˆ™å½•å…¥ 
 	va_start(ap, w);
-	p->info = va_arg(ap, InfoType);						//½á¹¹¿ÉÖ±½Ó¸´ÖÆ	
+	p->info = va_arg(ap, InfoType);						//ç»“æ„å¯ç›´æ¥å¤åˆ¶	
 	va_end(ap);	
 	
 	q = (*G).xlist[k1].firstout;
@@ -267,7 +267,7 @@ Status InsertArc_OL(OLGraph *G, VertexType_OL v, VertexType_OL w, ...)
 		r->hlink = p;	
 	}
 		
-	(*G).arcnum++;									//»¡ÊıÔöÒ» 
+	(*G).arcnum++;									//å¼§æ•°å¢ä¸€ 
 		
 	return OK;	
 }
@@ -298,7 +298,7 @@ Status DeleteArc_OL(OLGraph *G, VertexType_OL v, VertexType_OL w)
 		
 		if(p)
 			q->tLink = p->tLink;
-		else										//ÓûÉ¾³ıµÄ»¡²»´æÔÚ 
+		else										//æ¬²åˆ é™¤çš„å¼§ä¸å­˜åœ¨ 
 			return ERROR;
 	}
 	
@@ -320,7 +320,7 @@ Status DeleteArc_OL(OLGraph *G, VertexType_OL v, VertexType_OL w)
 		
 	free(p);
 	
-	(*G).arcnum--;							//»¡Êı¼õÒ»
+	(*G).arcnum--;							//å¼§æ•°å‡ä¸€
 		
 	return OK;
 }
@@ -332,11 +332,11 @@ void DFSTraverse_OL(OLGraph G, void (Visit)(VertexType_OL))
 	VisitFunc = Visit;
 	
 	for(v=1; v<=G.vexnum; v++)
-		visited[v] = FALSE;					//³õÊ¼»¯ÎªÎ´·ÃÎÊ
+		visited[v] = FALSE;					//åˆå§‹åŒ–ä¸ºæœªè®¿é—®
 	
 	for(v=1; v<=G.vexnum; v++)
 	{
-		if(!visited[v])						//Î´·ÃÎÊ
+		if(!visited[v])						//æœªè®¿é—®
 			DFS_OL(G, v); 
 	} 
 }
@@ -363,7 +363,7 @@ void BFSTraverse_OL(OLGraph G, void (Visit)(VertexType_OL))
 	QElemType_L e;
 	
 	for(v=1; v<=G.vexnum; v++)
-		visited[v] = FALSE;					//³õÊ¼»¯ÎªÎ´·ÃÎÊ
+		visited[v] = FALSE;					//åˆå§‹åŒ–ä¸ºæœªè®¿é—®
 	
 	InitQueue_L(&Q);		
 	
@@ -397,12 +397,12 @@ void OutputOLGraph(OLGraph G)
 	ArcBox *p;
 	
 	if(!G.vexnum && !G.arcnum)
-		printf("¿ÕÍ¼£¨±í£©£¡\n");
+		printf("ç©ºå›¾ï¼ˆè¡¨ï¼‰ï¼\n");
 	else
 	{
 		for(i=1; i<=G.vexnum; i++)
 		{
-			printf("%c¡ú ", G.xlist[i].data);
+			printf("%câ†’ ", G.xlist[i].data);
 			p = G.xlist[i].firstout;
 			j = 1;
 			while(p)
@@ -423,7 +423,7 @@ void OutputOLGraph(OLGraph G)
 
 void Input(FILE *fp, InfoType *info)
 {
-	//Â¼Èë»¡µÄĞÅÏ¢£¬±¾ÎÄµµÉæ¼°µ½µÄ»¡Ä¬ÈÏÎŞÆäËûĞÅÏ¢ 
+	//å½•å…¥å¼§çš„ä¿¡æ¯ï¼Œæœ¬æ–‡æ¡£æ¶‰åŠåˆ°çš„å¼§é»˜è®¤æ— å…¶ä»–ä¿¡æ¯ 
 }
 
 #endif

@@ -1,6 +1,6 @@
 [TOC]
 
-# 单向循环链表的实现
+# 鍗曞悜寰幆閾捐〃鐨勫疄鐜�
 
 ```bash
 
@@ -12,17 +12,17 @@
 
 ```
 
-## 单向循环链表的初始化
+## 鍗曞悜寰幆閾捐〃鐨勫垵濮嬪寲
 
 ```c
-//< 初始化单向循环链表
+//< 鍒濆鍖栧崟鍚戝惊鐜摼琛�
 void ds_init(node **pNode)
 {
     int item;
     node *temp;
     node *target;
 
-    printf("初始化单向循环链表\n");
+    printf("鍒濆鍖栧崟鍚戝惊鐜摼琛╘n");
 
 	while(1)
 	{
@@ -44,7 +44,7 @@ void ds_init(node **pNode)
 		}
         else
 		{
-            //< 指定链表为0，也要对链表进行初始化
+            //< 鎸囧畾閾捐〃涓�0锛屼篃瑕佸閾捐〃杩涜鍒濆鍖�
             for(target = (*pNode); target->next != (*pNode); target = target->next)
 				;
 
@@ -64,7 +64,7 @@ void ds_init(node **pNode)
 
 
 
-## 向链表中插入一个数据
+## 鍚戦摼琛ㄤ腑鎻掑叆涓€涓暟鎹�
 
 ```c
 
@@ -76,7 +76,7 @@ void ds_insert(node **pNode , int i)
     int item;
     int j = 1;
 
-    printf("向链表中插入数据:");
+    printf("鍚戦摼琛ㄤ腑鎻掑叆鏁版嵁:");
     scanf("%d", &item);
 
     if(i == 1)
@@ -119,7 +119,7 @@ void ds_insert(node **pNode , int i)
 
 ```
 
-## 删除链表中的一个数据
+## 鍒犻櫎閾捐〃涓殑涓€涓暟鎹�
 
 ```c
 
@@ -155,11 +155,11 @@ void ds_delete(node **pNode, int i)
 }
 ```
 
-## 查找链表中的指定的数据
+## 鏌ユ壘閾捐〃涓殑鎸囧畾鐨勬暟鎹�
 
 ```c
 
-//< 查找链表中的指定的数据
+//< 鏌ユ壘閾捐〃涓殑鎸囧畾鐨勬暟鎹�
 int ds_search(node *pNode, int elem)
 {
     node *target;
@@ -187,7 +187,7 @@ int ds_search(node *pNode, int elem)
 
 
 /***
- * 单向循环链表示例
+ * 鍗曞悜寰幆閾捐〃绀轰緥
  * 
  * */
 
@@ -208,14 +208,14 @@ int ds_search(node *pNode, int elem);
 
 void ds_traverse(node *pNode);
 
-//< 初始化单向循环链表
+//< 鍒濆鍖栧崟鍚戝惊鐜摼琛�
 void ds_init(node **pNode)
 {
     int item;
     node *temp;
     node *target;
 
-    printf("初始化单向循环链表\n");
+    printf("鍒濆鍖栧崟鍚戝惊鐜摼琛╘n");
 
 	while(1)
 	{
@@ -228,7 +228,7 @@ void ds_init(node **pNode)
         
         if((*pNode) == NULL)
 		{ 
-            //< 指定的数据为0 也要对链表进行初始化
+            //< 鎸囧畾鐨勬暟鎹负0 涔熻瀵归摼琛ㄨ繘琛屽垵濮嬪寲
 			*pNode = (node*)malloc(sizeof(struct CLinkList));
 			if(!(*pNode))
 				exit(0);
@@ -237,7 +237,7 @@ void ds_init(node **pNode)
 		}
         else
 		{
-            //< 指定链表为0，也要对链表进行初始化
+            //< 鎸囧畾閾捐〃涓�0锛屼篃瑕佸閾捐〃杩涜鍒濆鍖�
             for(target = (*pNode); target->next != (*pNode); target = target->next)
 				;
 
@@ -263,7 +263,7 @@ void ds_insert(node **pNode , int i)
     int item;
     int j = 1;
 
-    printf("向链表中插入数据:");
+    printf("鍚戦摼琛ㄤ腑鎻掑叆鏁版嵁:");
     scanf("%d", &item);
 
     if(i == 1)
@@ -336,7 +336,7 @@ void ds_delete(node **pNode, int i)
     }
 }
 
-//< 查找链表中的指定的数据
+//< 鏌ユ壘閾捐〃涓殑鎸囧畾鐨勬暟鎹�
 int ds_search(node *pNode, int elem)
 {
     node *target;
@@ -353,13 +353,13 @@ int ds_search(node *pNode, int elem)
         return i;
 }
 
-//< 打印处单向链表
+//< 鎵撳嵃澶勫崟鍚戦摼琛�
 void ds_traverse(node *pNode)
 {
     node *temp;
-    printf("***********链表中的数据******************\n");
+    printf("***********閾捐〃涓殑鏁版嵁******************\n");
     temp = pNode;
-    printf("***********链表中的数据******************\n");
+    printf("***********閾捐〃涓殑鏁版嵁******************\n");
 
 	do
 	{
@@ -375,7 +375,7 @@ int main()
     char opp;
     int find;
 
-    printf("1.初始化单向循环链表 \n\n2.插入数据 \n\n3.删除一个节点 \n\n4.列出链表数据 \n\n5.打印链表数据  \n\n0.退出 \n\n请输入你的选项");
+    printf("1.鍒濆鍖栧崟鍚戝惊鐜摼琛� \n\n2.鎻掑叆鏁版嵁 \n\n3.鍒犻櫎涓€涓妭鐐� \n\n4.鍒楀嚭閾捐〃鏁版嵁 \n\n5.鎵撳嵃閾捐〃鏁版嵁  \n\n0.閫€鍑� \n\n璇疯緭鍏ヤ綘鐨勯€夐」");
     while(opp != '0')
 	{
         scanf("%c", &opp);
@@ -384,24 +384,24 @@ int main()
             case '1':
                 ds_init(&pHead);
                 printf("\n");
-                //< 如果没有初始化的链表直接使用ds_traverse 函数会造成段错误
+                //< 濡傛灉娌℃湁鍒濆鍖栫殑閾捐〃鐩存帴浣跨敤ds_traverse 鍑芥暟浼氶€犳垚娈甸敊璇�
                // ds_traverse(pHead);
                 break;
 
             case '2':
-                printf("向链表中插入数据");
+                printf("鍚戦摼琛ㄤ腑鎻掑叆鏁版嵁");
                 scanf("%d",  &find);
                 ds_insert(&pHead, find);
-                printf("插入的数据为：%d\n",  find);
+                printf("鎻掑叆鐨勬暟鎹负锛�%d\n",  find);
                 ds_traverse(pHead);
                 printf("\n");
                 break;
 
             case '3':
-                printf("删除指定的链表节点");
+                printf("鍒犻櫎鎸囧畾鐨勯摼琛ㄨ妭鐐�");
                 scanf("%d",  &find);
                 ds_delete(&pHead, find);
-                printf("删除的节点为： %d\n",  find);
+                printf("鍒犻櫎鐨勮妭鐐逛负锛� %d\n",  find);
                 ds_traverse(pHead);
                 printf("\n");
                 break;
@@ -409,7 +409,7 @@ int main()
             case '4':
                 printf("??????????????????????");
                 scanf("%d",  &find);
-                printf("???%d????��???%d\n",  find,  ds_search(pHead, find));
+                printf("???%d????锟斤拷???%d\n",  find,  ds_search(pHead, find));
                 //ListTraverse(L);
                 printf("\n");
                 break;

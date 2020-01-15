@@ -1,5 +1,8 @@
+//左子树高了
 #define LH 1
+//相等  
 #define EH 0
+//
 #define RH -1
 
 typedef struct BiTNode

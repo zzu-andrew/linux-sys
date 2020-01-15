@@ -1,15 +1,15 @@
 /******************************************
  *                                        *
- * ÎÄ¼ş¼Ğ: ¡ø07 Í¼\03 OLGraph             *
+ * æ–‡ä»¶å¤¹: â–²07 å›¾\03 OLGraph             *
  *                                        *
- * ÎÄ¼şÃû: OLGraph-main.c                 *
+ * æ–‡ä»¶å: OLGraph-main.c                 *
  * 							              *
- * ÄÚ  Èİ: ÓĞÏòÍ¼£¨Ê®×ÖÁ´±í£©Ïà¹Øº¯Êı²âÊÔ *
+ * å†…  å®¹: æœ‰å‘å›¾ï¼ˆåå­—é“¾è¡¨ï¼‰ç›¸å…³å‡½æ•°æµ‹è¯• *
  *                                        *
  ******************************************/
 
 #include <stdio.h>
-#include "OLGraph.c" 											//**¡ø07 Í¼**//
+#include "OLGraph.c" 											//**â–²07 å›¾**//
 
 void PrintElem(char c);
 
@@ -17,77 +17,77 @@ int main(int argc, char *argv[])
 {
 	OLGraph G;
 	
-	printf("¨‹1\n¡øº¯Êı CreateDG_OLµÈ ²âÊÔ...\n");				//1.º¯ÊıCreateDG_OLµÈ²âÊÔ
+	printf("â–¼1\nâ–²å‡½æ•° CreateDG_OLç­‰ æµ‹è¯•...\n");				//1.å‡½æ•°CreateDG_OLç­‰æµ‹è¯•
 	{
 		FILE *fp;
 		
-		printf("³õÊ¼»¯ÓĞÏòÍ¼ G ...\n");
-		fp = fopen("TestData_DG_OL.txt", "r");					//ÎÄµµÖĞ»¡µÄÂ¼ÈëÎªÄæĞò 
+		printf("åˆå§‹åŒ–æœ‰å‘å›¾ G ...\n");
+		fp = fopen("TestData_DG_OL.txt", "r");					//æ–‡æ¡£ä¸­å¼§çš„å½•å…¥ä¸ºé€†åº 
 		CreateDG_OL(fp, &G); 
 		fclose(fp);
 		printf("\n");
 	} 
 	PressEnter;
 	
-	printf("¨‹15\n¡øº¯Êı OutputOLGraph ²âÊÔ...\n");				//15.º¯ÊıOutputOLGraph²âÊÔ
+	printf("â–¼15\nâ–²å‡½æ•° OutputOLGraph æµ‹è¯•...\n");				//15.å‡½æ•°OutputOLGraphæµ‹è¯•
 	{
-		printf("Êä³öÓĞÏòÍ¼µÄÊ®×ÖÁ´±í G = \n");		
+		printf("è¾“å‡ºæœ‰å‘å›¾çš„åå­—é“¾è¡¨ G = \n");		
 		OutputOLGraph(G);
 		printf("\n");
 	}
 	PressEnter;
 
-	printf("¨‹3\n¡øº¯Êı LocateVex_OL ²âÊÔ...\n");				//3.º¯ÊıLocateVex_OL²âÊÔ
+	printf("â–¼3\nâ–²å‡½æ•° LocateVex_OL æµ‹è¯•...\n");				//3.å‡½æ•°LocateVex_OLæµ‹è¯•
 	{
-		printf("¶¥µã '%c' µÄÎ»ÖÃÎª %d \n", 'C', LocateVex_OL(G, 'C'));
+		printf("é¡¶ç‚¹ '%c' çš„ä½ç½®ä¸º %d \n", 'C', LocateVex_OL(G, 'C'));
 		printf("\n");
 	}
 	PressEnter;	
 
-	printf("¨‹4\n¡øº¯Êı GetVex_OL ²âÊÔ...\n");					//4.º¯ÊıGetVex_OL²âÊÔ
+	printf("â–¼4\nâ–²å‡½æ•° GetVex_OL æµ‹è¯•...\n");					//4.å‡½æ•°GetVex_OLæµ‹è¯•
 	{
-		printf("µÚ %d ¸ö¶¥µãµÄÖµÎª '%c' \n", 3, GetVex_OL(G, 3));
+		printf("ç¬¬ %d ä¸ªé¡¶ç‚¹çš„å€¼ä¸º '%c' \n", 3, GetVex_OL(G, 3));
 		printf("\n");
 	}
 	PressEnter;	
 
-	printf("¨‹6\n¡øº¯Êı FirstAdjVex_OL ²âÊÔ...\n");				//6.º¯ÊıFirstAdjVex_OL²âÊÔ
+	printf("â–¼6\nâ–²å‡½æ•° FirstAdjVex_OL æµ‹è¯•...\n");				//6.å‡½æ•°FirstAdjVex_OLæµ‹è¯•
 	{
-		printf("' %c' µÄµÚÒ»¸öÁÚ½Ó¶¥µãµÄĞòºÅÎª %d \n", 'D', FirstAdjVex_OL(G, 'D'));
+		printf("' %c' çš„ç¬¬ä¸€ä¸ªé‚»æ¥é¡¶ç‚¹çš„åºå·ä¸º %d \n", 'D', FirstAdjVex_OL(G, 'D'));
 		printf("\n");
 	}
 	PressEnter;	
 
-	printf("¨‹7\n¡øº¯Êı NextAdjVex_OL ²âÊÔ...\n");				//7.º¯ÊıNextAdjVex_OL²âÊÔ
+	printf("â–¼7\nâ–²å‡½æ•° NextAdjVex_OL æµ‹è¯•...\n");				//7.å‡½æ•°NextAdjVex_OLæµ‹è¯•
 	{
-		printf(" '%c' Ïà¶ÔÓÚ '%c' µÄÏÂÒ»¸öÁÚ½Ó¶¥µãĞòºÅÎª %d\n", 'D', 'A', NextAdjVex_OL(G, 'D', 'A'));
+		printf(" '%c' ç›¸å¯¹äº '%c' çš„ä¸‹ä¸€ä¸ªé‚»æ¥é¡¶ç‚¹åºå·ä¸º %d\n", 'D', 'A', NextAdjVex_OL(G, 'D', 'A'));
 		printf("\n");
 	}
 	PressEnter;	
 
-	printf("¨‹5\n¡øº¯Êı PutVex_OL ²âÊÔ...\n");					//5.º¯ÊıPutVex_OL²âÊÔ
+	printf("â–¼5\nâ–²å‡½æ•° PutVex_OL æµ‹è¯•...\n");					//5.å‡½æ•°PutVex_OLæµ‹è¯•
 	{
-		printf("¶Ô¶¥µã '%c' ¸³Öµ '%c'ºó£¬G = \n", 'A', 'X');
+		printf("å¯¹é¡¶ç‚¹ '%c' èµ‹å€¼ '%c'åï¼ŒG = \n", 'A', 'X');
 		PutVex_OL(&G, 'A', 'X');
 		OutputOLGraph(G);	
 		printf("\n");
 	}
 	PressEnter;
 	
-	printf("¨‹8\n¡øº¯Êı InsertVex_OL ²âÊÔ...\n");					//8.º¯ÊıInsertVex_OL²âÊÔ
+	printf("â–¼8\nâ–²å‡½æ•° InsertVex_OL æµ‹è¯•...\n");					//8.å‡½æ•°InsertVex_OLæµ‹è¯•
 	{
-		printf("²åÈë¶¥µã '%c'ºó£¬G = \n", 'H');
+		printf("æ’å…¥é¡¶ç‚¹ '%c'åï¼ŒG = \n", 'H');
 		InsertVex_OL(&G, 'H');
 		OutputOLGraph(G);	
 		printf("\n");
 	}
 	PressEnter;	
 
-	printf("¨‹10\n¡øº¯Êı InsertArc_OL ²âÊÔ...\n");				//10.º¯ÊıInsertArc_OL²âÊÔ
+	printf("â–¼10\nâ–²å‡½æ•° InsertArc_OL æµ‹è¯•...\n");				//10.å‡½æ•°InsertArc_OLæµ‹è¯•
 	{
-		printf("Ë³´Î²åÈë»¡ <%c, %c>¡¢", 'H', 'X');
-		printf("<%c, %c>¡¢", 'H', 'C');
-		printf("<%c, %c>ºó£¬G = \n", 'D', 'H');
+		printf("é¡ºæ¬¡æ’å…¥å¼§ <%c, %c>ã€", 'H', 'X');
+		printf("<%c, %c>ã€", 'H', 'C');
+		printf("<%c, %c>åï¼ŒG = \n", 'D', 'H');
 		InsertArc_OL(&G, 'H', 'X');
 		InsertArc_OL(&G, 'H', 'C');
 		InsertArc_OL(&G, 'D', 'H');
@@ -96,43 +96,43 @@ int main(int argc, char *argv[])
 	}
 	PressEnter;
 
-	printf("¨‹11\n¡øº¯Êı DeleteArc_OL ²âÊÔ...\n");				//11.º¯ÊıDeleteArc_OL²âÊÔ
+	printf("â–¼11\nâ–²å‡½æ•° DeleteArc_OL æµ‹è¯•...\n");				//11.å‡½æ•°DeleteArc_OLæµ‹è¯•
 	{
-		printf("É¾³ı»¡ <%c, %c>ºó£¬G = \n", 'H', 'X');
+		printf("åˆ é™¤å¼§ <%c, %c>åï¼ŒG = \n", 'H', 'X');
 		DeleteArc_OL(&G, 'H', 'X');
 		OutputOLGraph(G);	
 		printf("\n");
 	}
 	PressEnter;
 		
-	printf("¨‹09\n¡øº¯Êı DeleteVex_OL ²âÊÔ...\n");				//09.º¯ÊıDeleteVex_OL²âÊÔ
+	printf("â–¼09\nâ–²å‡½æ•° DeleteVex_OL æµ‹è¯•...\n");				//09.å‡½æ•°DeleteVex_OLæµ‹è¯•
 	{
-		printf("É¾³ı¶¥µã '%c'ºó£¬G = \n", 'H');
+		printf("åˆ é™¤é¡¶ç‚¹ '%c'åï¼ŒG = \n", 'H');
 		DeleteVex_OL(&G, 'H');
 		OutputOLGraph(G);	
 		printf("\n");
 	}
 	PressEnter;
 
-	printf("¨‹12¡¢13\n¡øº¯Êı DFSTraverse_OLµÈ ²âÊÔ...\n");		//12¡¢13.º¯ÊıDFSTraverse_OLµÈ²âÊÔ
+	printf("â–¼12ã€13\nâ–²å‡½æ•° DFSTraverse_OLç­‰ æµ‹è¯•...\n");		//12ã€13.å‡½æ•°DFSTraverse_OLç­‰æµ‹è¯•
 	{
-		printf("Éî¶ÈÓÅÏÈ±éÀúÓĞÏòÍ¼ G = ");
+		printf("æ·±åº¦ä¼˜å…ˆéå†æœ‰å‘å›¾ G = ");
 		DFSTraverse_OL(G, PrintElem);	
 		printf("\n\n");
 	}
 	PressEnter;
 
-	printf("¨‹14\n¡øº¯Êı BFSTraverse_OL ²âÊÔ...\n");				//14.º¯ÊıBFSTraverse_OL²âÊÔ
+	printf("â–¼14\nâ–²å‡½æ•° BFSTraverse_OL æµ‹è¯•...\n");				//14.å‡½æ•°BFSTraverse_OLæµ‹è¯•
 	{
-		printf("¹ã¶ÈÓÅÏÈ±éÀúÓĞÏòÍ¼ G = ");
+		printf("å¹¿åº¦ä¼˜å…ˆéå†æœ‰å‘å›¾ G = ");
 		BFSTraverse_OL(G, PrintElem);	
 		printf("\n\n");
 	}
 	PressEnter;
 	
-	printf("¨‹2\n¡øº¯Êı ClearGraph_OL ²âÊÔ...\n");				//2.º¯ÊıClearGraph_OL²âÊÔ
+	printf("â–¼2\nâ–²å‡½æ•° ClearGraph_OL æµ‹è¯•...\n");				//2.å‡½æ•°ClearGraph_OLæµ‹è¯•
 	{
-		printf("Çå¿ÕÓĞÏòÍ¼...\n");
+		printf("æ¸…ç©ºæœ‰å‘å›¾...\n");
 		ClearGraph_OL(&G);
 		OutputOLGraph(G);	
 		printf("\n");

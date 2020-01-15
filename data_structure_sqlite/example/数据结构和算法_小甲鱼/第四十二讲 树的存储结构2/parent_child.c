@@ -23,3 +23,4 @@ typedef struct
 	CTBox nodes[MAX_TREE_SIZE];	// 结点数组
 	int r, n;
 }
+

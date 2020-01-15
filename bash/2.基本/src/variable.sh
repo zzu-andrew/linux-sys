@@ -2,6 +2,8 @@
 
 # 变量赋值和替换
 
+
+
 a=375
 hello=$a
 
@@ -46,9 +48,9 @@ echo '$hello' # $hello
 
 # 注意这两种引用所产生的不同的效果.
 
-
-hello=    
 # 设置为空值.
+hello=    
+
 echo "\$hello (null value) = $hello"
 # 注意设置一个变量为null, 与unset这个变量, 并不是一回事
 #+ 虽然最终的结果相同(具体见下边).

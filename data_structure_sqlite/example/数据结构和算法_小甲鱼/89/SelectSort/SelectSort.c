@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//选择排序　确认剩余元素之中最小的量之后在进行排序的一种方式
 void SelectSort(int k[], int n)
 {
 	int i, j, min, temp, count1=0, count2=0;

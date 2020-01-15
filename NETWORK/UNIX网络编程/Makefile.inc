@@ -11,7 +11,7 @@ LINUX_LIBCRYPT = -lcrypt
 LINUX_LIBCAP = -lcap
 
 
-IMPL_CFLAGS = -std=c99 -D_XOPEN_SOURCE=600 \
+IMPL_CFLAGS = -std=c99 -O0 -D_XOPEN_SOURCE=600 \
 	        -D_DEFAULT_SOURCE \
 		-g -I${UNIX_NET_INCL_DIR} \
 		-pedantic \
