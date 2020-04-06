@@ -1,0 +1,11 @@
+    push:
+        @if [ -z "$(MSG)" ]; then \
+                echo "Usage: MSG='your message here.' make push"; false; fi
+        git commit -a  -m "$(MSG)"
+        git svn fetch
+        git svn rebase
+        git svn dcommit
+
+    pull:
+        git svn fetch
+        git svn rebase
