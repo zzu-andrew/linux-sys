@@ -14,4 +14,8 @@
 [linux man page]: http://www.kernel.org/doc/man-pages/.
 
  http://www.kernel.org/doc/man-pages/.
-
+ 
+ 
+ 扫码共同探讨linux的学习
+ 
+![](./../picture/weixin.png)
