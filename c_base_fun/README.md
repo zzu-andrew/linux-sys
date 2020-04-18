@@ -18,4 +18,4 @@
  
  扫码共同探讨linux的学习
  
-![](./../picture/weixin.png)
+![](./../picture/weixin.jpg)
