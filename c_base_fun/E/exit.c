@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <math.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <time.h>
 
-// 将字符串转化为整数的函数
+
 
 int main(int argc, char const *argv[])
 {
-    
-    printf("12345 = [%ld]\n", atol("12345"));
+    /* code */
+    exit(1);
     return 0;
 }
-
-
-
