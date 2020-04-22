@@ -72,7 +72,7 @@ char * search_and_replace(char const *base, char const*search, char const *repla
     return out;
 }
 
-#ifdef test_regexes
+
 int main(){
     char **substrings;
 
@@ -91,4 +91,4 @@ int main(){
 
     printf("Without the L, Plants are: %s", search_and_replace("Plants\n", "l", ""));
 }
-#endif
+

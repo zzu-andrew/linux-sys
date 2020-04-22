@@ -5,6 +5,7 @@
 #include <dirent.h> //struct dirent
 #include <stdlib.h> //free
 
+
 int process_dir_r(filestruct level){
     if (!level.fullname){
         if (level.name) level.fullname=level.name;
