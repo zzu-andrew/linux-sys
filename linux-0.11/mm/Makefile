@@ -1,9 +1,9 @@
-CC	=gcc
-CFLAGS	=-O -Wall -fstrength-reduce -fcombine-regs -fomit-frame-pointer \
+CC	=gcc -mcpu=i386
+CFLAGS	=-Wall -O -fstrength-reduce -fomit-frame-pointer \
 	-finline-functions -nostdinc -I../include
-AS	=gas
-AR	=gar
-LD	=gld
+AS	=as
+AR	=ar
+LD	=ld
 CPP	=gcc -E -nostdinc -I../include
 
 .c.o:
@@ -32,6 +32,7 @@ dep:
 	cp tmp_make Makefile
 
 ### Dependencies:
-memory.o : memory.c ../include/signal.h ../include/sys/types.h \
-  ../include/asm/system.h ../include/linux/sched.h ../include/linux/head.h \
-  ../include/linux/fs.h ../include/linux/mm.h ../include/linux/kernel.h 
+memory.o: memory.c ../include/signal.h ../include/sys/types.h \
+  ../include/asm/system.h ../include/linux/sched.h \
+  ../include/linux/head.h ../include/linux/fs.h ../include/linux/mm.h \
+  ../include/linux/kernel.h
