@@ -20,7 +20,7 @@ void wait_for_keypress(void);
 
 /* set_bit uses setb, as gas doesn't recognize setc */
 #define set_bit(bitnr,addr) ({ \
-register int __res ; \
+register int __res __asm__("ax"); \
 __asm__("bt %2,%3;setb %%al":"=a" (__res):"a" (0),"r" (bitnr),"m" (*(addr))); \
 __res; })
 
@@ -74,7 +74,6 @@ struct super_block * get_super(int dev)
 void put_super(int dev)
 {
 	struct super_block * sb;
-	/* struct m_inode * inode;*/
 	int i;
 
 	if (dev == ROOT_DEV) {
@@ -106,7 +105,7 @@ static struct super_block * read_super(int dev)
 	if (!dev)
 		return NULL;
 	check_disk_change(dev);
-	if ((s = get_super(dev)))
+	if (s = get_super(dev))
 		return s;
 	for (s = 0+super_block ;; s++) {
 		if (s >= NR_SUPER+super_block)
@@ -140,12 +139,12 @@ static struct super_block * read_super(int dev)
 		s->s_zmap[i] = NULL;
 	block=2;
 	for (i=0 ; i < s->s_imap_blocks ; i++)
-		if ((s->s_imap[i]=bread(dev,block)))
+		if (s->s_imap[i]=bread(dev,block))
 			block++;
 		else
 			break;
 	for (i=0 ; i < s->s_zmap_blocks ; i++)
-		if ((s->s_zmap[i]=bread(dev,block)))
+		if (s->s_zmap[i]=bread(dev,block))
 			block++;
 		else
 			break;

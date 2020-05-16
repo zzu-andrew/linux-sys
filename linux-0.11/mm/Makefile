@@ -1,9 +1,9 @@
-CC	=gcc -mcpu=i386
-CFLAGS	=-Wall -O -fstrength-reduce -fomit-frame-pointer \
+CC	=gcc
+CFLAGS	=-O -Wall -fstrength-reduce -fcombine-regs -fomit-frame-pointer \
 	-finline-functions -nostdinc -I../include
-AS	=as
-AR	=ar
-LD	=ld
+AS	=gas
+AR	=gar
+LD	=gld
 CPP	=gcc -E -nostdinc -I../include
 
 .c.o:
@@ -15,7 +15,7 @@ CPP	=gcc -E -nostdinc -I../include
 	$(CC) $(CFLAGS) \
 	-S -o $*.s $<
 
-OBJS	= memory.o page.o
+OBJS	= memory.o swap.o page.o
 
 all: mm.o
 
@@ -32,7 +32,13 @@ dep:
 	cp tmp_make Makefile
 
 ### Dependencies:
-memory.o: memory.c ../include/signal.h ../include/sys/types.h \
-  ../include/asm/system.h ../include/linux/sched.h \
-  ../include/linux/head.h ../include/linux/fs.h ../include/linux/mm.h \
-  ../include/linux/kernel.h
+memory.o : memory.c ../include/signal.h ../include/sys/types.h \
+  ../include/asm/system.h ../include/linux/sched.h ../include/linux/head.h \
+  ../include/linux/fs.h ../include/linux/mm.h ../include/linux/kernel.h \
+  ../include/sys/param.h ../include/sys/time.h ../include/time.h \
+  ../include/sys/resource.h 
+swap.o : swap.c ../include/string.h ../include/linux/sched.h \
+  ../include/linux/head.h ../include/linux/fs.h ../include/sys/types.h \
+  ../include/linux/mm.h ../include/linux/kernel.h ../include/signal.h \
+  ../include/sys/param.h ../include/sys/time.h ../include/time.h \
+  ../include/sys/resource.h 

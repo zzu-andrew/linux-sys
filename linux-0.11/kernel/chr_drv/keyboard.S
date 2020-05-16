@@ -10,10 +10,15 @@
  *		Marc Corsini for the French keyboard
  */
 
-#include <linux/config.h>
+/* KBD_FINNISH for Finnish keyboards
+ * KBD_US for US-type
+ * KBD_GR for German keyboards
+ * KBD_FR for Frech keyboard
+ */
+#define KBD_FINNISH
 
 .text
-.globl keyboard_interrupt
+.globl _keyboard_interrupt
 
 /*
  * these are for the keyboard read functions
@@ -34,7 +39,7 @@ e0:	.byte 0
  *  keyboard scan-code and converts it into the appropriate
  *  ascii character(s).
  */
-keyboard_interrupt:
+_keyboard_interrupt:
 	pushl %eax
 	pushl %ebx
 	pushl %ecx
@@ -44,7 +49,9 @@ keyboard_interrupt:
 	movl $0x10,%eax
 	mov %ax,%ds
 	mov %ax,%es
-	xor %al,%al		/* %eax is scan code */
+	movl _blankinterval,%eax
+	movl %eax,_blankcount
+	xorl %eax,%eax		/* %eax is scan code */
 	inb $0x60,%al
 	cmpb $0xe0,%al
 	je set_e0
@@ -66,7 +73,7 @@ e0_e1:	inb $0x61,%al
 	movb $0x20,%al
 	outb %al,$0x20
 	pushl $0
-	call do_tty_interrupt
+	call _do_tty_interrupt
 	addl $4,%esp
 	pop %es
 	pop %ds
@@ -88,7 +95,7 @@ set_e1:	movb $2,e0
 put_queue:
 	pushl %ecx
 	pushl %edx
-	movl table_list,%edx		# read-queue for console
+	movl _table_list,%edx		# read-queue for console
 	movl head(%edx),%ecx
 1:	movb %al,buf(%edx,%ecx)
 	incl %ecx
@@ -155,7 +162,12 @@ set_leds:
 uncaps:	andb $0x7f,mode
 	ret
 scroll:
-	xorb $1,leds
+	testb $0x03,mode
+	je 1f
+	call _show_mem
+	jmp 2f
+1:	call _show_state
+2:	xorb $1,leds
 	jmp set_leds
 num:	xorb $2,leds
 	jmp set_leds
@@ -208,13 +220,6 @@ cur_table:
  * this routine handles function keys
  */
 func:
-	pushl %eax
-	pushl %ecx
-	pushl %edx
-	call show_stat
-	popl %edx
-	popl %ecx
-	popl %eax
 	subb $0x3B,%al
 	jb end_func
 	cmpb $9,%al
@@ -225,11 +230,17 @@ func:
 	cmpb $11,%al
 	ja end_func
 ok_func:
+	testb $0x10,mode
+	jne alt_func
 	cmpl $4,%ecx		/* check that there is enough room */
 	jl end_func
 	movl func_table(,%eax,4),%eax
 	xorl %ebx,%ebx
 	jmp put_queue
+alt_func:
+	pushl %eax
+	call _change_console
+	popl %eax
 end_func:
 	ret
 

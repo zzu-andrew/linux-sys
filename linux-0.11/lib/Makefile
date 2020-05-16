@@ -6,20 +6,20 @@
 # unless it's something special (ie not a .c file).
 #
 
-AR	=ar
-AS	=as
-LD	=ld
+AR	=gar
+AS	=gas
+LD	=gld
 LDFLAGS	=-s -x
-CC	=gcc -mcpu=i386
-CFLAGS	=-Wall -O -fstrength-reduce -fomit-frame-pointer \
-	-finline-functions -nostdinc -I../include
+CC	=gcc
+CFLAGS	=-Wall -O -fstrength-reduce -fomit-frame-pointer -fcombine-regs \
+	-finline-functions -mstring-insns -nostdinc -I../include
 CPP	=gcc -E -nostdinc -I../include
 
 .c.s:
 	$(CC) $(CFLAGS) \
 	-S -o $*.s $<
 .s.o:
-	$(AS) -o $*.o $<
+	$(AS) -c -o $*.o $<
 .c.o:
 	$(CC) $(CFLAGS) \
 	-c -o $*.o $<

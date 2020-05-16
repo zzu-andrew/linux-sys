@@ -7,10 +7,10 @@ __asm__ ("movl %%esp,%%eax\n\t" \
 	"pushl $1f\n\t" \
 	"iret\n" \
 	"1:\tmovl $0x17,%%eax\n\t" \
-	"movw %%ax,%%ds\n\t" \
-	"movw %%ax,%%es\n\t" \
-	"movw %%ax,%%fs\n\t" \
-	"movw %%ax,%%gs" \
+	"mov %%ax,%%ds\n\t" \
+	"mov %%ax,%%es\n\t" \
+	"mov %%ax,%%fs\n\t" \
+	"mov %%ax,%%gs" \
 	:::"ax")
 
 #define sti() __asm__ ("sti"::)
@@ -62,6 +62,5 @@ __asm__ ("movw $104,%1\n\t" \
 	 "m" (*(n+5)), "m" (*(n+6)), "m" (*(n+7)) \
 	)
 
-#define set_tss_desc(n,addr) _set_tssldt_desc(((char *) (n)),((int)(addr)),"0x89")
-#define set_ldt_desc(n,addr) _set_tssldt_desc(((char *) (n)),((int)(addr)),"0x82")
-
+#define set_tss_desc(n,addr) _set_tssldt_desc(((char *) (n)),addr,"0x89")
+#define set_ldt_desc(n,addr) _set_tssldt_desc(((char *) (n)),addr,"0x82")
