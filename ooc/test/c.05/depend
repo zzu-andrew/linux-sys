@@ -1,0 +1,6 @@
+binary.o : binary.h 
+Name.o : binary.h parse.h value.h Name.h Name.r Var.h 
+value.o : parse.h value.h value.r 
+Var.o : Name.h Name.r parse.h Var.h value.h value.r 
+mathlib.o : Name.h Name.r mathlib.h parse.h value.h value.r 
+parse.o : parse.h value.h mathlib.h Var.h Name.h Name.r 

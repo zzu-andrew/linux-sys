@@ -1,0 +1,36 @@
+#! /bin/sh
+
+if [ ! -r ../makefile.$A ]
+then	echo >&2 "$0: ../makefile.$A does not exist"
+	echo >&2 "$0: export architecture name as variable A"
+	exit 1
+fi
+
+nflag= clean=
+for i
+do	case "$i"
+	in -n)		nflag=yes
+	;; clean)	clean=yes
+	esac
+done
+
+if [ "$clean" ]
+then	if [ "$argv" ]
+	then	echo >&2 "$0: clean must be only target"
+		exit 1
+	fi
+	[ -d $A ] || exit 0
+	echo rm -rf $A
+	[ "$nflag" ] || rm -rf $A
+else	[ -d $A ] || mkdir $A
+	for i in *
+	do	[ $i = make -o $i = $A -o -r $A/$i -o -d $i ] ||
+		ln -s ../$i $A
+	done
+	cd $A
+	echo "[$A]"
+	exec make A=$A ${1:+"$@"}
+fi
+
+## BUG: cannot pass fancy arguments
+## BUG: uses symbolic links

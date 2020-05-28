@@ -1,0 +1,24 @@
+# HP-UX A.09.01 A 9000/73
+# boilerplate stuff for c.?? makefiles
+
+AR      = ar -rv
+CFLAGS  = -Aa -I/usr/local/X/include #-DSYSV=#                                                          necessary for X11 in c.14
+curses  = -lcurses
+debug   =
+host    = -dis unix:0
+OOC             = ../../ooc/ooc $(chapter)
+Rflag   = `if [ $* = Object ]; then echo -R; else :; fi`
+SHELL   = /bin/sh
+x11             = -L/usr/local/X/lib -lXaw -lXmu -lXext -lXt -lX11
+
+mklib:  $(mklib)
+        $(AR) $(ARFLAGS) $l $o
+.c.a:   ;
+
+.SUFFIXES:      .h .r .dc .d
+
+.d.h:   ; $(OOC) $(Rflag) $(OOCFLAGS) $* -h $(post) > $@
+.d.r:   ; $(OOC) $(Rflag) $(OOCFLAGS) $* -r $(post) > $@
+.dc.c:  ; $(OOC) $(Rflag) $(OOCFLAGS) $* $*.dc $(post) > $@
+
+include depend

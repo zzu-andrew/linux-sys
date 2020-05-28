@@ -1,0 +1,25 @@
+# SunOS 4.1.2 1 sun4m
+# boilerplate stuff for c.?? makefiles
+
+CC      = gcc -g -I/usr/local/X/include # -Wall -pedantic
+CFLAGS  = #-DSYSV=#                                                             necessary for X11 in c.14
+curses  = -lcurses -ltermcap
+debug   =
+host    = -dis unix:0
+OOC             = ../../ooc/ooc $(chapter)
+Rflag   = `if [ $* = Object ]; then echo -R; else :; fi`
+SHELL   = /bin/sh
+x11             = -L/usr/local/X/lib \
+                -lXaw -lXmu -lXext -lXt -lX11 -lm
+
+mklib:  $(mklib)
+        $(AR) $(ARFLAGS) $l $o
+.c.a:   ;
+
+.SUFFIXES:      .h .r .dc .d
+
+.d.h:   ; $(OOC) $(Rflag) $(OOCFLAGS) $* -h $(post) > $@
+.d.r:   ; $(OOC) $(Rflag) $(OOCFLAGS) $* -r $(post) > $@
+.dc.c:  ; $(OOC) $(Rflag) $(OOCFLAGS) $* $*.dc $(post) > $@
+
+include depend

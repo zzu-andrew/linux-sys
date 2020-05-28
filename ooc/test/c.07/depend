@@ -1,0 +1,21 @@
+Object.o : Object.h Object.r 
+Point.o : Point.h Object.h Point.r Object.r 
+Circle.o : Circle.h Point.h Object.h Circle.r Point.r Object.r 
+List.o : List.h Object.h List.r Object.r 
+Queue.o : Queue.h List.h Object.h Queue.r List.r Object.r 
+Stack.o : Stack.h List.h Object.h Stack.r List.r Object.r 
+points.o : Point.h Object.h 
+circles.o : Circle.h Point.h Object.h 
+queue.o : Queue.h List.h Object.h 
+stack.o : Stack.h List.h Object.h 
+Point.d: Object.d
+Circle.d: Point.d
+List.d: Object.d
+Queue.d: List.d
+Stack.d: List.d
+Object.c: Object.d
+Point.c: Point.d
+Circle.c: Circle.d
+List.c: List.d
+Queue.c: Queue.d
+Stack.c: Stack.d

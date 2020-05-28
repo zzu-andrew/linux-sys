@@ -1,0 +1,6 @@
+Object.o : Object.h Object.r 
+Point.o : Point.h Object.h Point.r Object.r 
+Circle.o : Circle.h Point.h Object.h Circle.r Point.r Object.r 
+any.o : Object.h 
+points.o : Point.h Object.h 
+circles.o : Circle.h Point.h Object.h 

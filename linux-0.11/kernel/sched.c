@@ -413,7 +413,8 @@ int sys_nice(long increment)
 		current->priority -= increment;
 	return 0;
 }
-
+//TODO add a name
+//TODO
 void sched_init(void)
 {
 	int i;

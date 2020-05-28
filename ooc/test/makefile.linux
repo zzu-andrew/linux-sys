@@ -1,0 +1,39 @@
+# Linux 0.99.pl4-49 03/02/93 i386
+# boilerplate stuff for c.?? makefiles
+
+curses	= -lcurses
+debug	=
+host	= -dis unix:0
+OOC		= ../../ooc/ooc $(chapter)
+Rflag	= `if [ $* = Object ]; then echo -R; else :; fi`
+SHELL	= /bin/sh
+x11		= -lXaw -lXmu -lXext -lXt -lX11
+
+depend:	$h $r $c $m makefile
+	- if [ -f $@ ]; then chmod +w ../$@; else ln -s ../$@ .; fi
+	  > $@
+	- [ "$c$m" ] && $(CC) -MM $(CFLAGS) $c $m >> $@
+	- [ "$d" ] && $(OOC) -M $d >> $@
+	- [ "$d" ] && { d="$d"; for i in $$d; do echo $$i.c: $$i.d; done >> $@; }
+	  chmod -w ../$@
+
+makefile.etc:	makefile
+	- if [ -f $@ ]; then chmod +w ../$@; else ln -s ../$@ .; fi
+	  for o in $(c:.c=); do \
+		echo '$$l:	'"$$o.o"; \
+		echo "$$o.o:	$$o.c"; \
+	  done > $@
+	  chmod -w ../$@
+
+mklib:	$(mklib)
+	$(AR) $(ARFLAGS) $l $o
+	ranlib $l
+.c.a:	;
+
+.SUFFIXES:	.h .r .dc .d
+
+.d.h:	; $(OOC) $(Rflag) $(OOCFLAGS) $* -h $(post) > $@
+.d.r:	; $(OOC) $(Rflag) $(OOCFLAGS) $* -r $(post) > $@
+.dc.c:	; $(OOC) $(Rflag) $(OOCFLAGS) $* $*.dc $(post) > $@
+
+include depend

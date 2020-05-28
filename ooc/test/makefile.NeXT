@@ -1,0 +1,69 @@
+# NeXTSTEP 3.1/3.2
+# boilerplate stuff for c.?? makefiles
+
+CC		= cc -Wall -pedantic -g#				how to call the C compiler
+curses	= -lcurses -ltermcap#					how to link curses(3)
+debug	= -lMallocDebug#						how to track memory leaks
+host	= -dis unix:0#							how to get to the X11 host
+OOC		= ../../ooc/ooc $(chapter)#				how to call the ooc script
+# OOC	= ../../ooc/ooc -DGNUC=1 $(chapter)#	... using const functions
+Rflag	= `if [ $* = Object ]; then echo -R; else :; fi`
+SHELL	= /bin/sh#								some make's need this...
+x11		= -lXaw -lXmu -lXext -lXt -lX11#		how to link X11
+
+# Rflag is used to hide ooc entirely behind implicit rules. otherwise we
+# need explicit rules for Object.[chr] which backfire in the early chapters.
+
+# this rule uses the GNU C compiler and ooc to produce makefile dependencies
+# from the C source file lists $c $m and from the class list $d.
+# the rule depends on the header file lists $h and $r to simplify
+# bootstrapping. the for-loop accounts for the fact that producing
+# foo.c from foo.dc depends on foo.d -- but ooc cannot deduce that.
+
+depend:	$h $r $c $m makefile
+	- if [ -f $@ ]; then /bin/chmod +w $@; else ln -s ../$@ .; fi
+	  > $@
+	- [ "$c$m" ] && $(CC) -MM $(CFLAGS) $c $m >> $@
+	- [ "$d" ] && $(OOC) -M $d >> $@
+	- [ "$d" ] && { d="$d"; for i in $$d; do echo $$i.c: $$i.d; done >> $@; }
+	  /bin/chmod -w $@
+
+# this rule generates the dependencies of a library $l on its objects made
+# from the file list $c. this rule could be much smarter but at least
+# ESIX/make appears to be quite broken.
+
+makefile.etc:	makefile
+	- if [ -f $@ ]; then /bin/chmod +w $@; else ln -s ../$@ .; fi
+	  for o in $(c:.c=); do \
+		echo '$$l:	'"$$o.o"; \
+		echo "$$o.o:	$$o.c"; \
+	  done > $@
+	  /bin/chmod -w $@
+
+# this rule inserts the objects $o into the library $l.
+# note that NeXTSTEP 3.1 ranlib apparently backdates the library, i.e.,
+# this rule may get executed a few times too many...
+
+mklib:	$(mklib)
+	$(AR) $(ARFLAGS) $l $o
+	ranlib $l
+.c.a:	;
+
+# these implicit rules produce header files from class description files
+# and C sources from class implementation files. in chapter 14 $(post) is
+# set to change the base class name from Object to Objct.
+
+.SUFFIXES:	.h .r .dc .d
+
+.d.h:	; $(OOC) $(Rflag) $(OOCFLAGS) $* -h $(post) > $@
+.d.r:	; $(OOC) $(Rflag) $(OOCFLAGS) $* -r $(post) > $@
+.dc.c:	; $(OOC) $(Rflag) $(OOCFLAGS) $* $*.dc $(post) > $@
+
+# NS 3.1 system headers define const functions (a GNU extension).
+# if -DGNUC=1 is specified to ooc, class descriptions are const functions.
+# either do not specify -pedantic to cc, or enable implicit rule here.
+
+.c.o:	; $(CC) $(CFLAGS) -c $*.c \
+	  2>&1 | { set +e; grep -v 'ANSI C forbids const'; true; }
+
+-include depend

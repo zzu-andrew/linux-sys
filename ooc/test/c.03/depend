@@ -1,0 +1,4 @@
+postfix.o : parse.h value.h 
+value.o : parse.h value.h 
+infix.o : parse.h value.h 
+parse.o : parse.h value.h 

@@ -1,0 +1,23 @@
+# esix 4.0 4 i386
+# boilerplate stuff for c.?? makefiles
+
+CFLAGS	= -DSYSV=#								necessary for X11 in c.14
+curses	= -lcurses
+debug	=
+host	= -dis unix:0
+OOC		= ../../ooc/ooc $(chapter)
+Rflag	= `if [ $* = Object ]; then echo -R; else :; fi`
+SHELL	= /bin/sh
+x11		= -lXaw -lXmu -lXext -lXt -lX11 -lnsl
+
+mklib:	$(mklib)
+	$(AR) $(ARFLAGS) $l $o
+.c.a:	;
+
+.SUFFIXES:	.h .r .dc .d
+
+.d.h:	; $(OOC) $(Rflag) $(OOCFLAGS) $* -h $(post) > $@
+.d.r:	; $(OOC) $(Rflag) $(OOCFLAGS) $* -r $(post) > $@
+.dc.c:	; $(OOC) $(Rflag) $(OOCFLAGS) $* $*.dc $(post) > $@
+
+include depend

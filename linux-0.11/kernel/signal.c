@@ -20,6 +20,7 @@ int sys_ssetmask(int newmask)
 {
 	int old=current->blocked;
 
+	//无论外面怎样传  SIGKILL SIGSTOP信号时不能被屏蔽的
 	current->blocked = newmask & ~(1<<(SIGKILL-1)) & ~(1<<(SIGSTOP-1));
 	return old;
 }
