@@ -10,6 +10,7 @@ int main ()
 	void * b = add(s, new(Object));
 	void * c = new(Object);
 
+	printf("[%d][%d][%d]\n", *(int*)s, *(int*)b, *(int*)c);
 	if (contains(s, a) && contains(s, b))
 		puts("ok");
 

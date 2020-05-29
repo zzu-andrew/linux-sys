@@ -14,4 +14,4 @@ test::		bags		; bags
 sets:		$(sets)		; $(CC) $(CFLAGS) -o $@ $(sets)
 bags:		$(bags)		; $(CC) $(CFLAGS) -o $@ $(bags)
 
-include ../../makefile.$A
+
