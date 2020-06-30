@@ -15,3 +15,5 @@ sets:		$(sets)		; $(CC) $(CFLAGS) -o $@ $(sets)
 bags:		$(bags)		; $(CC) $(CFLAGS) -o $@ $(bags)
 
 
+clean:
+	rm $(t)  *.o 

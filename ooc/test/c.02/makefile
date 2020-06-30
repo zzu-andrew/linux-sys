@@ -15,4 +15,3 @@ test::		atoms		; atoms
 strings:	$(strings)	; $(CC) $(CFLAGS) -o $@ $(strings)
 atoms:		$(atoms)	; $(CC) $(CFLAGS) -o $@ $(atoms)
 
-include ../../makefile.$A

@@ -1,0 +1,41 @@
+<mxfile host="" modified="2020-05-31T13:47:27.342Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.45.1 Chrome/78.0.3904.130 Electron/7.2.4 Safari/537.36" etag="4tSBZsXSIEFnPK2oLyYb" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="286" dy="206" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="8" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="280" y="60" width="560" height="245" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="group" vertex="1" connectable="0" parent="8">
+                    <mxGeometry x="20" y="150" width="540" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;String&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ const void * class&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ test(): void (*) void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="5">
+                    <mxGeometry y="5" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&#10;&#10;&lt;!--StartFragment--&gt;&lt;div style=&quot;color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-weight: normal; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #c678dd;&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp;(&lt;/span&gt;&lt;span style=&quot;color: #c678dd;&quot;&gt;const&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: #c678dd;&quot;&gt;struct&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp;Class&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: #c678dd;&quot;&gt;**&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;)&amp;nbsp;p&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: #c678dd;&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp;class&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;!--EndFragment--&gt;&#10;&#10;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="5">
+                    <mxGeometry x="260" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;div style=&quot;color: rgb(171 , 178 , 191) ; background-color: rgb(40 , 44 , 52) ; font-family: &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #c678dd&quot;&gt;struct&lt;/span&gt;&amp;nbsp;String&amp;nbsp;{&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;const&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;void&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;*&lt;/span&gt;&amp;nbsp;class;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;color: rgb(198 , 120 , 221)&quot;&gt;char&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: rgb(198 , 120 , 221)&quot;&gt;*&lt;/span&gt;&amp;nbsp;text;&lt;/div&gt;&lt;div&gt;};&lt;/div&gt;&lt;div&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;void&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;*&lt;/span&gt;&amp;nbsp;p&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;=&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color: #61afef&quot;&gt;calloc&lt;/span&gt;(&lt;span style=&quot;color: #d19a66&quot;&gt;1&lt;/span&gt;,&amp;nbsp;&lt;span style=&quot;color: #c678dd&quot;&gt;sizeof&lt;/span&gt;(&lt;span style=&quot;color: #c678dd&quot;&gt;struct&lt;/span&gt;&amp;nbsp;Class));&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;imageAlign=left;" vertex="1" parent="8">
+                    <mxGeometry width="380" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=0.466;entryY=1.022;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="8" source="2" target="6">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="70" y="200" as="sourcePoint"/>
+                        <mxPoint x="120" y="150" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="120" y="120"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="" style="endArrow=classic;startArrow=classic;html=1;exitX=1.011;exitY=0.394;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="2">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="580" y="260" as="sourcePoint"/>
+                        <mxPoint x="560" y="250" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

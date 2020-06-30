@@ -98,6 +98,8 @@ int differ (const void * a, const void * b);
 #include "Object.h"
 #include "Set.h"
 
+
+
 int main ()
 {	
     /* 新建一个Set对象 */
@@ -252,6 +254,8 @@ const void * Object = & _Object;
 
 主函数中申请内存使用的方式是`void * s = new(Set);` `* (const size_t *) type`就相当于`* (const size_t *) Set`大小刚好等于`Set`
 
+`new`函数很好理解就是使用`calloc`申请固定大小的内存，并将内存的指针赋返回给要`New`的对象
+
 ```c
 void * new (const void * type, ...)
 {	const size_t size = * (const size_t *) type;
@@ -266,21 +270,151 @@ void * new (const void * type, ...)
 The  calloc()  function  allocates  memory for an array of nmemb elements of size bytes each and returns a pointer to the allocated memory.  The memory is set to zero.  If nmemb or size is 0, then calloc() returns  either NULL, or a unique pointer value that can later be successfully passed to free().
 ```
 
+`delete`方法只是对`free`的一个简单封装而已，直接将需要释放内存的指针传递给`free`就可以了，当然这里只是一个玩具代码，真正使用的代码需要对释放的对象进行合法性检测。
+
+```c
+void delete (void * item)
+{
+	free(item);
+}
+```
+
+`add`方法将`element`元素`add`到对应的`set`对象中，`add`之后对`set`中的`count`和`element`中的`count`进行递增，用于统计`set`中`add element`个数。
+
+```c
+
+void * add (void * _set, const void * _element)
+{	struct Set * set = _set;
+	struct Object * element = (void *) _element;
+
+	assert(set);
+	assert(element);
+
+	if (! element -> in)
+		element -> in = set;
+	else
+		assert(element -> in == set);
+	++ element -> count, ++ set -> count;
+
+	return element;
+}
+```
+
+`find` 函数作用就是检查对应的`element`是否已经`add`进 `set`了，一旦`add`之后`element -> in == _set`将会成立:accept:
+
+```c
+
+void * find (const void * _set, const void * _element)
+{	const struct Object * element = _element;
+
+	assert(_set);
+	assert(element);
+
+	return element -> in == _set ? (void *) element : 0;
+}
+```
+
+`contains`和`Set.c`中实现的一样，`contains`函数依然时对`find`函数的一个封装，`find`函数返回非0的时候也就是在`set`中已经添加了对应的元素`element`
+
+```c
+int contains (const void * _set, const void * _element)
+{
+	return find(_set, _element) != 0;
+}
+```
+
+<font size=12 color= red>drop</font>函数
+
+```c
+void * drop (void * _set, const void * _element)
+{	struct Set * set = _set;
+	struct Object * element = find(set, _element);
+
+	if (element)
+	{	if (-- element -> count == 0)
+			element -> in = 0;
+		-- set -> count;
+	}
+	return element;
+}
+```
+
+`Count`函数，用于提供`set`中`add`的`element`个数
+
+虽然更加快捷的方法是直接调用`set->Count`但是最好不要这样做，这样会破坏数据的封装性。
+
+```c
+unsigned count (const void * _set)
+{	const struct Set * set = _set;
+
+	assert(set);
+	return set -> count;
+}
+```
+
+`differ`函数
+
+```c
+int differ (const void * a, const void * b)
+{
+	return a != b;
+}
+```
 
 
 
+主函数
+
+```c
+#include <stdio.h>
+
+#include "new.h"
+#include "Object.h"
+#include "Set.h"
+
+int main ()
+{	void * s = new(Set);
+	void * a = add(s, new(Object));
+	void * b = add(s, new(Object));
+	void * c = new(Object);
+
+	if (contains(s, a) && contains(s, b))
+		puts("ok");
+
+	if (contains(s, c))
+		puts("contains?");
+
+	if (differ(a, add(s, a)))
+		puts("differ?");
+
+	if (contains(s, drop(s, a)))
+		puts("drop?");
+
+	delete(drop(s, b));
+	delete(drop(s, c));
+
+	return 0;
+}
+
+```
 
 
 
+---
 
 
 
+执行结果
 
+```bash
+andrew@DESKTOP-GDC67HT:/mnt/u/linux-sys/ooc/test/c.01$ ./sets 
+ok
+andrew@DESKTOP-GDC67HT:/mnt/u/linux-sys/ooc/test/c.01$ ./bags
+ok
+drop?
+```
 
-
-
-
-
+执行结果可以看出bags比sets多一个drops打印，这是因为a被add了两次，但是sets中无论添加多少次都只是被添加一次，所以drop之后就不在set里面了，但是bags能够添加多次，a添加了两次到那时drop一次，所以a还是在s中。
 
 
 

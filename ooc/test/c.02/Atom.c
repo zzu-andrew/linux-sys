@@ -24,15 +24,18 @@ static void * String_ctor (void * _self, va_list * app)
 
 		do
 			if (strcmp(p -> text, text) == 0)
-			{	++ p -> count;
+			{	
+				
+				++ p -> count;
+				//如果已经存在对象  就释放本次申请的，并将已经存在的对象count进行累加
 				free(self);
 				return p;
 			}
-		while ((p = p -> next) != ring);
+		while ((p = p -> next) != ring); //循环一周进行查找，直到循环再次回到开头
 	}
 	else
 		ring = self;
-
+	//将self放到ring指向的对象
 	self -> next = ring -> next, ring -> next = self;
 	self -> count = 1;
 

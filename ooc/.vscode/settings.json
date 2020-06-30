@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.r": "c",
+        "cstdlib": "c"
+    }
+}
