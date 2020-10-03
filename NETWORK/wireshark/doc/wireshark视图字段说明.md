@@ -12,31 +12,31 @@
 
 在包的详细信息界面一般如下：
 
-![image-20201002111506015](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002111506015.png)
+![image-20201002111506015](./picture/image-20201002111506015.png)
 
 **`Frame`**
 
 物理层的数据帧概况，如果图片太小可以去`github`上下载对应的图片查看
 
-![image-20201002113504190](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002113504190.png)
+![image-20201002113504190](./picture/image-20201002113504190.png)
 
 **`Ethernet II`**
 
 数据链路层以太网帧头部信息
 
-![image-20201002113813885](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002113813885.png)
+![image-20201002113813885](./picture/image-20201002113813885.png)
 
 **`Internet Protocol Version 4`**
 
 互联网层`IP`头部信息
 
-![image-20201002114752723](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002114752723.png)
+![image-20201002114752723](./picture/image-20201002114752723.png)
 
 **`Transmission Control Protocol`**
 
 传输层的数据段头部信息，此处为`TCP`协议
 
-![image-20201002115351136](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002115351136.png)
+![image-20201002115351136](./picture/image-20201002115351136.png)
 
 **`File Transfer Protocol`**
 
@@ -62,7 +62,7 @@
 
 服务器延迟发送在，服务器缓慢相应发送过来的请求时，这可能是因为服务器无法处理一个错误应用程序或受其他干扰
 
-<img src="/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002173354226.png" alt="image-20201002173354226" style="zoom:150%;" />
+<img src="./picture/image-20201002173354226.png" alt="image-20201002173354226" style="zoom:150%;" />
 
 图中，002表示的是线路延迟，数字004是客户端延迟，数字006是服务器延迟
 
@@ -70,11 +70,11 @@
 
 使用`wireshark`开始抓包，并访问国外的网站，如`github`等，抓包之后我们进行分析，将时间选择为自上一个捕获分组经过的秒数
 
-![image-20201002175032456](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002175032456.png)
+![image-20201002175032456](./picture/image-20201002175032456.png)
 
 配置完成之后双击`time`列，将间隔时间按照倒叙进行排序，然后找到`SYN/ACK`时间延时比较长的列，对其进行追溯，可以看到图中`SYN/ACK`至接收`SYN`花费了较久的时间，因为网络环境限制，没有主导比较完美的`SYN -> SYN,ACK->ACK`的过程，但是从`SYN/ACK`的延时上已经可以确认网络路径上的延时是比较大的。
 
-<img src="/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002175827550.png" alt="image-20201002175827550" style="zoom:150%;" />
+<img src="./picture/image-20201002175827550.png" alt="image-20201002175827550" style="zoom:150%;" />
 
 
 
@@ -94,7 +94,7 @@
 
 你想要过滤哪些内容，只需要将箭头点击相同协议的展开行，在左下角就会显示出对应字段的过滤器写法，只需要按照对应写法设置就可以过滤你想要的对应数据了
 
-![image-20201002190308302](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002190308302.png)
+![image-20201002190308302](./picture/image-20201002190308302.png)
 
 
 
@@ -102,7 +102,7 @@
 
 想单独跟踪一个单一的`TCP`或者其他的会话，可以使用对话过滤器
 
-![image-20201002222753720](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201002222753720.png)
+![image-20201002222753720](./picture/image-20201002222753720.png)
 
 
 
@@ -114,15 +114,15 @@
 
 统计出来默认的是全部的数据，要是想看那个具体的协议的数据情况，可以关掉图表之后再
 
-![image-20201003103711210](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003103711210.png)
+![image-20201003103711210](./picture/image-20201003103711210.png)
 
 在过滤器中输入要过滤的内容，回车之后再打开`IO`图表
 
-![image-20201003103839414](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003103839414.png)
+![image-20201003103839414](./picture/image-20201003103839414.png)
 
 再次打开`IO`图表之后，就会自动添加相应的过滤内容，好了现在可以查看你想要的内容和所有数据或者其他数据的`IO`图形对比情况了
 
-![image-20201003104127583](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003104127583.png)
+![image-20201003104127583](./picture/image-20201003104127583.png)
 
 
 
@@ -132,21 +132,21 @@
 
 首先在编辑->协议->`TCP`确认开启了`Allow subdisserctor to reassemble TCP streams`
 
-![image-20201003120527054](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003120527054.png)
+![image-20201003120527054](./picture/image-20201003120527054.png)
 
 ，过滤`HTTP`
 
-![image-20201003120001934](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003120001934.png)
+![image-20201003120001934](./picture/image-20201003120001934.png)
 
 然后随该数据进行追踪`HTTP`流。
 
-![image-20201003120310477](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003120310477.png)
+![image-20201003120310477](./picture/image-20201003120310477.png)
 
-然后![image-20201003120221668](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003120221668.png)
+然后![image-20201003120221668](./picture/image-20201003120221668.png)
 
 选择对应的图片，然后点击保存；
 
-![image-20201003120405603](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003120405603.png)
+![image-20201003120405603](./picture/image-20201003120405603.png)
 
 
 
@@ -156,19 +156,19 @@
 
 - 包注释
 
-![image-20201003123000123](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003123000123.png)
+![image-20201003123000123](./picture/image-20201003123000123.png)
 
 - 分组注释
 
-![image-20201003123044568](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003123044568.png)
+![image-20201003123044568](./picture/image-20201003123044568.png)
 
 通过统计信息查看注释
 
-![image-20201003123133584](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003123133584.png)
+![image-20201003123133584](./picture/image-20201003123133584.png)
 
 通过专家信息查看注释
 
-![image-20201003123229673](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003123229673.png)
+![image-20201003123229673](./picture/image-20201003123229673.png)
 
 
 
@@ -221,7 +221,7 @@ Interface #0 info:
 
 使用`editcap`进行包分割
 
-![image-20201003125103298](/work/linux-sys/NETWORK/wireshark/doc/picture/image-20201003125103298.png)
+![image-20201003125103298](./picture/image-20201003125103298.png)
 
 `-c 100`的意思就是每个包的大小最大为`100`
 
@@ -281,6 +281,8 @@ Interface #0 info:
 
 
 
+
+[博客地址](https://blog.csdn.net/andrewgithub/article/details/108909547)
 
 
 
