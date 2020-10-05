@@ -15,6 +15,11 @@ message("top:   CMAKE_BINARY_DIR      = ${CMAKE_BINARY_DIR}")
 message("top:   CMAKE_CURRENT_SOURCE_DIR      = ${CMAKE_CURRENT_SOURCE_DIR}")
 message("top:   CMAKE_CURRENT_BINARY_DIR      = ${CMAKE_CURRENT_BINARY_DIR}")
 
+#make的时候不编译子目录下的源码
+#add_subdirectory(./mysub EXCLUDE_FROM_ALL)
+# 编译子目录下的源码 并创建子编译目录aaadd
+#add_subdirectory(./mysub aaadd)
+#
 add_subdirectory(./mysub)
 message("===========================================================")
 

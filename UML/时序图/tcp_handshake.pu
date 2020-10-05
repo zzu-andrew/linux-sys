@@ -1,0 +1,11 @@
+@startuml tcp-handshake 
+
+客户端 --> 服务器:发送SYN报文(seq=x,SYN=1)
+activate 服务器
+服务器 --> 客户端:发送SYN+ACK(seq=y,Ack=x+1,SYN=1,ACK=1)
+deactivate 服务器
+activate 客户端
+客户端 --> 服务器:发送ACK报文(Seq=x+1,Ack=y+1,ACK=1)
+deactivate 客户端
+
+@enduml

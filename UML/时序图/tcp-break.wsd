@@ -1,0 +1,13 @@
+@startuml tcp-break 
+
+客户端 --> 服务器:FIN/ACK
+activate 服务器
+服务器 --> 客户端:ACK
+deactivate 服务器
+
+服务器 --> 客户端:FIN/ACK
+activate 客户端
+客户端 --> 服务器:ACK
+deactivate 客户端
+
+@enduml
