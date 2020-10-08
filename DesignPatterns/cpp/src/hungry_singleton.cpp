@@ -13,10 +13,6 @@ private:
 public:
     static Singleton *getInstance(void)
     {
-        if(NULL == m_psl) // 懒汉式，每次获取实例都要判断，在多线程中会存在问题
-        {
-            m_psl = new Singleton;
-        }
         return m_psl;
     }
 
@@ -33,10 +29,8 @@ private:
 };
 
 // 静态变量初始化的方法，要放到类的外面
-Singleton *Singleton::m_psl = NULL;
-
-// 懒汉式，只有在使用的时候才会去创建
-// 存在的问题，多个线程同时首次调用时，可能会出现创建多次的问题(导致内存泄漏)
+// 饿汉式是在初始化指变量的时候就对其进行创建，不管是否被调用
+Singleton *Singleton::m_psl = new Singleton;
 
 int main(int argc, char const *argv[])
 {
@@ -56,7 +50,7 @@ int main(int argc, char const *argv[])
     // 手动释放单例模式创建的唯一一个对象
     Singleton::FreeInstance();
  
-    cout << "singleton." <<  endl;
+    cout << "hungry singleton." <<  endl;
     return 0;
 }
 

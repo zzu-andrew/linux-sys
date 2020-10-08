@@ -29,6 +29,10 @@ class OcpBankWorker
 {
 public:
     virtual void DoSomething(void) = 0;
+    virtual ~OcpBankWorker(void)
+    {
+        cout << "OcpBankWorker" << endl;
+    }
 };
 
 // 虚函数实现
@@ -66,7 +70,7 @@ void HowDo(OcpBankWorker &ocpBankWorker)
     ocpBankWorker.DoSomething();
 }
 
-// 使用多态的三个原则
+// 使用多态的三个
 // 1.要有继承
 // 2.要有函数重写
 // 3.要有父类指针(父类引用)指向子类对象
