@@ -15,6 +15,12 @@ add_executable(reverse_dependencies reverse_dependencies.cpp)
 add_executable(sluggard_singleton sluggard_singleton.cpp)
 # 饿汉式单例模式
 add_executable(hungry_singleton hungry_singleton.cpp)
+# 简单工厂模式
+add_executable(simple_factory simple_factory.cpp)
+# 工厂模式
+add_executable(factory_mode factory_mode.cpp)
+
+
 
 #target_include_directories( PUBLIC ./../lib)
 

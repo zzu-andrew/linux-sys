@@ -422,12 +422,398 @@ p1 equal p2
 singleton.
 ```
 
+**饿汉式**
+
+饿汉式，与懒汉式唯一的差别就是创建方式上，懒汉式是在首次调用的时候才创建，饿汉式是不管是否调用，在静态指针初始化的时候就创建指针指向的对象。
+
+```c
+#include <iostream>
+
+using namespace std;
+
+class Singleton
+{
+private:
+    Singleton()
+    {
+        cout << "sluggard singleton construct start." << endl;
+    }
+    
+public:
+    static Singleton *getInstance(void)
+    {
+        return m_psl;
+    }
+
+    static void FreeInstance()
+    {
+        if(NULL != m_psl)
+        {
+            delete m_psl;
+            m_psl = NULL;
+        }
+    }
+private:
+    static Singleton *m_psl;
+};
+
+// 静态变量初始化的方法，要放到类的外面
+// 饿汉式是在初始化指变量的时候就对其进行创建，不管是否被调用
+Singleton *Singleton::m_psl = new Singleton;
+
+int main(int argc, char const *argv[])
+{
+    // 使用功能去全局获取接口获取资源
+    Singleton *p1 = Singleton::getInstance(); 
+    Singleton *p2 = Singleton::getInstance();
+
+    if(p1 == p2)
+    {
+        cout << "p1 equal p2" << endl;
+    }
+    else
+    {
+        cout << "p1 not equal p2" << endl;
+    }
+    
+    // 手动释放单例模式创建的唯一一个对象
+    Singleton::FreeInstance();
+ 
+    cout << "singleton." <<  endl;
+    return 0;
+}
+
+```
+
+饿汉式执行之后输出结果：
+
+```bash
+sluggard singleton construct start.
+p1 equal p2
+hungry singleton.
+```
+
+两者分析：
+
+懒汉式因为使用的时候才会创建内存，所以当多个线程同时使用的时候可能会出现多次创建的问题，饿汉式不存在这个问题。
+
+懒汉式虽然有有点，但是每次调用`GetInstance()`静态方法都必须判断静态指针是否为`NULL`使程序相对开销增大，多喜爱能成中会导致多个实例产生，从而导致运行代码不正确以及内存泄漏，也有可能是多次释放资源。
+
+这是因为`C++`中构造函数并不是线程安全的，`C++`中的构造函数简单分为两步
+
+1. 内存分配
+2. 初始化成员变量
+
+由于多线程的关系，可能内存放分配好，还没有给成员赋值，就发生了线程切换，导致下个线程中又申请了一遍内存。
+
+---
 
 
 
+#### 简单工程模式
+
+简单工厂模式，属于类的创建型模式，又叫做静态工厂方法模式。通过专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。
 
 
 
+##### 模式中包含的角色及其职责
+
+**工厂角色**
+
+简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂可以被外界直接调用，创建所需的产品对象。
+
+**抽象角色**
+
+简单工厂模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口。
+
+**具体产品角色**
+
+简单工厂模式所创建的具体实例对象
+
+![](picture/ClassDiagram1.png)
+
+==说明==：产品和工厂之间的关系是依赖，产品和抽象产品之间的关系是继承。
+
+依赖：一个类的对象当另外一个类的函数参数或者返回值
+
+**简单工厂模式的优缺点**
+
+在简单工厂模式中，工厂类是整个魔偶是的关键所在。它包含必要的判断逻辑，能够根据外界给定的信息，决定究竟应该创建哪个具体类的对象。用户在使用的时候，可以直接根据工厂类去创建所需的实例，而无需了解这些对象是如何创建以及如何组织的。有利于整个软件体系结构的优化。不难发现，简单工厂模式的有点也体现在工厂类上，由于工厂类集中了所有实例创建的逻辑，所以高内聚方面做的不好，另外，当系统中的具体产品类不断增多时，可能出现要求工厂也要做响应的修改，扩展性不好。
+
+**简单工厂模式的实现**
+
+```c
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+//  抽象类中定义子类中需要实现的功能，也就是限定了子类必须实现的一些函数
+class Fruit
+{
+public:
+    virtual void GetFruit(void) = 0;
+    virtual ~Fruit(void)
+    {
+
+    }
+};
+
+class Banana : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm banana." << endl;
+    }
+};
+
+
+class Apple : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm apple." << endl;
+    }
+};
+
+class Factory
+{
+public:
+    Fruit *CreateFruit(string &pStr)
+    {
+        if(0 == pStr.compare("banana"))
+        {
+            return new Banana;
+        }
+        else if(0 == pStr.compare("apple"))
+        {
+            return new Apple;
+        }
+        else
+        {
+           cout << "Factory not support" << endl;
+        }
+        return NULL;
+    }
+};
+
+
+int main(int argc, char const *argv[])
+{
+    Factory *f = new Factory;
+
+    Fruit *fruit = NULL;
+    string bananaStr("banana");
+    string appleStr("apple"); 
+
+
+    // 工厂声场香蕉
+    fruit = f->CreateFruit(bananaStr);
+    if(NULL != fruit)
+    {
+        fruit->GetFruit();
+        delete fruit;
+    }
+    // 工厂生产苹果
+    fruit = f->CreateFruit(appleStr);
+    if(NULL != fruit)
+    {
+        fruit->GetFruit();
+        delete fruit;
+    }
+
+    delete f;
+    cout << "simple factory test" << endl;
+    return 0;
+}
+```
+
+执行结果：
+
+```bash
+I'm banana.
+I'm apple.
+simple factory test
+```
+
+通过结果可以看出，工厂通过传入的字符串已经正确的生产出想要的产品。
+
+
+
+#### 工厂模式
+
+工厂方法模式同样属于类的创建型模式，又被称为多态工厂模式。工厂方法的意义是定义一个创建产品对象的工厂接口，将实际创建工作推迟到子类当中。
+
+核心工厂类不在负责产品的创建，这样核心类成为一个抽象工厂角色，仅负责具体工厂子类必须实现的接口，这样进一步抽象化的好处就是使得工厂方法模式可以使系统不再修改具体工厂角色的情况下引进新的产品。
+
+##### 模式中包含的角色极其职责
+
+**抽象工厂角色**
+
+工厂方法的核心，任何工厂类都必须实现这个接口
+
+**具体工厂角色**
+
+具体工厂是抽象工厂的一个实现，负责实例化产品对象。
+
+**抽象角色**
+
+工厂方法模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口。
+
+**具体产品**
+
+工厂方法模式所创建的具体实例对象
+
+![image-20201008225409185](picture/image-20201008225409185.png)
+
+##### 工厂模式和简单工厂模式比较
+
+工厂模式与简单工厂模式在结构上的不同不是很明显，工厂方法类的核心是一个抽象工厂类，而简单工厂模式把核心放在一个具体的类上。
+
+工厂方法模式之所以有一个别名叫多态型工厂模式是因为具体工厂类都是共同的接口或者有共同的抽象父类。
+
+当系统扩展需要添加新的产品对象时，仅仅需要添加一个具体对象以及一个具体工厂对象，原有工厂对象不需要进行任何修改，也不需要修改客户端，很好的符合了 - <font color= green>开放封闭</font>-原则。而简单工厂模式再添加新产品对象后不得不修改工厂方法，扩展性不好。工厂模式退化后可演变成简单工厂模式。
+
+开放－封闭，通过添加代码的方式，不是通过修改代码的方式完成功能的增强
+
+<font size=4 color = yellow>特点 </font>:不需要修改源代码就可以实现新工能的添加  :yellow_heart:
+
+源码实现：
+
+```c
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+//  抽象类中定义子类中需要实现的功能，也就是限定了子类必须实现的一些函数
+class Fruit
+{
+public:
+    virtual void GetFruit(void) = 0;
+    virtual ~Fruit(void)
+    {
+
+    }
+};
+
+class Banana : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm banana." << endl;
+    }
+};
+
+
+class Apple : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm apple." << endl;
+    }
+};
+
+class AbstructFactory
+{
+public:
+    virtual Fruit *CreateProduct(void) = 0;
+    // 这里析构函数使用虚函数的原因是因为，只有父类中析构函数使用虚函数，
+    // 多态时才会从子类析构函数一直调用到基类结束，否则只会调用父类的不会调用子类的析构函数
+    virtual ~AbstructFactory(void)
+    {
+
+    }
+};
+
+class BananaFactory : public AbstructFactory
+{
+public:
+    virtual Fruit *CreateProduct(void)
+    {
+        return new Banana;
+    }
+};
+
+class AppleFactory : public AbstructFactory
+{
+public:
+    virtual Fruit *CreateProduct(void)
+    {
+        return new Apple;
+    }
+};
+
+/**
+ * 后期产品扩展
+ */
+
+class Peer : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm peer." << endl;
+    }
+};
+
+class PeerFactory : public AbstructFactory
+{
+public:
+   virtual Fruit *CreateProduct()
+   {
+       return new Peer;
+   }
+
+};
+
+int main(int argc, char const *argv[])
+{
+    AbstructFactory  *factory = NULL;
+    Fruit            *fruit = NULL;
+
+    // 制造香蕉
+    factory = new BananaFactory;
+    fruit = factory->CreateProduct();
+    fruit->GetFruit();
+
+    delete fruit;
+    delete factory;
+
+    factory = new AppleFactory;
+    fruit = factory->CreateProduct();
+    fruit->GetFruit();
+
+    delete fruit;
+    delete factory;
+
+    // 前期系统稳定之后，后期扩展
+    cout << "extern" << endl;
+    factory = new PeerFactory;
+    fruit = factory->CreateProduct();
+    fruit->GetFruit();
+    
+    delete fruit;
+    delete factory;
+
+    cout << "simple factory test" << endl;
+    return 0;
+}
+```
+
+编译之后执行结果：
+
+```bash
+I'm banana.
+I'm apple.
+extern
+I'm peer.
+simple factory test
+```
 
 
 
