@@ -310,21 +310,123 @@ int main(int argc, char const *argv[])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 设计模式实践
+
+
+
+#### 单例模式
+
+单例模式是一种对象创建模式，使用单例模式，可以保证为一个类生成唯一的实例对象。也就是说在这个程序空间该类只有一个实例对象。
+
+`GoF`对单例的定义：保证一个类、只有一个实例存在，同时提供对该实例加以访问的全局访问方法。
+
+**单例模式`UML`图**
+
+单例模式的目的就是保证一个类只有一个实例，并提供一个访问它的全局访问点。
+
+![image-20201007232802662](picture/image-20201007232802662.png)
+
+
+
+**使用单例模式的原因**
+
+在应用系统开发中，我们常常有以下需求：
+
+- 多个线程公用一个`socket`资源，或者操作同一个对象
+- 在整个程序空间需要使用全局变量，共享资源
+- 大规模系统中，为了性能考虑，需要节省对象创建的时间等
+
+实现步骤：
+
+1. 构造函数私有化
+2. 提供一个全局的静态方法(全局访问点)
+3. 在类中定义一个静态指针，指向本类的变量的静态变量指针
+
+构造函数私有化的作用：构造函数私有化之后，则构造该类的对象，必须在类内部完成。
+
+**懒汉式单例模式**
+
+叫懒汉式的原因，是因为只有再用的时候才会创建类中的全局指针。
+
+代码实现如下：
+
+```c
+#include <iostream>
+
+using namespace std;
+
+class Singleton
+{
+private:
+    Singleton()
+    {
+        cout << "sluggard singleton construct start." << endl;
+    }
+
+public:
+    static Singleton *getInstance(void)
+    {
+        if(NULL == m_psl) // 懒汉式，每次获取实例都要判断，在多线程中会存在问题
+        {
+            m_psl = new Singleton;
+        }
+        return m_psl;
+    }
+
+    static void FreeInstance()
+    {
+        if(NULL != m_psl)
+        {
+            delete m_psl;
+            m_psl = NULL;
+        }
+    }
+private:
+    static Singleton *m_psl;
+};
+
+// 静态变量初始化的方法，要放到类的外面
+Singleton *Singleton::m_psl = NULL;
+
+// 懒汉式，只有在使用的时候才会去创建
+// 存在的问题，多个线程同时首次调用时，可能会出现创建多次的问题(导致内存泄漏)
+
+int main(int argc, char const *argv[])
+{
+    // 使用功能去全局获取接口获取资源
+    Singleton *p1 = Singleton::getInstance(); 
+    Singleton *p2 = Singleton::getInstance();
+
+    if(p1 == p2)
+    {
+        cout << "p1 equal p2" << endl;
+    }
+    else
+    {
+        cout << "p1 not equal p2" << endl;
+    }
+    
+    // 手动释放单例模式创建的唯一一个对象
+    Singleton::FreeInstance();
+ 
+    cout << "singleton." <<  endl;
+    return 0;
+}
+```
+
+编译之后输出结果：
+
+```bash
+sluggard singleton construct start.
+p1 equal p2
+singleton.
+```
+
+
+
+
+
+
 
 
 
