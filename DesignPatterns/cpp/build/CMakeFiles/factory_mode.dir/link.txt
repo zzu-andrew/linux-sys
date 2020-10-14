@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/factory_mode.dir/factory_mode.cpp.o  -o factory_mode 

@@ -146,25 +146,40 @@ private:
     Builder * m_build;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char const *argv[])
 {
-    
+    House       *house = NULL;
+    Builder     *builder = NULL;
+    Director    *director = NULL;
+    cout << "villa build" << endl;
+    // 请一个建造别墅的工程队，建造一个别墅
+    builder = new VillaBuilder;
 
+    // 设计师 指挥工程队进行建造
+    director = new Director(builder);
+    // 指挥干活
+    director->Construct();
+    // 建好 交工
+    house = builder->GetHouse();
+    // 客户验房
+    house->getWindow();
+    house->getDoor();
+    house->getWall();
+    delete house;
+    delete builder;
+
+    cout << "flat build" << endl;
+    builder = new FlatBuilder;
+    director = new Director(builder);
+    director->Construct();
+    house = builder->GetHouse();
+    house->getDoor();
+    house->getWall();
+    house->getWindow();
+    delete house;
+    delete builder;
+
+    delete director;
     cout << "builder pattern." << endl;
     return 0;
 }

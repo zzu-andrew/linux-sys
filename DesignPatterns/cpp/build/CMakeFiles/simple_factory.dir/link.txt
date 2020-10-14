@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/simple_factory.dir/simple_factory.cpp.o  -o simple_factory 

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/sluggard_singleton.dir/sluggard_singleton.cpp.o  -o sluggard_singleton 
