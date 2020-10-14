@@ -112,6 +112,6 @@ int main(int argc, char const *argv[])
     house->getWindow();
     delete builder;
 
-    cout << "builder pattern." << endl;
+    cout << "builder pattern question." << endl;
     return 0;
 }

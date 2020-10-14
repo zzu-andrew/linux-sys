@@ -2,6 +2,8 @@
 #include <string>
 using namespace std;
 
+// 建造者模式，就是通过虚工程对基类，实现
+// 通过指挥者，指挥不同的建筑队建设不同的房子
 
 class House
 {
@@ -46,38 +48,42 @@ private:
 class Builder
 {
 public:
-    Builder(void)
+    virtual void BuildWall(void) = 0;
+    virtual void BuildDoor(void) = 0;
+    virtual void BuildWindow(void) = 0;
+    virtual House* GetHouse(void) = 0;
+public:
+    virtual ~Builder(void)
+    {
+
+    }
+};
+
+//公寓建筑工程队
+class FlatBuilder : public Builder
+{
+public:
+    FlatBuilder()
     {
         m_house = new House;
     }
-    ~Builder(void)
+
+    virtual void BuildWall(void)
     {
-        delete m_house;
+        m_house->setWall("flat wall");
     }
 
-    void MakeBuilder(void)
+    virtual void BuildDoor(void)
     {
-        BuildDoor(m_house);
-        BuildWall(m_house);
-        BuildWindow(m_house);
+        m_house->setDoor("flat door");
     }
 
-    void BuildDoor(House *h)
+    virtual void BuildWindow(void)
     {
-        h->setDoor("door");
+        m_house->setWindow("flat window");
     }
 
-    void BuildWall(House *h)
-    {
-        h->setWall("wall");
-    }
-
-    void BuildWindow(House *h)
-    {
-        h->setWindow("window");
-    }
-
-    House *GetHouse(void)
+    virtual House* GetHouse(void)
     {
         return m_house;
     }
@@ -86,31 +92,78 @@ private:
     House *m_house;
 };
 
+// 别墅工程队
+class VillaBuilder : public Builder
+{
+public:
+    VillaBuilder(void)
+    {
+        m_house = new House;
+    }
+
+    virtual void BuildWall(void)
+    {
+        m_house->setWall("villa wall");
+    }
+
+    virtual void BuildDoor(void)
+    {
+        m_house->setDoor("villa door");
+    }
+
+    virtual void BuildWindow(void)
+    {
+        m_house->setWindow("villa window");
+    }
+
+    virtual House* GetHouse(void)
+    {
+        return m_house;
+    }
+    
+private:
+    House *m_house;
+};
+
+// 设计师 指挥者，负责建造的逻辑
+// 建筑队，干具体的活
+class Director
+{
+public:
+    Director(Builder *builder)
+    {
+        m_build = builder;
+    }
+
+    void Construct(void)
+    {
+        m_build->BuildWall();
+        m_build->BuildWindow();
+        m_build->BuildDoor();
+    }
+
+private:
+    Builder * m_build;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main(int argc, char const *argv[])
 {
     
-    // 不需要建造者，客户直接造房子
-    //  门窗  墙体玻璃等都需要用户管理
-    House *house = new House;
-    house->setDoor("user door");
-    house->setWall("user Wall");
-    house->setWindow("big window");
-    house->getDoor();
-    house->getWall();
-    house->getWindow();
-    delete house;
-
-    // 华丽的分割线
-    cout << "=========================" << endl;
-    // 请工程队 建造房子
-    // 将建造过程交给工程队， 是不是还可以请个指挥建造的？ 这样客户就能完全解放出来了
-    Builder *builder = new Builder;
-    builder->MakeBuilder();
-    house = builder->GetHouse();
-    house->getDoor();
-    house->getWall();
-    house->getWindow();
-    delete builder;
 
     cout << "builder pattern." << endl;
     return 0;

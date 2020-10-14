@@ -1,0 +1,10 @@
+{
+    "compile-hero.disable-compile-files-on-did-save-code": false,
+    "C_Cpp.default.configurationProvider": "go2sh.cmake-integration",
+    "files.associations": {
+        "iostream": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
+}
