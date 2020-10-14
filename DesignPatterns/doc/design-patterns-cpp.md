@@ -1,4 +1,6 @@
+[TOC]
 
+---
 
 ## 设计模式
 
@@ -6,9 +8,11 @@
 
 ### 设计模式前言
 
+代码路径: [代码仓库路径](https://github.com/zzu-andrew/linux-sys/tree/dfew/DesignPatterns)
+
+
+
 模式：在一定环境中解决某一问题的方案，包括三个基本元素-问题，解决方案和环境。即在一定环境下，用固定的套路解决问题。
-
-
 
 **创建型模式**
 
@@ -91,7 +95,7 @@
 
 具体的`CPP`代码如下：
 
-```c
+```cpp
 #include <iostream>
 
 using namespace std;
@@ -210,7 +214,7 @@ int main(int argc, char const *argv[])
 
 依赖颠倒的实现也是基于多态的基础之上，，具体的`Cpp`代码实现如下：
 
-```c
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -350,7 +354,7 @@ int main(int argc, char const *argv[])
 
 代码实现如下：
 
-```c
+```cpp
 #include <iostream>
 
 using namespace std;
@@ -426,7 +430,7 @@ singleton.
 
 饿汉式，与懒汉式唯一的差别就是创建方式上，懒汉式是在首次调用的时候才创建，饿汉式是不管是否调用，在静态指针初始化的时候就创建指针指向的对象。
 
-```c
+```cpp
 #include <iostream>
 
 using namespace std;
@@ -542,7 +546,7 @@ hungry singleton.
 
 **简单工厂模式的实现**
 
-```c
+```cpp
 #include <iostream>
 #include <string>
 
@@ -682,7 +686,7 @@ simple factory test
 
 源码实现：
 
-```c
+```cpp
 #include <iostream>
 #include <string>
 
@@ -814,6 +818,379 @@ extern
 I'm peer.
 simple factory test
 ```
+
+总结：工厂模式实现了系统整体和具体产品的解耦合
+
+
+
+#### 抽象工厂
+
+抽象工厂模式是所有形态的工厂模式中，最为抽象和最具一般性的工厂模式。抽象工厂模式可以向客户端提供一个接口，使得客户端在不必指定产品的具体类型的情况下，能够创建多个产品族的产品对象。
+
+工厂模式，要么生产A要么生产B，但是不能同时生产一个产品族。抽象工厂：能同时生产一个产品族
+
+重要区别：
+
+工厂模式只能生产一个产品，要么香蕉要么苹果；
+
+抽象共产可以一下生产一个产品族(里面有很多产品组成)
+
+##### 模式中包含的角色极其职责
+
+**抽象工厂角色**
+
+抽象工厂模式的核心，包含对多个产品结构的声明，任何工厂类都必须实现这个接口
+
+**具体工厂角色**
+
+具体工厂是抽象工厂的一个实现，负责实例化摸个产品族中的产品对象
+
+**抽象角色**
+
+抽象模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口
+
+**具体产品角色**
+
+抽象模式所创建的具体实例对象
+
+![image-20201010233816420](picture/image-20201010233816420.png)
+
+
+
+抽象工厂`C++`代码实现：
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+//  抽象类中定义子类中需要实现的功能，也就是限定了子类必须实现的一些函数
+class Fruit
+{
+public:
+    virtual void GetFruit(void) = 0;
+    virtual ~Fruit(void)
+    {
+
+    }
+};
+
+class AbstractFactory
+{
+public:
+    virtual Fruit *CreateBanana(void) = 0;
+    virtual Fruit *CreateApple(void) = 0;
+    // 这里析构函数使用虚函数的原因是因为，只有父类中析构函数使用虚函数，
+    // 多态时才会从子类析构函数一直调用到基类结束，否则只会调用父类的不会调用子类的析构函数
+    virtual ~AbstractFactory(void)
+    {
+
+    }
+};
+
+class NorthBanana : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm North banana." << endl;
+    }
+};
+
+class NorthApple : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm North apple." << endl;
+    }
+};
+
+class SourthBanana : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm Sourth banana." << endl;
+    }
+};
+
+class SourthApple : public Fruit
+{
+public:
+    virtual void GetFruit(void)
+    {
+        cout << "I'm Sourth apple." << endl;
+    }
+};
+
+class NorthFactory : public AbstractFactory
+{
+public:
+    virtual Fruit *CreateBanana(void)
+    {
+        return new NorthBanana;
+    }
+
+    virtual Fruit *CreateApple(void)
+    {
+        return new NorthApple;
+    }
+};
+
+class SourthFactory : public AbstractFactory
+{
+public:
+    virtual Fruit *CreateBanana(void)
+    {
+        return new SourthBanana;
+    }
+
+    virtual Fruit *CreateApple(void)
+    {
+        return new SourthApple;
+    }
+};
+
+int main(int argc, char const *argv[])
+{
+    AbstractFactory  *abstractFactory = NULL;
+    Fruit            *fruit = NULL;
+
+    abstractFactory = new SourthFactory;
+    fruit = abstractFactory->CreateApple();
+    fruit->GetFruit();
+    delete fruit;
+    fruit = abstractFactory->CreateBanana();
+    fruit->GetFruit();
+    delete fruit;
+
+    delete abstractFactory;
+
+    abstractFactory = new NorthFactory;
+    fruit = abstractFactory->CreateApple();
+    fruit->GetFruit();
+    delete fruit;
+    fruit=abstractFactory->CreateBanana();
+    fruit->GetFruit();
+    delete fruit;
+    delete abstractFactory;
+
+    cout << "simple factory test" << endl;
+    return 0;
+}
+```
+
+编译之后的执行结果：
+
+```bash
+andrew@andrew-G3-3590:/work/linux-sys/DesignPatterns/cpp/build$ ./abstract_factory 
+I'm Sourth apple.
+I'm Sourth banana.
+I'm North apple.
+I'm North banana.
+simple factory test
+```
+
+
+
+#### 建造者模式
+
+`Builder`模式也叫建造者模式或者生成器模式，是由`GoF`提出的23种设计模式中的一种。`Builder`模式是一种对象创建模式之一，用来隐藏复合对象的创建过程。他把复合对象的创建过程加以抽象，通过子类继承和重载的方式，动态地创建具有复合属性的对象。
+
+对象的创建：`Builder`模式是为了对象的创建而设计的模式-创建的是一个复合对象，被创建的对象为一个具有复合属性的复合对象，关注对象创建的各个部分的创建过程，不同工厂(`Builder`)对产品属性有不同的创建方法。
+
+- `Builder`：为创建产品各个部分，统一抽象接口
+- `ConcreteBuilder`: 具体的创建产品的各个部分，部分A，部分B，部分C
+- `Director`: 构造一个使用`Builder`接口的对象
+- `Product`：表示被构造的复杂对象
+
+`ConcreteBuilder`创建该产品的内部表示并定义它的装配过程，包含定义组成部分的类，包含将这些部件装配成最终产品的接口。
+
+适用情况：
+
+​	一个对象的构建比较复杂，将一个对象的构建和对象的表示进行分离。
+
+说白了：建造者模式，其实就是相当于一个设计师，指挥建造师造房子，建造师可能是不同的，因为每个建造师建造水平和会造的房子都是不一样的。
+
+<img src="picture/image-20201011194649333.png" alt="image-20201011194649333" style="zoom:150%;" />
+
+
+
+##### 创建者模式和工厂模式的对比
+
+`Factory`模式中：
+
+1. 有一个抽象的工厂
+2. 实现一个具体的工厂 - 汽车工厂
+3. 工厂生产的汽车A，得到汽车产品A
+4. 工厂生产汽车B，得到汽车产品B
+
+实现了购买者和生产线的隔离，强调的是结果
+
+`Builder`模式
+
+1. 引擎工厂生产引擎产品，得到汽车的部件A
+2. 轮胎工厂生产轮子产品，得到汽车部件B
+3. 底盘工厂生产车身产品，得到汽车部件C
+4. 将这些部件放到一起，形成刚好能够组装成一辆汽车的整体
+
+这样做，目的是为了实现复杂对象生产线和其部件的解耦。强调的是过程
+
+两者的区别在于以下几种情况：
+
+工厂模式不考虑对象的组装过程，而直接生成一个我想要的对象。
+
+`Builder`模式先一个个的创建对象的每一个部件，再统一组装成一个对象
+
+工厂模式所解决的问题是，工厂生产产品
+
+而`Builder`模式解决的是工厂控制产品 生成器组装各个部件的过程，然后从产品生成器中得到产品。
+
+
+
+**前期问题的抛出-需要建造者模式的原因**
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class House
+{
+public:
+    void setDoor(string door)
+    {
+        this->m_door = door;
+    }
+    void setWall(string wall)
+    {
+        this->m_wall = wall;
+    }
+    void setWindow(string window)
+    {
+        this->m_window = window;
+    }
+    string getDoor(void)
+    {
+        cout << m_door << endl;
+        return m_door;
+    }
+    string getWall(void)
+    {
+        cout << m_wall << endl;
+        return m_wall;
+    }
+    string getWindow(void)
+    {
+        cout << m_window << endl;;
+        return m_window;
+    }
+
+private:
+    string m_door;
+    string m_wall;
+    string m_window;
+};
+
+class Builder
+{
+public:
+    Builder(void)
+    {
+        m_house = new House;
+    }
+    ~Builder(void)
+    {
+        delete m_house;
+    }
+    void MakeBuilder(void)
+    {
+        BuildDoor(m_house);
+        BuildWall(m_house);
+        BuildWindow(m_house);
+    }
+    void BuildDoor(House *h)
+    {
+        h->setDoor("door");
+    }
+    void BuildWall(House *h)
+    {
+        h->setWall("wall");
+    }
+    void BuildWindow(House *h)
+    {
+        h->setWindow("window");
+    }
+    House *GetHouse(void)
+    {
+        return m_house;
+    }
+
+private:
+    House *m_house;
+};
+
+int main(int argc, char const *argv[])
+{
+    
+    // 不需要建造者，客户直接造房子
+    //  门窗  墙体玻璃等都需要用户管理
+    House *house = new House;
+    house->setDoor("user door");
+    house->setWall("user Wall");
+    house->setWindow("big window");
+    house->getDoor();
+    house->getWall();
+    house->getWindow();
+    delete house;
+
+    // 华丽的分割线
+    cout << "=========================" << endl;
+    // 请工程队 建造房子
+    // 将建造过程交给工程队， 是不是还可以请个指挥建造的？ 这样客户就能完全解放出来了
+    Builder *builder = new Builder;
+    builder->MakeBuilder();
+    house = builder->GetHouse();
+    house->getDoor();
+    house->getWall();
+    house->getWindow();
+    delete builder;
+
+    cout << "builder pattern." << endl;
+    return 0;
+}
+```
+
+两者，虽然都建造好了房子，但是建筑队参加之后，客户就不需要参与房子的建造的每个过程了，将建造过程与使用者之间进行分离，这就是建造者模式想要达到的效果
+
+```bash
+andrew@andrew-G3-3590:/work/linux-sys/DesignPatterns/cpp/build$ ./builder_pattern_question 
+user door
+use Wall
+big window
+=========================
+door
+wall
+window
+builder pattern.
+```
+
+那除了这样其实可以再请一个指挥者过来，因为实际中会有不同的建造者参与竞争，每个建造者精通的地方都是不一样的，指挥者参与之后，用户只需要把自己的需求告知指挥者就行。
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

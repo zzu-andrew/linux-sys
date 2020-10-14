@@ -19,8 +19,13 @@ add_executable(hungry_singleton hungry_singleton.cpp)
 add_executable(simple_factory simple_factory.cpp)
 # 工厂模式
 add_executable(factory_mode factory_mode.cpp)
+# 抽象工厂模式
+add_executable(abstract_factory abstract_factory.cpp)
+# 建造者模式问题抛出 -- 为什么需要建造者模式
+add_executable(builder_pattern_question builder_pattern_question.cpp)
+# 建造者模式
+add_executable(builder_pattern builder_pattern.cpp)
 
 
 
-#target_include_directories( PUBLIC ./../lib)
 

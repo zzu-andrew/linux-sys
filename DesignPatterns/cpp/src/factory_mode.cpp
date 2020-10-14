@@ -33,19 +33,19 @@ public:
     }
 };
 
-class AbstructFactory
+class AbstractFactory
 {
 public:
     virtual Fruit *CreateProduct(void) = 0;
     // 这里析构函数使用虚函数的原因是因为，只有父类中析构函数使用虚函数，
     // 多态时才会从子类析构函数一直调用到基类结束，否则只会调用父类的不会调用子类的析构函数
-    virtual ~AbstructFactory(void)
+    virtual ~AbstractFactory(void)
     {
 
     }
 };
 
-class BananaFactory : public AbstructFactory
+class BananaFactory : public AbstractFactory
 {
 public:
     virtual Fruit *CreateProduct(void)
@@ -54,7 +54,7 @@ public:
     }
 };
 
-class AppleFactory : public AbstructFactory
+class AppleFactory : public AbstractFactory
 {
 public:
     virtual Fruit *CreateProduct(void)
@@ -76,7 +76,7 @@ public:
     }
 };
 
-class PeerFactory : public AbstructFactory
+class PeerFactory : public AbstractFactory
 {
 public:
    virtual Fruit *CreateProduct()
@@ -88,7 +88,7 @@ public:
 
 int main(int argc, char const *argv[])
 {
-    AbstructFactory  *factory = NULL;
+    AbstractFactory  *factory = NULL;
     Fruit            *fruit = NULL;
 
     // 制造香蕉
