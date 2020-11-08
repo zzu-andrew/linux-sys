@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/work/linux-sys/CMake/build",
+  "command": "/bin/g++-9    -g   -o CMakeFiles/cmake_test.dir/main.cpp.o -c /work/linux-sys/CMake/main.cpp",
+  "file": "/work/linux-sys/CMake/main.cpp"
+}
+]
