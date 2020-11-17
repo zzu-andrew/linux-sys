@@ -25,7 +25,14 @@ add_executable(abstract_factory abstract_factory.cpp)
 add_executable(builder_pattern_question builder_pattern_question.cpp)
 # 建造者模式
 add_executable(builder_pattern builder_pattern.cpp)
-
+# 代理者模式
+add_executable(proxy_pattern proxy_pattern.cpp)
+# 修饰者模式
+add_executable(decorator_pattern decorator_pattern.cpp)
+# 适配器模式
+add_executable(adapter_pattern adapter_pattern.cpp)
+# 桥接模式
+add_executable(bridge_pattern bridge_pattern.cpp)
 
 
 
