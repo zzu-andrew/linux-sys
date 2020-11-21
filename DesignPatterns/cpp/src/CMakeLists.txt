@@ -33,6 +33,7 @@ add_executable(decorator_pattern decorator_pattern.cpp)
 add_executable(adapter_pattern adapter_pattern.cpp)
 # 桥接模式
 add_executable(bridge_pattern bridge_pattern.cpp)
-
+# 组合模式
+add_executable(composite_pattern composite_pattern.cpp)
 
 
