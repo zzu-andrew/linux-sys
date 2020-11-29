@@ -4,25 +4,25 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <utility>
 
 using namespace std;
 
 class Person {
 public:
     Person(string name, int age) {
-        this->age = name;
         this->age = age;
+        this->m_name = std::move(name);
     }
-    virtual ~Person(){
-
-    }
+    // 默认形式的定义
+    virtual ~Person()= default;
 
     virtual void printT() = 0;
 
 
 protected:
     string m_name;
-    basic_string<char> age;
+    int age;
 };
 
 class Teacher : public Person {
@@ -50,17 +50,19 @@ public:
         while (!map1.empty()) {
             Person *tmp = NULL;
             auto it = map1.begin();
+            // map的第二个元素就是Teacher
             tmp = it->second;
             map1.erase(it);  // 将第一个节点从容器中删除
             delete tmp;
         }
     }
 
+    // 保持所有的数据只有一份
     Person *GetTeacher(string id) {
         Person *tmp = NULL;
         map<string, Person *>::iterator  it;
         it = map1.find(id);
-        if (it == map1.end()) {
+        if (it == map1.end()) { // 结尾
             string tmpname;
             int tmpage;
             cout << "enter teacher name:";

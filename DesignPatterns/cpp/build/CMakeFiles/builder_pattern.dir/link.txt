@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/builder_pattern.dir/builder_pattern.cpp.o  -o builder_pattern 

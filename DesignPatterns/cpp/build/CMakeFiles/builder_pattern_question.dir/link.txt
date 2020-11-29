@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/builder_pattern_question.dir/builder_pattern_question.cpp.o  -o builder_pattern_question 

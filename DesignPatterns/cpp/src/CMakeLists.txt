@@ -35,5 +35,30 @@ add_executable(adapter_pattern adapter_pattern.cpp)
 add_executable(bridge_pattern bridge_pattern.cpp)
 # 组合模式
 add_executable(composite_pattern composite_pattern.cpp)
-
+# 外观模式
+add_executable(facade_pattern facade_pattern.cpp)
+# 享元模式
+add_executable(flyweight_pattern flyweight_pattern.cpp)
+# 模板模式
+add_executable(template_pattern template_pattern.cpp)
+# 命令模式
+add_executable(command_pattern command_pattern.cpp)
+# 责任链模式
+add_executable(cor_pattern cor_pattern.cpp)
+# 策略模式
+add_executable(strategy_pattern strategy_pattern.cpp)
+# 中介者模式
+add_executable(mediator_pattern mediator_pattern.cpp)
+# 观察者模式
+add_executable(observer_pattern observer_pattern.cpp)
+# 备忘录模式
+add_executable(memento_pattern memento_pattern.cpp)
+# 备忘录模式
+add_executable(visitor_pattern visitor_pattern.cpp)
+# 状态模式
+add_executable(state_pattern state_pattern.cpp)
+# 解释模式
+add_executable(interpreter_pattern interpreter_pattern.cpp)
+# 迭代器模式
+add_executable(iterator_pattern iterator_pattern.cpp)
 

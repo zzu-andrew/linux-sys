@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/hungry_singleton.dir/hungry_singleton.cpp.o  -o hungry_singleton 
