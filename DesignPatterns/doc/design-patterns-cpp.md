@@ -1182,12 +1182,2370 @@ builder pattern.
 
 
 
+#### 代理模式
+
+代理模式是构造幸的设计模式之一，他可以为其他对象提供一种代理，以控制这个对象的访问。
+
+所谓代理，是指具有代理元(被代理的对象)具有相同的接口的类，客户端必须通过代理与被代理的目标交互，而代理一般在交互的过程中(交互前后)，进行某些特别的处理。
+
+比如淘宝上买衣服，你买的衣服不是淘宝的，是卖衣服的老板在淘宝上开的网点，这个时候淘宝就是代理，卖衣服的就是被代理的人，你们年双十一活动就是代理在交互的过程中进行的特殊处理。
+
+![image-20201115193734165](image/image-20201115193734165.png)
+
+`subject`(抽象主题角色)：
+
+​	真实主题与代理主题的共同接口。
+
+`RealSubject`(真实主题角色)：
+
+​	定义了代理角色所代表的真实对象。
+
+`Proxy`（代理主题角色）：
+
+​	含有对真实主题角色的引用，代理角色通常在将客户端调用传递给给真实主题对象之前或者之后执行某些操作，而不是单纯返回真实的对象。
+
+适用于：对某些对象提供一种代理以控制对这个对象的访问。
+
+**为什么要用代理模式？**
+
+- **中介隔离作用：**在某些情况下，一个客户类不想或者不能直接引用一个委托对象，而代理类对象可以在客户类和委托对象之间起到中介的作用，其特征是代理类和委托类实现相同的接口。
+- **开闭原则，增加功能：**代理类除了是客户类和委托类的中介之外，我们还可以通过给代理类增加额外的功能来扩展委托类的功能，这样做我们只需要修改代理类而不需要再修改委托类，符合代码设计的开闭原则。代理类主要负责为委托类预处理消息、过滤消息、把消息转发给委托类，以及事后对返回结果的处理等。代理类本身并不真正实现服务，而是同过调用委托类的相关方法，来提供特定的服务。真正的业务功能还是由委托类来实现，但是可以在业务功能执行的前后加入一些公共的服务。例如我们想给项目加入缓存、日志这些功能，我们就可以使用代理类来完成，而没必要打开已经封装好的委托类。
+
+代码实现：
+
+```cpp
+//
+// Created by andrew on 2020/11/15.
+//
+#include <iostream>
+
+using namespace std;
+
+class Subject {
+public:
+    virtual ~Subject(){
+
+    }
+    virtual void sailBook() = 0;
+};
+
+class RealSubjectBook : public Subject {
+public:
+    virtual void sailBook() {
+        cout << "sail book" << endl;
+    }
+};
+
+class taobaoProxy : public Subject {
+public:
+    virtual void sailBook(){
+        RealSubjectBook *rsb = new RealSubjectBook;
+        dazhe();
+        rsb->sailBook();
+        dazhe();
+    }
+
+public:
+    void dazhe(){
+        cout << "双 11 打折" << endl;
+    }
+
+private:
+    Subject *m_subject;
+};
+
+
+int main(int argc, char *argv[]) {
+
+    Subject *s = new taobaoProxy;
+    s->sailBook();
+    delete s;
+    return 0;
+}
+```
+
+
+
+#### 装饰者模式
+
+装饰者模式(`Decorator`)又叫包装模式，通过一种对客户端透明的方式来扩展对象的功能，是继承关系的一个替代方案。
+
+装饰模式就是把要添加的功能分别放到单独的类中，并让这个类中包含它要装饰的对象，当需要执行的时候，客户端可以有选择地、按顺序执的使用装饰功能包装的对象。
+
+
+
+![image-20201115234505574](image/image-20201115234505574.png)
+
+##### 实用性
+
+动态的给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更加灵活。
+
+在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责
+
+处理那些可以撤销的职责
+
+当不能采用子类的方法进行扩充时，一种情况是，可能有大量的独立扩展，为支持每一种组合将产生大量的子类，使得子类数目爆炸性增长，另外一种可能是类的定义被隐藏，或类的定义不能用于生成子类。
+
+
+装饰者模式代码实现：
+
+```cpp
+//
+// Created by andrew on 2020/11/17.
+//
+#include <iostream>
+
+using namespace std;
+
+class Car {
+public:
+    virtual void show() = 0;
+
+    virtual ~Car() {
+
+    }
+};
+
+class RunCar : public Car {
+public:
+    virtual void show() {
+        cout << "run car" << endl;
+    }
+
+    ~RunCar() {
+
+    }
+};
+
+// 当传进来的是runcar的时候，就能实现在不继承runcar的情况下扩展runcar的功能
+class SwimCarDirector : public Car {
+public:
+    SwimCarDirector(Car *car) {
+        m_car = car;
+    }
+
+    ~SwimCarDirector() {
+
+    }
+
+    void swim() {
+        cout << "swim" << endl;
+    }
+
+    virtual void show() {
+        m_car->show();
+        swim();
+    }
+
+private:
+    Car *m_car;
+};
+
+// 当传进来的是runcar的时候，就能实现在不继承runcar的情况下扩展runcar的功能
+class FlyCarDirector : public Car {
+public:
+    FlyCarDirector(Car *car) {
+        m_car = car;
+    }
+
+    ~FlyCarDirector() {
+
+    }
+
+    void fly() {
+        cout << "fly" << endl;
+    }
+
+    virtual void show() {
+        m_car->show();
+        fly();
+    }
+
+private:
+    Car *m_car;
+};
+
+
+int main(int argc, char *argv[]) {
+//   考点，虚基类虽然不能定义对象，但是能定义指针，指针指向子类
+    Car *mycar = NULL;
+    mycar = new RunCar;
+    mycar->show();
+    cout << "-------------------------" << endl;
+//    修饰模式，将run car修饰之后就能飞了
+    FlyCarDirector *flyCar = new FlyCarDirector(mycar);
+    flyCar->show();
+//
+    cout << "-------------------------" << endl;
+    SwimCarDirector *swimCar = new SwimCarDirector(mycar);
+    swimCar->show();
+
+    delete swimCar;
+    delete flyCar;
+    delete mycar;
+
+    cout << "decorator demo" << endl;
+    return 0;
+}
+
+```
 
 
 
 
 
+#### 适配器模式
 
+将一个类的接口转换为客户希望的另外一个接口。`Adapter`模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+
+`UML`图如下：
+
+
+
+![image-20201117211106001](image/image-20201117211106001.png)
+
+##### 适用性
+
+- 你想使用一个已存在的类，而它的接口不符合你的需求。
+
+- 你想创建一个可以复用的类，该类可以与其他不相关的类或不可预见的类协同工作
+- 你想使用一些已经存在的子类，但是不可能对每一个都进行子类化以匹配他们的接口，对象适配器可以适配它的父类接口
+
+代码实现
+
+```cpp
+//
+// Created by andrew on 2020/11/17.
+//
+
+#include <iostream>
+
+using namespace std;
+
+class Current18v {
+public:
+    virtual void useCurrent18v() = 0;
+
+    virtual ~Current18v() {
+
+    }
+};
+
+class Current220v {
+public:
+    void useCurrent220v() {
+        cout << "使用 220v" << endl;
+    }
+};
+
+class Adapter : public Current18v {
+public:
+    Adapter(Current220v *current) {
+        m_current = current;
+    }
+
+    virtual void useCurrent18v() {
+        cout << "适配 220v";
+        m_current->useCurrent220v();
+    }
+
+private:
+    Current220v *m_current;
+};
+
+
+int main(int argc, char *argv[]) {
+
+    Current220v *current220v = NULL;
+    Adapter *adapter = NULL;
+
+    current220v = new Current220v;
+    adapter = new Adapter(current220v);
+    adapter->useCurrent18v();
+
+    delete adapter;
+    delete current220v;
+
+    return 0;
+}
+```
+
+可以看到适配器做的工作就是讲`220v`的电压，转化为用户需要的`18v`电压。
+
+
+
+#### 桥接模式
+
+`Bridge`模式，又叫做桥接模式，是构造型的设计模式之一。`Bridge`模式基于类的最小设计原则，通过使用封装，聚合以及继承等行为让类承担不同的责任。它的主要特点是把抽象(`Abstraction`)与行为实现(`implementation`)分离开来，从而可以保持各部分的独立性以及对它们的功能扩展。
+
+`UML`实现如下：
+
+![image-20201117222949476](image/image-20201117222949476.png)
+
+
+
+`client`
+
+`Bridge`模式的使用者
+
+`Abstration`
+
+抽象类接口(接口或抽象类)维护对行为实现(`Implementor`)的引用
+
+`Refined Abstraction`
+
+`Abstracton`子类
+
+`Implementor`
+
+行为实现类接口（Abstraction接口定义了基于`Implementor`接口的更高层次的操作）
+
+`ConcreteImplementor`
+
+`Implementor`子类
+
+桥接模式，适用于将抽象部分与实体部分分离(解耦合)，使它们可以独立变化。
+
+桥接模式代码实现：
+
+```cpp
+//
+// Created by andrew on 2020/11/17.
+//
+#include <iostream>
+
+using namespace std;
+
+class Engine {
+public:
+    virtual void InstallEngine() = 0;
+
+    virtual ~Engine() {
+
+    }
+};
+
+class Engine4400cc : public Engine {
+public:
+    virtual void InstallEngine() {
+        cout << "I'm 4400cc install over." << endl;
+    }
+};
+
+class Engine4500cc : public Engine {
+public:
+    virtual void InstallEngine() {
+        cout << "I'm 4500cc install over." << endl;
+    }
+};
+
+class Car {
+public:
+    Car(Engine *engine) {
+        m_engine = engine;
+    }
+
+    virtual ~Car() {
+
+    }
+
+protected:
+    Engine *m_engine;
+};
+
+class BMW3 : public Car {
+public:
+    BMW3(Engine *engine) : Car(engine) {
+
+    }
+
+    // 具体实现和car分离
+//    m_engine每个car都要有个引擎，抽象出来，放到公共类中，实现抽象和实现分离
+    virtual void intallEngine() {
+        //安装的动作是在engine里面实现，与car分离
+        m_engine->InstallEngine();
+    }
+};
+
+class BMW5 : public Car {
+public:
+    BMW5(Engine *engine) : Car(engine) {}
+
+    virtual void installEngine() {
+        cout << "BMW5" << endl;
+        m_engine->InstallEngine();
+    }
+};
+
+int main(int argc, char *argv[]) {
+
+    Engine *engine = NULL;
+    BMW5 *bmw5 = NULL;
+
+    engine = new Engine4400cc;
+    bmw5 = new BMW5(engine);
+    bmw5->installEngine();
+
+    delete bmw5;
+    delete engine;
+
+    return 0;
+}
+
+```
+
+#### 组合模式
+
+`Composite`模式也叫做组合模式，是构造型的设计模式之一。通过递归的手段构造树形的对象结构，并可以通过一个对象来访问整个对象树。
+
+![image-20201121221434992](image/image-20201121221434992.png)
+
+`Component`树形结构的节点抽象
+
+- 为所有的对象定义统一的接口(公共属性，行为等的定义)
+- 提供管理子节点对象的接口方法
+- [可选]提供管理父节点对象的接口方法
+
+`Leaf`树形结构的叶节点
+
+- `Component`的实现子类
+
+`Composite`树形结构的枝节点
+
+- `Component`的实现子类
+
+**适用于**
+
+​	单个对象的使用具有一致性，将对象组合成树形结构表示`部分--整体`
+
+```cpp
+//
+// Created by andrew on 2020/11/21.
+//
+#include <iostream>
+#include <string>
+#include  <list>
+
+using namespace std;
+
+/*
+ * `Composite`模式也叫做组合模式，是构造型的设计模式之一。通过递归的手段构造树形的对象结构，并可以通过一个对象来访问整个对象树。
+ * */
+
+class IFile {
+public:
+    ~IFile() {
+
+    }
+
+    virtual void display() = 0;
+
+    virtual int add(IFile *ifile) = 0;
+
+    virtual int remove(IFile *ifile) = 0;
+
+    virtual list<IFile *> *getChild() = 0;
+};
+
+class File : public IFile {
+public:
+    // explicit 声明只有单个参数的构造函数
+    explicit File(string name) {
+        m_name = name;
+    }
+
+    void display() override {
+        cout << m_name << endl;
+    }
+
+    int add(IFile *ifile) override {
+        return -1;
+    }
+
+    int remove(IFile *ifile) override {
+        return -1;
+    }
+
+    list<IFile *> *getChild() override {
+        return NULL;
+    }
+
+private:
+    string m_name;
+
+};
+
+// 目录节点
+class Dir : public IFile {
+public:
+    explicit Dir(string name) {
+        m_name = name;
+        m_list = new list<IFile *>;
+        m_list->clear();
+    }
+
+    void display() override {
+        cout << m_name << endl;
+    }
+
+    int add(IFile *ifile) override {
+        m_list->push_back(ifile);
+        return 0;
+    }
+
+    int remove(IFile *ifile) override {
+        m_list->remove(ifile);
+        return 0;
+    }
+
+    list<IFile *> *getChild() override {
+        return m_list;
+    }
+
+private:
+//    父目录中有一个或者多个子目录，因此是个链表， 子目录能通过父节点得到
+    string m_name;
+    list<IFile *> *m_list;
+};
+
+// 递归显示树
+void showTree(IFile *root, int level) {
+    int i = 0;
+    if (root == NULL) {
+        return;
+    }
+
+    for (i == 0; i < level; i++)
+    {
+        printf("\t");
+    }
+//    显示根节点
+    root->display();
+//    若根节点有孩子
+//    判断孩子是文件还是文件，显示名字
+    list<IFile *> *mylist = root->getChild(); // 获取子目录
+    if(mylist != NULL){
+        for (auto it = mylist->begin(); it != mylist->end(); it++){
+            if((*it)->getChild() == NULL)
+            {
+//                不是目录就打印文件名 for循环是按照level等级将制表符打印出来
+                for(i = 0;i<=level;i++)
+                {
+                    printf("\t");
+                }
+                (*it)->display();
+            } else
+            {
+//                是目录就接着递归
+                showTree(*it, level+1);
+            }
+        }
+    }
+
+}
+
+int main(int argc, char *argv[]) {
+
+    Dir *root = new Dir("C");
+    Dir *dir1 = new Dir("111dir");
+    File *aFile = new File("a.txt");
+
+    // 获取root下的节点 孩子集合
+    list<IFile *> *mylist = root->getChild();
+
+    root->add(dir1);
+    root->add(aFile);
+    for(auto it=mylist->begin(); it != mylist->end(); it++)
+    {
+        (*it)->display();
+    }
+
+    Dir *dir2 = new Dir("dir2");
+    File *bFile = new File("b.txt");
+    dir1->add(dir2);
+    dir1->add(bFile);
+
+    cout << "通过 showTree 方式显示root节点下的所有子节点" << endl;
+
+    showTree(root,0);
+
+    cout << "composite pattern" << endl;
+    return 0;
+}
+```
+
+#### 外观模式
+
+`facade`模式也叫外观模式，是由`GoF`提出的23种设计模式中的一种，`facade`模式为一组具有类似功能的类群，比如类库，子系统等等，提供一个一致的简单界面。这个一致的简单的界面被称为`facade`。
+
+![image-20201121233554898](image/image-20201121233554898.png)
+
+`Facade`
+
+为调用方，定义简单的调用接口
+
+`Clients`
+
+调用者，通过`facade`接口调用提供某功能的内部类群
+
+`Packages`
+
+功能提供者，指提供功能的类群
+
+适用于：为子系统提供统一一套接口，让子系统更加容易使用。
+
+```cpp
+//
+// Created by andrew on 2020/11/21.
+//
+#include <iostream>
+
+using namespace std;
+
+class SubSystemA{
+public:
+    void doThing(){
+        cout << "Subsystem A run" << endl;
+    }
+};
+
+class SubSystemB{
+public:
+    void doThing(){
+        cout << "SubSystem B run" << endl;
+    }
+};
+
+class SubSystemC{
+public:
+    void doThing(){
+        cout << "SubSystem B run" << endl;
+    }
+};
+
+class Facade{
+public:
+    Facade(){
+        sysA = new SubSystemA;
+        sysB = new SubSystemB;
+        sysC = new SubSystemC;
+    }
+    ~Facade(){
+        delete sysA;
+        delete sysB;
+        delete sysC;
+    }
+
+public:
+    void doThing(){
+        sysA->doThing();
+        sysB->doThing();
+        sysC->doThing();
+    }
+
+private:
+    SubSystemA *sysA;
+    SubSystemB *sysB;
+    SubSystemC *sysC;
+};
+
+int main(int argc, char *argv[]) {
+//   没有使用之前
+    cout << "before use facade" << endl;
+    SubSystemA *sysA = new SubSystemA;
+    SubSystemB *sysB = new SubSystemB;
+    SubSystemC *sysC = new SubSystemC;
+
+    sysA->doThing();
+    sysB->doThing();
+    sysC->doThing();
+    delete sysA;
+    delete sysB;
+    delete sysC;
+//    是要给你之后
+    cout << "after usr facade" << endl;
+    Facade *f = new Facade;
+    f->doThing();
+    delete f;
+    return 0;
+}
+```
+
+#### 享元模式
+
+`Flyweight`模式也叫做享元模式，是构造型模式之一，他通过与其他类似对象共享数据来减少内存占用。
+
+![image-20201122102052005](image/image-20201122102052005.png)
+
+抽象享元模式：
+
+所有具有享元类的父亲，规定一些需要实现的公共接口。
+
+具体享元角色：
+
+抽象享元角色的具体实现类，并实现了抽象享元角色规定的方法
+
+享元工厂角色：
+
+负责创建和管理享元角色
+
+使用场景：
+
+以共享的方式，高效支持大量的细粒度的对象
+
+```cpp
+//
+// Created by andrew on 2020/11/22.
+//
+#include <iostream>
+#include <string>
+#include <map>
+#include <utility>
+
+using namespace std;
+
+class Person {
+public:
+    Person(string name, int age) {
+        this->age = age;
+        this->m_name = std::move(name);
+    }
+    // 默认形式的定义
+    virtual ~Person()= default;
+
+    virtual void printT() = 0;
+
+
+protected:
+    string m_name;
+    int age;
+};
+
+class Teacher : public Person {
+public:
+    Teacher(string name, int age, string id) : Person(name, age) {
+        this->m_id = id;
+    }
+
+    void printT() override {
+        cout << "name:" << m_name << "age:" << age << "m_id:" << m_id << endl;
+    }
+
+private:
+    string m_id;
+};
+
+// 完成 老师节点 储存
+class FlyweightTeacherFactory {
+public:
+    FlyweightTeacherFactory() {
+        map1.clear();
+    }
+
+    ~FlyweightTeacherFactory() {
+        while (!map1.empty()) {
+            Person *tmp = NULL;
+            auto it = map1.begin();
+            // map的第二个元素就是Teacher
+            tmp = it->second;
+            map1.erase(it);  // 将第一个节点从容器中删除
+            delete tmp;
+        }
+    }
+
+    // 保持所有的数据只有一份
+    Person *GetTeacher(string id) {
+        Person *tmp = NULL;
+        map<string, Person *>::iterator  it;
+        it = map1.find(id);
+        if (it == map1.end()) { // 结尾
+            string tmpname;
+            int tmpage;
+            cout << "enter teacher name:";
+            cin >> tmpname;
+            cout << "enter age";
+            cin >> tmpage;
+            tmp = new Teacher(tmpname, tmpage, id);
+            map1.insert(pair<string, Person *>(id, tmp));
+        } else
+        {
+            tmp = it->second;
+        }
+        return tmp;
+    }
+
+private:
+    map<string, Person *> map1;
+};
+
+int main(int argc, char *argv[]) {
+
+    Person *p1 = NULL;
+    Person *p2 = NULL;
+    FlyweightTeacherFactory *fwtf = new FlyweightTeacherFactory;
+    p1 = fwtf->GetTeacher("001");
+    p1->printT();
+
+    p2 = fwtf->GetTeacher("001");
+    p2->printT();
+
+    delete fwtf;
+
+    cout << "flyweight demo" << endl;
+    return 0;
+}
+```
+
+#### 模板模式
+
+`Template Method`模式也叫模板方法模式，是行为模式之一，它具有把特定的步骤算法中的某些必要的处理委让给抽象方法，通过子类继承抽象方法的不同实现改变整个算法的行为。
+
+**使用场景**
+
+- 具有统一的操作步骤或者操作过程
+- 具有不同的操作细节
+- 存在多个具有同样操作步骤的应用场景，某些具体的操作细节却各不相同
+
+在抽象类中统一操作步骤，并规定好接口，让子类实现接口，这样可以把各个具体的子类实现操作步骤解耦合
+
+![image-20201122233211475](image/image-20201122233211475.png)
+
+`AbstractClass`
+
+抽象类的父类
+
+`ConcreteClass`
+
+具体的实现子类
+
+`templateMethod():`
+
+模板方法
+
+`method1`与`method2()`
+
+具体操作方法
+
+代码实现：
+
+```cpp
+//
+// Created by andrew on 2020/11/22.
+//
+#include <iostream>
+
+using namespace std;
+
+class MakeCar {
+public:
+    virtual ~MakeCar() = default;
+    virtual void MakeHead() = 0;
+
+    virtual void MakeBody() = 0;
+
+    virtual void MakeTail() = 0;
+
+public:
+    void Make() // 模板函数，把业务逻辑给做好
+    {
+        MakeTail();
+        MakeBody();
+        MakeHead();
+    }
+};
+
+// 只去实现具体过程，逻辑流程由父类进行规定
+class Jeep : public MakeCar {
+public:
+    virtual void MakeHead() {
+        cout << "jeep head" << endl;
+    }
+
+    virtual void MakeBody() {
+        cout << "jeep body" << endl;
+    }
+
+    virtual void MakeTail() {
+        cout << "jeep tail" << endl;
+    }
+};
+
+class Bus : public MakeCar {
+public:
+    virtual void MakeHead() {
+        cout << "bus head" << endl;
+    }
+
+    virtual void MakeBody() {
+        cout << "bus body" << endl;
+    }
+
+    virtual void MakeTail() {
+        cout << "bus tail" << endl;
+    }
+};
+
+
+int main(int argc, char *argv[]) {
+    MakeCar *car = new Bus;
+    car->Make();
+    delete car;
+
+    MakeCar *car2 = new Jeep;
+    car2->Make();
+    delete car2;
+
+    return 0;
+}
+```
+
+
+
+#### 命令模式
+
+`Command`模式也叫命令模式，是行为设计模式的一种。`Command`模式通过被称为`Command`的类封装了对目标对象的调用行为以及调用参数。
+
+在面向对象的程序设计中，一个对象调用另外一个对象，一边情况下调用的过程是，创建目标对象实例；设置调用参数，调用目标对象的方法。
+
+但是有些情况下有必要使用一个专门的类对这种调用过程加以封装，我们把这种专门的类称作`Command`类。
+
+整个调用过程比较繁杂，或者存在多处这种调用。这时，使用`Command`类对该调用加以封装，便于功能的再利用。
+
+调用前后需要对调用参数进行某些处理。调用前后需要进行某些额外的处理，比如日志，缓存、记录历史操作等。
+
+**角色和职责**
+
+![image-20201123225850814](image/image-20201123225850814.png)
+
+`Command`
+
+`Command`命令的抽象类
+
+`ConcreteCommand`
+
+`ConcreteCommand`的具体实现类
+
+`Receiver`
+
+`Invorker`
+
+通过`Invorker`执行`Command`对象
+
+==适用于==
+
+是将一个请求封装为一个对象，从而使你可以使用不同的请求，对客户端进行参数初始化；对请求排队或记录请求日志，以及支持可撤销的操作
+
+仅仅实现命令的执行
+
+![image-20201123232731749](image/image-20201123232731749.png)
+
+首先实现，后半部分，也就是实现命令的执行，前面半部分相当于当看病的人多的时候需要，需要排队，这似乎`invoker`就开始登场啦。
+
+```cpp
+//
+// Created by andrew on 2020/11/23.
+//
+#include <iostream>
+
+using namespace std;
+
+class Doctor {
+public:
+    void treatEye() {
+        cout << "treat eye" << endl;
+    }
+
+    void treatNose() {
+        cout << "treat nose" << endl;
+    }
+};
+
+class CommandTreatEye {
+public:
+    explicit CommandTreatEye(Doctor *doctor) {
+        m_doctor = doctor;
+    }
+
+    void treat() {
+        m_doctor->treatEye();
+    }
+
+private:
+    Doctor *m_doctor;
+};
+
+class CommandTreatNose {
+public:
+    explicit CommandTreatNose(Doctor *doctor) {
+        m_doctor = doctor;
+    }
+
+    void treat() {
+        m_doctor->treatNose();
+    }
+
+private:
+    Doctor *m_doctor;
+};
+
+
+int main(int argc, char *argv[]) {
+
+    //   通过一个命令  调用医生实现病的治疗
+    Doctor *dcotor = new Doctor;
+    CommandTreatEye *commandTreatEye = new CommandTreatEye(dcotor);
+    commandTreatEye->treat();
+    delete commandTreatEye;
+    delete dcotor;
+    return 0;
+}
+```
+
+完整的实现，支持排队+执行的命令模式
+
+```cpp
+//
+// Created by andrew on 2020/11/23.
+//
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+class Doctor {
+public:
+    void treatEye() {
+        cout << "treat eye" << endl;
+    }
+
+    void treatNose() {
+        cout << "treat nose" << endl;
+    }
+};
+
+class Command {
+public:
+    virtual void treat() = 0;
+
+    virtual ~Command() = default;
+};
+
+class CommandTreatEye : public Command {
+public:
+    explicit CommandTreatEye(Doctor *doctor) {
+        m_doctor = doctor;
+    }
+
+    void treat() override {
+        m_doctor->treatEye();
+    }
+
+private:
+    Doctor *m_doctor;
+};
+
+
+class CommandTreatNose : public Command {
+public:
+    explicit CommandTreatNose(Doctor *doctor) {
+        m_doctor = doctor;
+    }
+
+    void treat() override {
+        m_doctor->treatNose();
+    }
+
+private:
+    Doctor *m_doctor;
+};
+
+//小护士
+class BeautyNurse {
+public:
+    explicit BeautyNurse(Command *command) {
+        this->command = command;
+    }
+
+    void SubmittedCase() { // 提交病历 下单命令
+        command->treat();
+    }
+
+private:
+    Command *command;
+};
+
+class HeadNurse {
+public:
+    HeadNurse() {
+        m_list.clear();
+    }
+
+    void setCommand(Command *command) {
+        m_list.push_back(command);
+    }
+
+    void SubmittedCase() { // 提交命令
+        for (auto & it : m_list) {
+            it->treat();
+        }
+    }
+
+private:
+    list<Command *> m_list;
+};
+
+
+void nurseCommand() {
+    BeautyNurse *beautyNurse = nullptr;
+    Doctor *doctor = nullptr;
+    Command *command = nullptr;
+
+    doctor = new Doctor;
+//
+    command = new CommandTreatNose(doctor);
+    beautyNurse = new BeautyNurse(command);
+    beautyNurse->SubmittedCase();
+
+    delete doctor;
+    delete command;
+    delete beautyNurse;
+}
+
+void headNurseCommand() {
+//    护士长 提交病历  给以上看病
+    HeadNurse *headNurse = NULL;
+    Doctor * doctor = NULL;
+    Command *command1 = NULL;
+    Command *command2 = NULL;
+
+    doctor = new Doctor;
+    command1 = new CommandTreatEye(doctor);
+    command2 = new CommandTreatNose(doctor);
+
+    headNurse = new HeadNurse;
+    headNurse->setCommand(command1);
+    headNurse->setCommand(command2);
+
+    headNurse->SubmittedCase(); // 护士长  批量下单命令
+
+    delete doctor;
+    delete command1;
+    delete command2;
+    delete headNurse;
+}
+
+
+int main(int argc, char *argv[]) {
+
+    //   通过一个命令  调用医生实现病的治疗 命令的执行部分实现
+    /* Doctor *dcotor = new Doctor;
+     CommandTreatEye *commandTreatEye = new CommandTreatEye(dcotor);
+     commandTreatEye->treat();
+     delete commandTreatEye;
+     delete dcotor;*/
+
+    //
+    nurseCommand();
+    headNurseCommand();
+
+    return 0;
+}
+```
+
+#### 责任链模式
+
+`Chain of Responsibility CoR`模式，也叫责任链模式或者责任连锁模式，是行为模式之一，该模式构造一系列分别担当不同的职责的类的对象来共同完成一个任务，这些类的对象之间像一条链条一样紧密相连，所以被称为责任链模式。
+
+例1：比如客户`Client`客户想完成一个任务，这个任务包括`a,b,c,d`四个部分。a完成了之后交个b，b完成了之后交给c，c完成了之后交给d。
+
+**角色和职责**
+
+![image-20201125233820597](image/image-20201125233820597.png)
+
+`Handler`
+
+处理类的抽象父类
+
+`concreteHandle`
+
+具体处理类
+
+<u>**责任链优缺点**</u>
+
+**优点**
+
+1. 责任的分组。每个类只需要处理自己该处理的工作(不该处理的传递给下一个对象完成)，明确各类的责任范围，符合类的最小封装原则。
+2. 可以根据需要自由组合工作流程。如工作流程发生变化，可以通过重新分配对象链便可适应新的工作流程。
+3. 类与类之间可以以松耦合的形式加以组织。
+
+**缺点**
+
+因为处理时以链表的形式在对象间传递消息，根据实现方式不同，有可能会影响处理的速度
+
+*适用于：*
+
+链条式处理事情，工作流程化、消息处理流程化、事物流程化。
+
+```cpp
+//
+// Created by andrew on 2020/11/25.
+//
+#include <iostream>
+
+using namespace std;
+/*
+ * 责任链模式
+ * */
+
+// 在造车的过程，一部分造完之后，需要将任务传递下去
+class CarHandle {
+public:
+    virtual void HandleCar() = 0;
+
+    virtual ~CarHandle() = default;
+
+    CarHandle *setNextHandle(CarHandle *handle) {
+        m_handle = handle;
+        return m_handle;
+    }
+
+protected:
+    CarHandle *m_handle{}; // 指向下一个处理单元
+};
+
+class HeadCarHandle : public CarHandle {
+public:
+    void HandleCar() override {
+        cout << "make head" << endl;
+//       开始造车头，车头造好之后，交给下一个调用者
+        if (m_handle != nullptr) {
+            m_handle->HandleCar();
+        }
+    }
+};
+
+class BodyCarHandle : public CarHandle {
+public:
+    void HandleCar() override {
+        cout << "make body" << endl;
+//        车身造好之后，把任务递交给 下一个处理者
+        if (m_handle != nullptr) {
+            m_handle->HandleCar();
+        }
+    }
+};
+
+class TailCarHandle : public CarHandle {
+public:
+    void HandleCar() override {
+        cout << "make tail" << endl;
+//        造车尾  把任务递交给 下一个处理器
+        if (m_handle != nullptr) {
+            m_handle->HandleCar();
+        }
+    }
+};
+
+int main(int argc, char *argv[]) {
+    CarHandle *headHandle = new HeadCarHandle;
+    CarHandle *bodyHandle = new BodyCarHandle;
+    CarHandle *tailHeadle = new TailCarHandle;
+
+    headHandle->setNextHandle(tailHeadle);
+    tailHeadle->setNextHandle(bodyHandle);
+    bodyHandle->setNextHandle(nullptr);
+
+    headHandle->HandleCar();
+
+    delete tailHeadle;
+    delete bodyHandle;
+    delete headHandle;
+
+    return 0;
+}
+```
+
+#### 策略模式
+
+`Strategy`模式也叫策略模式，是行为模式之一，它对一系列的算法加以封装，为所有算法定义一个抽象算法接口，并通过继承该抽象算法接口对所有的算法加以封装和实现，具体的算法选择交给客户端决定。`strategy`模式主要用来平滑地处理算法切换。
+
+![image-20201127233609012](image/image-20201127233609012.png)
+
+策略模式实现的关键就是将算法的逻辑抽象接口封装到一个类中，在通过委托的方式将具体的算法实现委托给具体的`Strategy`类来实现
+
+`Strategy`
+
+策略(算法)抽象
+
+`ConcreteStrategy`
+
+各种策略(算法)的具体实现
+
+`Context`
+
+策略的外部封装类，或者说策略的容器类。根据不同策略执行不同的行为。策略由外部环境决定。
+
+适用于：准备一组算法，并将每一个算法都封装起来，使得它们可以互换。
+
+策略模式优缺点
+
+它的优点有：
+
+1. 策略模式提供了管理相关的算法族的办法。策略类的等级结构定义了一个算法或行为族。
+恰当使用继承可以把公共的代码移到父类里面，从而避免重复的代码。
+2. 策略模式提供了可以替换继承关系的办法。继承可以处理多种算法或行为。如果不是用
+策略模式，那么使用算法或行为的环境类就可能会有一些子类，每一个子类提供一个不同
+的算法或行为。但是，这样一来算法或行为的使用者就和算法或行为本身混在一起。决定
+使用哪一种算法或采取哪一种行为的逻辑就和算法或行为的逻辑混合在一起，从而不可能
+再独立演化。继承使得动态改变算法或行为变得不可能。
+3. 使用策略模式可以避免使用多重条件转移语句。多重转移语句不易维护，它把采取哪一
+种算法或采取哪一种行为的逻辑与算法或行为的逻辑混合在一起，统统列在一个多重转移
+语句里面，比使用继承的办法还要原始和落后。
+
+策略模式的缺点有：
+1. 客户端必须知道所有的策略类，并自行决定使用哪一个策略类。这就意味着客户端必须
+   理解这些算法的区别，以便适时选择恰当的算法类。换言之，策略模式只适用于客户端知
+     道所有的算法或行为的情况。
+
+2. 策略模式造成很多的策略类。有时候可以通过把依赖于环境的状态保存到客户端里面，
+   而将策略类设计成可共享的，这样策略类实例可以被不同客户端使用。换言之，可以使用
+     享元模式来减少对象的数量
+
+```cpp
+//
+// Created by andrew on 2020/11/26.
+//
+#include <iostream>
+
+using namespace std;
+
+class Strategy {
+
+public:
+    virtual void crypt() = 0;
+
+    virtual ~Strategy() = default;
+};
+
+class AES : public Strategy {
+public:
+    void crypt() override {
+        cout << "AES strategy" << endl;
+    }
+};
+
+class DES : public Strategy {
+public:
+    void crypt() override {
+        cout << "DES strategy" << endl;
+    }
+};
+
+
+class Context {
+public:
+    void setStrategy(Strategy *pStrategy) {
+        this->strategy = pStrategy;
+    }
+
+    void myOperator() {
+        strategy->crypt();
+    }
+
+private:
+    Strategy *strategy;
+};
+
+//算法实现和客户端使用完全解耦合
+int main(int argc, char *argv[]) {
+    Strategy *strategy = nullptr;
+
+    strategy = new AES;
+    Context *context = new Context;
+    context->setStrategy(strategy);
+    context->myOperator();
+
+    delete strategy;
+    delete context;
+
+    return 0;
+}
+```
+
+#### 中介者模式
+
+`Mediator`模式也叫做中介者模式，是行为模式之一，在`Mediator`模式中，类之间的交互行为被统一放在`Mediator`的对象中，对象通过`Mediator`对象同其他对象交互，`Mediator`对象起着控制器的作用。
+
+![image-20201128001142709](image/image-20201128001142709.png)
+
+用一个中介者对象来封装一系列的对象交互，中介者使各对象不需要显示的相互引用，从而降低耦合，而且可以独立地改变它们之间的交互。
+
+`Mediator`抽象中介者
+
+中介者类的抽象父类
+
+`ConcreteMediator`
+
+具体的中介者类
+
+`Colleague`
+
+关联类的抽象父类
+
+`concreteColluague`
+
+具体的关联类
+
+适用于：用一个中介对象，封装一些列对象的交换，中介者是各个对象不需要显示的相互作用，从而实现耦合松散，而且可以独立的改变它们之间的交换。
+
+模式优点
+
+1. 将系统按功能分割成更小的对象，符合类的最小设计原则
+2. 对关联对象的集中控制
+3. 娇小类的耦合程度，明确类之间的相互关系：当类之间的关系过于复杂时，其中任何一个类的修改都会影响到其他类，不符合类的设计的开闭原则，而`mediator`模式将原来相互依存的多对多的类之间的关系简化为`Mediator`控制类与其他关联类的一对多的关系，当其中一个类修改时，可以对其他关联类不产生影响(即使有修改，也集中在`Mediator`控制类)
+4. 有利于提高类的重用性
+
+```cpp
+//
+// Created by andrew on 2020/11/28.
+//
+#include <iostream>
+
+using namespace std;
+
+class Mediator;
+
+class Person {
+public:
+    Person(string name, int sex, int condi, Mediator *m) {
+        m_name = name;
+        m_sex = sex;
+        m_condi = condi;
+        mediator = m;
+    }
+    virtual ~Person() = default;
+
+    string getName() {
+        return m_name;
+    }
+
+    int getSex() const {
+        return m_sex;
+    }
+
+    int getCondi() const {
+        return m_condi;
+    }
+
+    virtual void getParter(Person *p) = 0;
+
+protected:
+    string m_name;
+    int m_sex;
+    int m_condi;
+    Mediator *mediator;
+};
+
+class Mediator {
+public:
+    virtual ~Mediator() = default;
+    void setMan(Person *man) {
+        pMan = man;
+    }
+
+    void setWoman(Person *woman) {
+        pWoman = woman;
+    }
+
+    virtual void getParter() {
+        if (pWoman->getSex() == pMan->getSex()) {
+            cout << "性别相同不能找对象" << endl;
+        }
+        if (pWoman->getCondi() == pMan->getCondi()) {
+            cout << pWoman->getName() << "     and    " << pMan->getName() << "    OK" << endl;
+        } else {
+            cout << pWoman->getName() << "    and    " << pMan->getName() << "     failed" << endl;
+        }
+    }
+
+
+private:
+    Person *pMan;
+    Person *pWoman;
+};
+
+class Woman : public Person {
+public:
+    Woman(string name, int sex, int condi, Mediator *m) : Person(name, sex, condi, m) {
+
+    }
+
+    virtual void getParter(Person *p) {
+        mediator->setMan(p);
+        mediator->setWoman(this);
+        mediator->getParter(); // 找对象
+    }
+};
+
+class Man : public Person {
+public:
+    Man(string name, int sex, int condi, Mediator *m) : Person(name, sex, condi, m) {
+
+    }
+
+    virtual void getParter(Person *p) {
+        mediator->setMan(this);
+        mediator->setWoman(p);
+        mediator->getParter();
+    }
+};
+
+int main(int argc, char *argv[]) {
+    auto *m = new Mediator;
+    Person *alice = new Woman("alice", 2, 4, m);
+
+    Person *bob = new Man("bob", 1, 4, m);
+
+    alice->getParter(bob);
+    bob->getParter(alice);
+    delete bob;
+    delete alice;
+    delete m;
+    cout << "mediator demo" << endl;
+    return 0;
+}
+```
+
+#### 观察者模式
+
+`Observer`模式是行为模式之一，它的作用是当一个对象的状态发生变化时，能够自动通知其他关联对象，自动刷新对象状态。
+
+`Observer`模式提供给关联对象一种同步通信的手段，使得某个对象与依赖它的其他对象之间保持状态同步。
+
+**角色和职责**
+
+![image-20201128172307792](image/image-20201128172307792.png)
+
+`Suject`-被观察者
+
+被观察的对象，当需要被观察的状态发生改变时，需要通知队列中所有的观察者对象。`Subject`需要维持(添加，删除，通知)一个观察者对象的队列列表。
+
+`ConcreteSubject`
+
+被观察者的具体实现，包含一些基本的属性状态及其他操作
+
+`Observer`-观察者
+
+接口或抽象类，当`Subject`的状态发生变化时，`Observer`对象将通过一个`callback`函数得到通知。
+
+`ConcreteObserver`
+
+观察者的具体实现，得到通知后将完成一些具体的业务逻辑处理
+
+**典型应用场景**
+
+- 侦听事件驱动程序中的外部事件
+- 侦听某个对象的状态变化
+- 发布者/订阅者模型中，当一个外部事件被触发时，通知邮件列表中的订阅者
+
+适用于：定义对象间一种一对多的依赖关系，使得每一个对象改变状态，则所有依赖它们的对象都会得到通知。
+
+使用场景：定义一种一对多的关系，让多个观察者对象同时监听一个主题，主题对象发生变化时，会通知所有的观察者，使它们能够更新自己。
+
+```cpp
+//
+// Created by andrew on 2020/11/28.
+//
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+class Secretary;
+
+// 观察者
+class PlayerObserver{
+public:
+    explicit PlayerObserver(Secretary *secretary){
+        this->m_secretary = secretary;
+    }
+    // 没有操作任何私有变量，建议使用 static 类型函数
+    void update(const string& action){
+        cout << "action" << action << endl;
+        cout << "boss is coming" << endl;
+    }
+
+private:
+    Secretary *m_secretary;
+};
+
+class Secretary{
+public:
+    Secretary(){
+        m_list.clear();
+    }
+     void Notify(string info){
+        // 给所有的 观察者 发送情报
+        for(auto it=m_list.begin();it!=m_list.end();it++)
+        {
+            (*it)->update(info);
+        }
+    }
+
+    void setPlayerObserver(PlayerObserver *o){
+        m_list.push_back(o);
+    }
+
+private:
+    list<PlayerObserver *>m_list;
+};
+
+int main(int argc, char* argv[]){
+
+    Secretary *secretary = nullptr;
+    PlayerObserver *playerObserver1 = nullptr;
+    PlayerObserver *playerObserver2 = nullptr;
+
+    secretary = new Secretary;
+    playerObserver1 = new PlayerObserver(secretary);
+    playerObserver2 = new PlayerObserver(secretary);
+
+    secretary->setPlayerObserver(playerObserver1);
+    secretary->setPlayerObserver(playerObserver2);
+
+    secretary->Notify("boss is coming");
+    secretary->Notify("boss in gone");
+
+    delete playerObserver1;
+    delete playerObserver2;
+    delete secretary;
+
+    cout << "observer demo" << endl;
+    return 0;
+}
+```
+
+#### 备忘录模式
+
+`Memento`模式也叫备忘录模式，是行为模式之一，它的作用是保存对象内部状态，并在需要的时候(`undo`/`roback`)回复对象以前的状态。
+
+**应用场景**
+
+如果一个对象需要保存状态，并通过`undo`或者`roback`等操作回复到通知以前的状态时，可以使用`Memmento`模式。
+
+1. 一个类需要保存它的对象的状态(相当于`Originator`角色)
+2. 设计一个类，该类只是用来保存上述对象的状态(相当于`Memento`角色)
+3. 需要的时候，`Caretaker`角色要求`Originator`返回一个`Memento`并加以保存
+4. `undo`或`roback`操作时，通过`Caretaker`保存的`Memento`恢复`Originator`对象的状态
+
+![image-20201128191015613](image/image-20201128191015613.png)
+
+`Originator`-原生者
+
+需要被保存状态以便恢复的那个对象
+
+`Memento`-备忘录
+
+该对象由`Originator`创建，主要用来保存`Originator`的内部状态
+
+`Caretaker`-管理者
+
+负责在适当的时间保存/恢复`Originator`对象的状态
+
+适用于：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样就可以将以后的对象状态恢复到先前保存的状态。适用于功能比较复杂的，需要记录或者维护历史属性的类。
+
+```cpp
+//
+// Created by andrew on 2020/11/28.
+//
+#include <iostream>
+
+using namespace std;
+
+// Caretaker 管理者
+// Memento 备忘录
+
+class Memento{
+public:
+    Memento(string name, int age){
+        m_name = name;
+        m_age = age;
+    }
+    string getName(){
+        return m_name;
+    }
+    int getAge() const{
+        return m_age;
+    }
+    void setName(string name){
+        this->m_name = name;
+    }
+    void setAge(int age){
+        this->m_age = age;
+    }
+
+private:
+    string m_name;
+    int m_age;
+};
+
+class Person{
+public:
+    Person(string name, int age){
+       m_name = name;
+       m_age = age;
+    }
+    string getName(){
+        return m_name;
+    }
+    int getAge() const{
+        return m_age;
+    }
+    void setName(string name){
+        this->m_name = name;
+    }
+    void setAge(int age){
+        m_age = age;
+    }
+    // 保存,将需要的信息记录到Memento中
+    Memento *createMemento()
+    {
+        return new Memento(m_name, m_age);
+    }
+    //还原
+    void setMemento(Memento *memento)
+    {
+        this->m_name = memento->getName();
+
+        this->m_age = memento->getAge();
+    }
+
+    void printT(){
+        cout << "m_name:" << m_name << "m_age:" << m_age << endl;
+    }
+
+private:
+    string m_name;
+    int m_age;
+};
+
+class Caretaker{
+public:
+    explicit Caretaker(Memento * memento){
+        this->memento = memento;
+    }
+    Memento *getMemento(){
+        return memento;
+    }
+
+    void setMemento(Memento *memento){
+        this->memento = memento;
+    }
+
+private:
+    Memento *memento;
+};
+
+int main(int argc, char* argv[]){
+
+    Caretaker *caretaker = nullptr;
+    auto *p = new Person("bob", 32);
+    p->printT();
+
+    cout << "----------------------" << endl;
+    caretaker = new Caretaker(p->createMemento());
+    p->setAge(42);
+    p->printT();
+
+    cout << "ro back" << endl;
+    p->setMemento(caretaker->getMemento());
+    p->printT();
+
+    cout << "memento pattern" << endl;
+}
+```
+
+#### 访问者模式
+
+`Vistor`模式也叫访问者模式，是行为模式之一，它分离对象的数据和行为，使用`Vistor`模式，可以不修改已有类的情况下，增加新的操作角色和职责。
+
+![image-20201128234814764](image/image-20201128234814764.png)
+
+抽象访问者（`Visitor`）角色：声明了一个或者多个访问操作，形成所有的具体元素角色必须实现的接口。
+
+具体访问者（`ConcreteVisitor`）角色：实现抽象访问者角色所声明的接口，也就是抽象访问者所声明的各个访问操作。
+
+抽象节点（`Element`）角色：声明一个接受操作，接受一个访问者对象作为一个参量。
+
+具体节点（`ConcreteElement`）角色：实现了抽象元素所规定的接受操作。
+
+结构对象（`ObiectStructure`）角色：有如下的一些责任，可以遍历结构中的所有元素；如果需要，提供一个高层次的接口让访问者对象可以访问每一个元素；如果需要，可以设计成一个复合对象或者一个聚集，如列（`List`）或集合（`Set`）。
+
+**适用于**：
+
+把数据结构 和 作用于数据结构上的操作 进行解耦合; 适用于数据结构比较稳定的场合
+
+**访问者模式总结**：
+
+访问者模式优点是增加新的操作很容易，因为增加新的操作就意味着增加一个新的访问者。访问者模式将有关的行为集中到一个访问者对象中。
+那访问者模式的缺点是是增加新的数据结构变得困难了
+
+**优缺点**
+
+访问者模式有如下的优点：
+
+1. 访问者模式使得增加新的操作变得很容易。如果一些操作依赖于一个复杂的结构对象
+   的话，那么一般而言，增加新的操作会很复杂。而使用访问者模式，增加新的操作就意味
+   着增加一个新的访问者类，因此，变得很容易。
+2. 访问者模式将有关的行为集中到一个访问者对象中，而不是分散到一个个的节点类中。
+3. 访问者模式可以跨过几个类的等级结构访问属于不同的等级结构的成员类。迭代子只
+   能访问属于同一个类型等级结构的成员对象，而不能访问属于不同等级结构的对象。访问
+   者模式可以做到这一点。
+4. 积累状态。每一个单独的访问者对象都集中了相关的行为，从而也就可以在访问的过
+   程中将执行操作的状态积累在自己内部，而不是分散到很多的节点对象中。这是有益于系
+   统维护的优点。
+
+访问者的缺点：
+
+1. 增加新的节点类变得很困难。每增加一个新的节点都意味着要在抽象访问者角色中增
+   加一个新的抽象操作，并在每一个具体访问者类中增加相应的具体操作。
+2. 破坏封装。访问者模式要求访问者对象访问并调用每一个节点对象的操作，这隐含了
+   一个对所有节点对象的要求：它们必须暴露一些自己的操作和内部状态。不然，访问者的
+   访问就变得没有意义。由于访问者对象自己会积累访问操作所需的状态，从而使这些状态
+   不再存储在节点对象中，这也是破坏封装的。
+
+案例需求：
+
+比如有一个公园，有一到多个不同的组成部分；该公园存在多个访问者：清洁工 A 负责打扫公园的 A 部分，清洁工 B 负责打扫公园的 B 部分，公园的管理者负责检点各项事务是否完成，上级领导可以视察公园等等。也就是说，对于同一个公园，不同的访问者有不同的行为操作，而且访问者的种类也可能需要根据时间的推移而变化（行为的扩展性）。
+根据软件设计的开闭原则（对修改关闭，对扩展开放），实现需求。
+
+```cpp
+//
+// Created by andrew on 2020/11/28.
+//
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+class ParkElement;
+
+class Visitor{
+public:
+    virtual ~Visitor() = default;
+    virtual void visit(ParkElement *parkElement) = 0;
+};
+
+class ParkElement{
+public:
+    virtual ~ParkElement() = default;
+    virtual void accept(Visitor *visitor) = 0;
+};
+
+class ParkA : public ParkElement{
+public:
+    void accept(Visitor *v) override{
+        // 公园接收访问者， 让访问者操作
+        v->visit(this);
+    }
+};
+
+class ParkB : public ParkElement{
+public:
+    void accept(Visitor *v) override{
+        v->visit(this);
+    }
+};
+
+// 整个公园
+class Park : ParkElement {
+public:
+    Park(){
+        m_list.clear();
+    }
+
+    void setParkElement(ParkElement *pe){
+        m_list.push_back(pe);
+    }
+
+    void accept(Visitor *v) override{
+        for(auto it=m_list.begin();it!=m_list.end(); it++)
+        {
+            (*it)->accept(v);
+        }
+    }
+
+private:
+    list<ParkElement *>m_list;
+};
+
+class VisitorA : public Visitor{
+    void visit(ParkElement *parkElement) override {
+        cout << "part A is clear" << endl;
+    }
+};
+
+class VisitorB : public Visitor {
+public:
+    void visit(ParkElement *parkElement) override{
+        cout << "part B is clear" << endl;
+    }
+};
+
+class ManagerVisitor : public Visitor {
+public:
+    void visit(ParkElement * parkElement) override {
+        cout << "visit all part" << endl;
+    }
+};
+
+void PartVisitor() {
+    Visitor *vA = new VisitorA;
+    Visitor *vB = new VisitorB;
+
+    auto *parkA = new ParkA;
+    auto *parkB = new ParkB;
+
+    parkA->accept(vA);
+    parkB->accept(vB);
+
+    delete vA;
+    delete vB;
+    delete parkB;
+    delete parkA;
+}
+
+void ManagerVisit() {
+    Visitor *vManager = new ManagerVisitor;
+    Park *park = new Park;
+
+    ParkElement *parkA = new ParkA;
+    ParkElement *parkB = new ParkB;
+
+    park->setParkElement(parkA);
+    park->setParkElement(parkB);
+
+//    整个公园接受管理员的访问
+    park->accept(vManager);
+
+    delete parkA;
+    delete parkB;
+    delete park;
+    delete vManager;
+}
+
+int main(int argc, char* argv[]){
+
+    PartVisitor();
+    ManagerVisit();
+
+    return 0;
+} 
+```
+
+
+
+#### 状态模式
+
+`State`模式也叫状态模式，是行为模式的一种，`State`模式允许通过改变对象的内部状态而改变对象的行为，这个对象变现的好像修改了它的类一样。
+
+状态模式主要解决的事当控制一个对象状态的条件表达式过于复杂时的情况。把状态的判断逻辑转移到变现不同的一系列类当中，可以把复杂的判断逻辑简化。
+
+![image-20201129000529054](image/image-20201129000529054.png)
+
+**角色和职责**
+
+`Context`用户对象
+
+拥有一个`State`类型的成员，以标识对象的当前状态
+
+`State`接口或基类
+
+封装与`Context`的特定状态相关的行为
+
+`ConcreteState`接口实现类或子类
+
+实现一个与`Context`某个状态相关的行为
+
+适用于：对象的行为，依赖于它所处的当前状态。行为随着状态而改变的场景
+
+适用于，用户通过状态来改变对象的行为。
+
+```cpp
+//
+// Created by andrew on 2020/11/29.
+//
+#include <iostream>
+
+using namespace std;
+
+class Worker;
+
+class State {
+public:
+    virtual ~State() = default;
+    virtual void doSomeThing(Worker *w);
+};
+
+void State::doSomeThing(Worker *w) {
+
+}
+
+class Worker {
+public:
+    Worker();
+
+    void setHour(int hour) {
+        m_hour = hour;
+    }
+
+    State *getCurrentState() {
+        return m_currState;
+    }
+
+    void setCurrentState(State *state) {
+        m_currState = state;
+    }
+
+    void doSomeThing() {
+        m_currState->doSomeThing(this);
+    }
+
+public:
+    int getHour() const {
+        return m_hour;
+    }
+
+private:
+    int m_hour{};
+    State *m_currState{}; // 对象当前状态
+};
+
+class State1 : public State {
+public:
+    void doSomeThing(Worker * w) override;
+};
+
+class State2 : public State {
+public:
+    void doSomeThing(Worker * w) override;
+};
+
+void State1::doSomeThing(Worker *w) {
+    if(w->getHour() == 7 || w->getHour() == 0)
+    {
+        cout << "morning " << endl;
+    }else
+    {
+        delete w->getCurrentState();
+        w->setCurrentState(new State2);  // 状态1不满足，转到状态2
+        w->getCurrentState()->doSomeThing(w);
+
+    }
+}
+
+void State2::doSomeThing(Worker *w) {
+    if(w->getHour() == 9 || w->getHour() == 10)
+    {
+        cout << "work" << endl;
+    }else
+    {
+        delete w->getCurrentState(); // 状态2不满足转到状态
+        w->setCurrentState(new State1);
+        cout << "当钱时间点：" << w->getHour() << "unkonwn" << endl;
+    }
+}
+
+Worker::Worker() {
+    m_currState = new State1;
+}
+
+
+int main(int argc, char *argv[]) {
+    auto *w1 = new Worker;
+    w1->setHour(7);
+    w1->doSomeThing();
+
+    w1->setHour(9);
+    w1->doSomeThing();
+
+    delete w1;
+
+    cout << "state demo" << endl;
+    return 0;
+}
+```
+
+
+
+#### 解释模型
+
+一些应用提供了内建的脚本或者宏语言来让用户可以定义它们能够在系统中进行的操作。`Interpreter`模式的目的就是使用一个解释器为用户提供一个一门定义语言的语法表示的解释器，然后通过这个解释器来解释语言中的句子。
+
+`Interpreter`模式提供了这样一个实现解释器的框架。
+
+![image-20201129154638022](image/image-20201129154638022.png)
+
+`Interpreter`模式中，提供了`TerminalExpression`和`NonterminalExpression`两种表达式的解释方式，`Context`类用于为解释过程提供一些附加信息。(例如全局的信息)
+
+`Context`
+
+解释器上下文环境类。用来存储解释器的上下文环境，比如需要解释的文法等。
+
+`AbstractExpression`
+
+解释器抽象类
+
+`ConcreteExpression`
+
+解释器具体实现类。
+
+```cpp
+//
+// Created by andrew on 2020/11/29.
+//
+#include <iostream>
+
+using namespace std;
+
+class Context {
+public:
+    explicit Context(int num) {
+        this->m_num = num;
+    }
+
+    int getNum() const {
+        return m_num;
+    }
+
+    int getRes() const {
+        return m_res;
+    }
+
+    void setNum(int num) {
+        this->m_num = num;
+    }
+
+    void setRes(int res) {
+        this->m_res = res;
+    }
+
+private:
+    int m_num;
+    int m_res{};
+};
+
+class Expression {
+public:
+    virtual void interpreter(Context *context) = 0;
+
+private:
+    Context *m_context{};
+};
+
+//加法
+class PlusExpression : public Expression {
+public:
+    PlusExpression() {
+        this->context = nullptr;
+    }
+
+    void interpreter(Context *context) override {
+        int num  = context->getNum();
+        num ++;
+        context->setNum(num);
+        context->setRes(num);
+    }
+
+private:
+    Context *context;
+};
+// 减法
+class MinusExpression : public Expression {
+public:
+    MinusExpression() {
+        this->context = nullptr;
+    }
+
+    void interpreter(Context * context) override{
+        int num = context->getNum();
+        num --;
+        context->setNum(num);
+        context->setRes(num);
+    }
+
+private:
+    Context * context;
+};
+
+int main(int argc, char *argv[]) {
+    Expression *expression = nullptr;
+    Context  *context = nullptr;
+
+    Expression * expression2 = nullptr;
+
+    context = new Context(10);
+    cout << context->getNum() << endl;
+
+    expression = new PlusExpression;
+    expression->interpreter(context);
+
+    cout << context->getRes() << endl;
+
+    ////   -----------------------------------------------
+
+    expression2 = new MinusExpression;
+    expression2->interpreter(context);
+    cout << context->getRes() << endl;
+
+    cout << "interpreter demo" << endl;
+    return 0;
+}
+```
+
+
+
+#### 迭代器模式
+
+`Iterator`模式也叫迭代模式，是行为模式之一，他把对容器种包含的内部对象的访问委让给外部类，使用`Iterator`按顺序进行遍历访问的设计模式。
+
+在使用`Iterator`模式之前，首先应该明白`Iterator`模式是用来解决什么问题的。或者说如果不使用`Iterator`模式会存在什么问题。
+
+1. 由容器自己实现顺序遍历。直接在容器类里添加顺序遍历方法
+2. 让调用者自己实现遍历，直接暴露数据细节给外部
+
+以上实现方法存在的问题：
+
+方法1，容器承担了太多的功能，一方面需要提供添加删除等本身应有的功能，一方面还需要提供遍历访问功能。
+
+方法2，旺旺容器实现遍历的过程中，需要保存遍历的状态，当跟元素的添加删除等功能夹杂在一起很容易引起混乱和程序运行错误等。
+
+`Iterator` 模式就是为了有效地处理按顺序进行遍历访问的一种设计模式，简单地说 ，`Iterator` 模式提供一种有效的方法，可以屏蔽聚集对象集合的容器类的实现细节，而能对容器内包含的对象元素按顺序进行有效的遍历访问。所以，`Iterator` 模式的应用场景可以归纳为满足以下几个条件：
+
+- 访问容器中包含的内部对象
+- 按顺序访问 
+
+角色和职责：提供一种方法顺序访问一个聚敛对象的各个元素，而又不暴露该对象的内部表示。为遍历不同的聚集结构提供如开始，下一个，是否结束，当前一项等统一接口。
+
+![image-20201129181046563](image/image-20201129181046563.png)
+
+`Iterator`（迭代器接口）：
+
+该接口必须定义实现迭代功能的最小定义方法集，比如提供 `hasNext`()和 `next`()方法。
+
+`ConcreteIterator`（迭代器实现类）：
+
+迭代器接口 `Iterator` 的实现类。可以根据具体情况加以实现。
+
+`Aggregate`（容器接口）： 
+
+定义基本功能以及提供类似 Iterator iterator()的方法。
+
+`concreteAggregate`（容器实现类）：
+
+容器接口的实现类。必须实现 `Iterator` `iterator`()方法。
+
+说明：在迭代器中 持有 一个集合的 引用；所以通过迭代器，就可以访问集合
+
+```cpp
+//
+// Created by andrew on 2020/11/29.
+//
+#include <iostream>
+
+using namespace std;
+
+typedef int Object;
+
+#define SIZE 5
+
+class MyIterator {
+public:
+    virtual ~MyIterator() = default;
+    virtual void First() = 0;
+    virtual void Next() = 0;
+    virtual bool IsDone() = 0;
+    virtual Object CurrentItem() = 0;
+};
+
+class Aggregate {
+public:
+    virtual ~Aggregate() = default;
+    virtual MyIterator *CreateIterator() = 0;
+    virtual Object getItem(int index) = 0;
+    virtual int getSize() = 0;
+};
+// 进行迭代的地方
+class ConcreteIterator : public MyIterator {
+public:
+    ConcreteIterator(Aggregate *ag) {
+        _ag = ag;
+        _current_index = 0;
+    }
+
+    virtual void First() {
+        _current_index = 0;
+    }
+
+    virtual void Next() {
+        if(_current_index < _ag->getSize())
+        {
+            _current_index ++;
+        }
+    }
+    virtual bool IsDone() {
+        return (_current_index == _ag->getSize());
+    }
+
+    virtual Object CurrentItem() {
+        return _ag->getItem(_current_index);
+    }
+
+private:
+    int _current_index;
+    Aggregate *_ag;
+};
+
+// 存储需要迭代的内容
+class ConcreteAggregate : public Aggregate {
+public:
+    ConcreteAggregate() {
+        for(int i = 0; i < SIZE; i++) {
+            object[i] = i + 100;
+        }
+    }
+
+    MyIterator *CreateIterator() override{
+        return new ConcreteIterator(this); // 让迭代器持有一个集合的引用
+    }
+
+    Object getItem(int index) override {
+        return object[index];
+    }
+
+    int getSize() override {
+        return SIZE;
+    }
+private:
+    Object object[SIZE];
+};
+
+int main(int argc, char *argv[]) {
+
+    Aggregate *aggregate = new ConcreteAggregate;
+    MyIterator *myIterator = aggregate->CreateIterator();
+
+    for(; !(myIterator->IsDone()); myIterator->Next()) {
+        cout << myIterator->CurrentItem() << "  ";
+    }
+
+    delete myIterator;
+    delete aggregate;
+
+    cout << "iterator demo" << endl;
+    return 0;
+}
+```
 
 
 
