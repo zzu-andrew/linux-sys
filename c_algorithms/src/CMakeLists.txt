@@ -27,3 +27,5 @@ add_executable(stl-stack
         stl/stl_stack.cpp)
 add_executable(stl-queue
         stl/stl_queue.cpp)
+add_executable(stl-list
+        stl/stl_list.cpp)
