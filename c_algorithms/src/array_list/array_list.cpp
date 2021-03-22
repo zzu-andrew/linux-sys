@@ -22,20 +22,20 @@ ArrayList *arraylist_new(unsigned int length)
 
     new_arraylist = (ArrayList *) malloc(sizeof(ArrayList));
 
-    if (new_arraylist == NULL) {
-        return NULL;
+    if (new_arraylist == nullptr) {
+        return nullptr;
     }
 
     new_arraylist->_alloced = length;
     new_arraylist->length = 0;
 
     /* Allocate the data array */
-
+    // 申请一个长度为  length 里面存储的都是void *类型的数据，该列表指向需要的数据
     new_arraylist->data = (void **)malloc(length * sizeof(ArrayListValue));
 
-    if (new_arraylist->data == NULL) {
+    if (new_arraylist->data == nullptr) {
         free(new_arraylist);
-        return NULL;
+        return nullptr;
     }
 
     return new_arraylist;
@@ -43,9 +43,9 @@ ArrayList *arraylist_new(unsigned int length)
 
 void arraylist_free(ArrayList *arraylist)
 {
-    /* Do not free if a NULL pointer is passed */
+    /* Do not free if a nullptr pointer is passed */
 
-    if (arraylist != NULL) {
+    if (arraylist != nullptr) {
         free(arraylist->data);
         free(arraylist);
     }
@@ -64,7 +64,7 @@ static int arraylist_enlarge(ArrayList *arraylist)
 
     data = (void **)realloc(arraylist->data, sizeof(ArrayListValue) * newsize);
 
-    if (data == NULL) {
+    if (data == nullptr) {
         return 0;
     } else {
         arraylist->data = data;

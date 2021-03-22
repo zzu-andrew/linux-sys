@@ -2,6 +2,7 @@
 // Created by andrew on 2021/2/23.
 //
 #include <iostream>
+#include <cassert>
 #include "array_list.h"
 
 
@@ -29,8 +30,32 @@ ArrayList *generate_arraylist()
 }
 
 
+
+void test_arraylist_new_free()
+{
+    ArrayList *arraylist;
+
+    /* Use a default size when given zero */
+
+    arraylist = arraylist_new(0);
+    assert(arraylist != nullptr);
+    arraylist_free(arraylist);
+
+    /* Normal allocated */
+
+    arraylist = arraylist_new(10);
+    assert(arraylist != nullptr);
+    arraylist_free(arraylist);
+
+    /* Freeing a null arraylist works */
+
+    arraylist_free(nullptr);
+}
+
+
 int main(int argc, char *argv[]) {
 
+    test_arraylist_new_free();
 
 
 
