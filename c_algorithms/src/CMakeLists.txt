@@ -9,23 +9,25 @@ add_executable(array_list
 #target_link_libraries(array_list pthread)
 target_include_directories(array_list
         PUBLIC ./)
-
 add_executable(stl-string
         stl/stl_strings.cpp)
 target_include_directories(stl-string
         PUBLIC ./)
-
 add_executable(stl-vector
         stl/stl_vector.cpp)
 target_include_directories(stl-vector
         PUBLIC ./)
-
 add_executable(stl-deque
         stl/stl_deque.cpp)
-
 add_executable(stl-stack
         stl/stl_stack.cpp)
 add_executable(stl-queue
         stl/stl_queue.cpp)
 add_executable(stl-list
         stl/stl_list.cpp)
+add_executable(stl-priority_queue
+        stl/stl_priority_queue.cpp)
+add_executable(stl-set
+        stl/stl_set.cpp)
+add_executable(stl-set_multiset
+        stl/stl_set_multiset.cpp)

@@ -118,25 +118,83 @@ void set_teacher() {
     Teacher t2("s2", 25);
     Teacher t3("s3", 26);
     Teacher t4("s4", 33);
+    Teacher t5("s4", 33);
 
     set1.insert(t1);
     set1.insert(t2);
     set1.insert(t3);
     set1.insert(t4);
+    set1.insert(t5);
 
-    for (auto it : set1) {
+   /* for (auto it : set1) {
         it.teacher_show();
     }
-
+    */
     for (auto it : set1) {
         cout << it.name << "  " << it.age << endl;
     }
     cout << "============== Teacher show ===============" << endl;
 }
 
+void set_teacher_ret() {
+    set<Teacher, FuncTeacher> set1;
+
+    Teacher t1("s1", 32);
+    Teacher t2("s2", 25);
+    Teacher t3("s3", 26);
+    Teacher t4("s4", 33);
+    Teacher t5("s4", 33);
+
+    set1.insert(t1);
+    set1.insert(t2);
+    set1.insert(t3);
+    set1.insert(t4);
+    //    接收返回值用于查看是否成功
+    pair<set<Teacher, FuncTeacher>::iterator, bool> pairs = set1.insert(t5);
+    if (pairs.second) {
+        cout << "插入s5成功" << endl;
+    } else {
+        cout << "插入s5失败" << endl;
+    }
+
+    /* for (auto it : set1) {
+         it.teacher_show();
+     }
+     */
+    for (auto it : set1) {
+        cout << it.name << "  " << it.age << endl;
+    }
+    cout << "============== Teacher show ===============" << endl;
+}
+
+void set_find() {
+    set<int> set1;
+    for (int i = 0; i < 10; ++i) {
+        set1.insert(i + 1);
+    }
+
+    auto it = set1.find(5);
+    // 找到值为5的迭代器
+    cout << *it << endl;
+    int num = set1.count(5);
+    cout << num << endl;
+//    大于等于5元素的位置
+    auto it1 = set1.lower_bound(5);
+    cout << *it1 << endl;
+    // 大于6的位置
+    it1 = set1.upper_bound(6);
+    cout << *it1 << endl;
+
+    auto pairs = set1.equal_range(5);
+    cout << "first iterator  " << *pairs.first << "  second iterator " << *pairs.second << endl;
+
+}
+
 int main(int argc, char* argv[]) {
     set_init();
     set_reverse();
     set_teacher();
+    set_teacher_ret();
+    set_find();
     return 0;
 }
