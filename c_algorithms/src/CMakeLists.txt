@@ -31,3 +31,30 @@ add_executable(stl-set
         stl/stl_set.cpp)
 add_executable(stl-set_multiset
         stl/stl_set_multiset.cpp)
+add_executable(stl-map
+        stl/stl_map.cpp)
+
+add_executable(lock_guard
+        concurrency_in_action/lock_guard.cpp)
+add_executable(concurrency_test
+        concurrency_in_action/test.cpp)
+target_link_libraries(concurrency_test
+        PUBLIC pthread)
+add_executable(thread_safe_stack
+        concurrency_in_action/thread_safe_stack.cpp)
+add_executable(condition_variable
+        concurrency_in_action/condition_variable.cpp)
+target_link_libraries(condition_variable
+        PUBLIC pthread)
+
+add_executable(stl-algorithm
+        stl/stl_algorithm.cpp)
+add_executable(stl-plus
+        stl/stl_plus.cpp)
+add_executable(compare_exchange_weak
+        concurrency_in_action/compare_exchange_weak.cpp)
+target_link_libraries(compare_exchange_weak
+        PUBLIC pthread)
+add_executable(template_test
+        template_programing/template_test.cpp)
+

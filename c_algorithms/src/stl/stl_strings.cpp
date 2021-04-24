@@ -41,6 +41,7 @@ void transform_test() {
     char buff[6];
     s1.copy(buff, 5, 0);
 
+
     cout << buff << endl;
     // 函数的入口地址
     // 在C++中函数前面强制 加上::代表的意思是使用C语言定义的函数
