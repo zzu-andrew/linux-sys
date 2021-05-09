@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.2)
 
 project(c-algorithms)
 
-
 add_executable(array_list
         array_list/main.cpp
         array_list/array_list.cpp)
@@ -33,7 +32,6 @@ add_executable(stl-set_multiset
         stl/stl_set_multiset.cpp)
 add_executable(stl-map
         stl/stl_map.cpp)
-
 add_executable(lock_guard
         concurrency_in_action/lock_guard.cpp)
 add_executable(concurrency_test
@@ -46,7 +44,6 @@ add_executable(condition_variable
         concurrency_in_action/condition_variable.cpp)
 target_link_libraries(condition_variable
         PUBLIC pthread)
-
 add_executable(stl-algorithm
         stl/stl_algorithm.cpp)
 add_executable(stl-plus
@@ -57,4 +54,11 @@ target_link_libraries(compare_exchange_weak
         PUBLIC pthread)
 add_executable(template_test
         template_programing/template_test.cpp)
-
+add_executable(convert_cplusplus
+        template_programing/convert_cplusplus.cpp)
+add_executable(try_catch
+        template_programing/try_catch.cpp)
+add_executable(iostream_demo
+        template_programing/iostream_demo.cpp)
+add_executable(thread_pool
+        concurrency_in_action/thread_pool.cpp)

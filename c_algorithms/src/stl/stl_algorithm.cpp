@@ -13,7 +13,6 @@
 #include <memory>
 
 
-
 using namespace std;
 
 
@@ -21,8 +20,8 @@ using namespace std;
 /*
  * 类重载了 ()
  * */
-template <typename T>
-class ShowElem{
+template<typename T>
+class ShowElem {
 public:
     void operator()(const T &t) {
         cout << t << endl;
@@ -79,7 +78,7 @@ void vector_adaptor() {
     vector<int> v1;
     v1.reserve(11);
     for (int i = 0; i < 10; ++i) {
-        v1.push_back(i+1);
+        v1.push_back(i + 1);
     }
 
     v1.push_back(3);
@@ -93,7 +92,7 @@ void vector_adaptor() {
 
     // 通过预定义对象求大于2的个数
     // greater<int>() 有两个参数，左参数来自容器的元素，右参数固定成2 通过bind2nd做的
-    int num3 = count_if(v1.begin(), v1.end(), bind2nd(greater<int>(),2));
+    int num3 = count_if(v1.begin(), v1.end(), bind2nd(greater<int>(), 2));
     cout << num3 << endl;
 
     // 求奇数的个数 modulus 对第二个数求
@@ -111,7 +110,7 @@ void show_element(int ele) {
 }
 
 int increase(int i) {
-    return i+1;
+    return i + 1;
 }
 
 bool GreatThree(int iNum) {
@@ -154,7 +153,7 @@ void stl_algorithm() {
 
     // 统计某个值的个数
     int num = count(v1.begin(), v1.end(), 2);
-    cout << "num = " << num << endl;
+    cout <<  "num = " << num << endl;
 
     int num2 = count_if(v1.begin(), v1.end(), GreatThree);
     cout << "great three = " << num2 << endl;
@@ -194,7 +193,7 @@ void stl_algorithm() {
     // 替换 将迭代器中所有的3替换成8
     replace(v1.begin(), v1.end(), 3, 8);
     // 将大于5的元素都替换为4
-    replace_if(v1.begin(), v1.end(), [&](int &n){return n > 5;}, 4);
+    replace_if(v1.begin(), v1.end(), [&](int &n) { return n > 5; }, 4);
     cout << "==========" << endl;
     for (auto ait:v1) {
         cout << ait << endl;
@@ -203,7 +202,7 @@ void stl_algorithm() {
     swap(v1, v4);
 
     // 累加函数
-    int tmp = accumulate(v1.begin(),v1.end(), 100);
+    int tmp = accumulate(v1.begin(), v1.end(), 100);
     cout << tmp << endl;
 
     // fill填充 使用迭代器将对应的vector填充指定值
@@ -233,11 +232,11 @@ void union_demo() {
         cout << it << endl;
     }
 
-    
+
 }
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
 //    函数对象的执行
     ShowElem<int> showData;
